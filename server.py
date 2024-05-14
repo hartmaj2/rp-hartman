@@ -27,5 +27,11 @@ def print_table():
 def show_requests():
     return f"I have processed {requests_processed} requests"
 
+@app.route('/reconnect')
+def reconnect():
+    global connection
+    connection = pymysql.connect(host=app.config['MYSQL_HOST'],user=app.config['MYSQL_USER'],password=app.config['MYSQL_PASSWORD'],database=app.config['MYSQL_DB'])
+    return "Reconnected"
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
