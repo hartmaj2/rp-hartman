@@ -10,11 +10,12 @@ app.config['MYSQL_PASSWORD'] = 'mahZ4dee7uyioc4zei8Wah4nehiPie'
 app.config['MYSQL_DB'] = 'hartmaj2'
 
 submit_route = "submit_result"
+insert_route = "insert"
 
 requests_processed = 0
 connection = pymysql.connect(host=app.config['MYSQL_HOST'],user=app.config['MYSQL_USER'],password=app.config['MYSQL_PASSWORD'],database=app.config['MYSQL_DB'])
 
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def print_table():
     global requests_processed
     cursor = connection.cursor()
@@ -23,7 +24,7 @@ def print_table():
     requests_processed += 1
     print(data)
     cursor.close()
-    return render_template('index.html',data=data)
+    return render_template('index.html',data=data,insert_placeholder=insert_route)
 
 @app.route(f'/{submit_route}', methods=['POST'])
 def process_submit():
@@ -41,7 +42,7 @@ def process_submit():
 
         return "Tva data byla ulozena do databaze"
 
-@app.route('/button')
+@app.route(f'/{insert_route}', methods=['GET','POST'])
 def show_button_page():
     return render_template('button.html',submit_placeholder=submit_route)
 
