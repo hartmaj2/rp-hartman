@@ -1,6 +1,6 @@
 # This is a server app for my university project
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import pymysql
 
 app = Flask(__name__)
@@ -8,6 +8,8 @@ app.config['MYSQL_HOST'] = 'www-lab.ms.mff.cuni.cz'
 app.config['MYSQL_USER'] = 'hartmaj2'
 app.config['MYSQL_PASSWORD'] = 'mahZ4dee7uyioc4zei8Wah4nehiPie'
 app.config['MYSQL_DB'] = 'hartmaj2'
+
+submit_route = "submit_result"
 
 requests_processed = 0
 connection = pymysql.connect(host=app.config['MYSQL_HOST'],user=app.config['MYSQL_USER'],password=app.config['MYSQL_PASSWORD'],database=app.config['MYSQL_DB'])
@@ -22,6 +24,26 @@ def print_table():
     print(data)
     cursor.close()
     return render_template('index.html',data=data)
+
+@app.route(f'/{submit_route}', methods=['POST'])
+def process_submit():
+    if request.method == 'POST':
+        # Process the form submission here
+        jmeno = request.form['jmeno']
+        prijmeni = request.form['prijmeni']
+        vek = request.form['vek']
+
+        query = "INSERT INTO prihlasky (Jmeno, Prijmeni, Vek) VALUES (%s, %s, %s)"
+        cursor = connection.cursor()
+        cursor.execute(query,(jmeno,prijmeni,vek))
+        connection.commit()
+        cursor.close()
+
+        return "Tva data byla ulozena do databaze"
+
+@app.route('/button')
+def show_button_page():
+    return render_template('button.html',submit_placeholder=submit_route)
 
 @app.route('/requests')
 def show_requests():
