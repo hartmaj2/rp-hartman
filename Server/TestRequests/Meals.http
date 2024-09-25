@@ -1,0 +1,23 @@
+###
+POST http://localhost:5142/api/meals/add
+Content-Type: application/json
+
+{
+    "name" : "Caesar salad",
+    "mealTime" : "Dinner",
+    "type" : "Main",
+    "date" : "2024-08-30",
+    "allergens" : []
+}
+
+###
+GET http://localhost:5142/api/meals/all
+
+### Test request for deleting the whole table
+DELETE http://localhost:5142/api/meals/delete-all
+
+###
+GET http://localhost:5142/api/meals/2024-09-01
+
+###
+GET http://localhost:5142/api/meals/meal-types

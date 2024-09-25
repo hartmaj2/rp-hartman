@@ -1,0 +1,120 @@
+@page "/food"
+@layout SubLayoutFood
+@inject HttpClient Http
+@inject MealService MealService
+@inject AllergenService AllergenService
+
+<Modal @ref="editMealModal" />
+<Modal @ref="deleteMealModal" />
+
+<DateSelector @bind-CurrentDate="currentDate" @bind-CurrentDate:after="LoadMeals"> </DateSelector>
+
+@if (meals == null)
+{
+    <p> Loading... </p>
+}
+else
+{
+    <MealTimeContainer ContainerMealTime="MealTime.Lunch" Meals="meals" OnEditButtonClicked="ShowEditMealModal" OnDeleteButtonClicked="ShowDeleteMealModal" OnAddMealButtonClicked="() => ShowAddMealModal(MealTime.Lunch)"> </MealTimeContainer>
+    <MealTimeContainer ContainerMealTime="MealTime.Dinner" Meals="meals" OnEditButtonClicked="ShowEditMealModal" OnDeleteButtonClicked="ShowDeleteMealModal" OnAddMealButtonClicked="() => ShowAddMealModal(MealTime.Dinner)"> </MealTimeContainer>
+}
+
+@code
+{
+
+    // Field bound to the date of the DateSelector component, when the date is changed by the selector, it triggers the event that is handled by LoadMeals method
+    private DateOnly currentDate;
+
+    // Stores the meal time of the modal that was last shown (when a modal is shown)
+    private MealTime lastModalMealTime;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentDate = new DateOnly(2024,09,03);
+        await LoadMeals();
+    }
+
+    // Stores meals for the current date
+    private IEnumerable<MealDto>? meals;
+
+    // Loads the meals for current date
+    // Triggered when the date changes using the DateSelector component
+    private async Task LoadMeals()
+    {
+        var dateString = currentDate.ToString("yyyy-MM-dd");
+        meals = await Http.GetFromJsonAsync<List<MealDto>>($"api/meals/{dateString}");
+        foreach (var meal in meals!) meal.Allergens = meal.Allergens.OrderBy(meal => meal.Name).ToList(); // order the allergens alphabetically
+    }
+
+    // Reference used to show and hide the EditMealModal component
+    private Modal editMealModal = default!;
+
+    // All possible meal types returned by MealsService get passed, so we can show them in the modal
+    // Also pass the function that should be triggered when the meal is submitted
+    private async Task ShowAddMealModal(MealTime mealTime)
+    {
+        lastModalMealTime = mealTime; // we need to update this so the api request to the meals controller sets the correct meal time
+        var parameters = new Dictionary<string,object>();
+        parameters.Add("SubmitButtonText","Confirm");
+        var mealTypes = await MealService.GetMealTypesAsync();
+        parameters.Add("MealTypes",mealTypes);
+        parameters.Add("OnMealSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestMealCreation));
+        await editMealModal.ShowAsync<EditMealModal>(title: $"Add {mealTime.ToString().ToLower()} meal on {currentDate.ToString("dd/MM/yyyy")}", parameters:parameters);
+    }
+
+    // Sends api post request for the MealsController to create new meal with given values
+    private async Task RequestMealCreation(MealFormData submittedMeal)
+    {
+        var mealDto = submittedMeal.ToMealDto(lastModalMealTime,currentDate);
+        await editMealModal.HideAsync();
+        await Http.PostAsJsonAsync<MealDto>("api/meals/add",mealDto);
+        await LoadMeals();
+    }
+
+    // Reference used to show and hide the DeleteMealModal component
+    private Modal deleteMealModal = default!;
+
+    private void ShowDeleteMealModal(MealDto meal)
+    {
+        var parameters = new Dictionary<string,object>();
+        parameters.Add("CurrentMeal",meal);
+        parameters.Add("OnDeleteMeal",EventCallback.Factory.Create<int>(this,RequestMealDelete));
+        parameters.Add("OnRejectButton",EventCallback.Factory.Create(this,HideDeleteMealModal));
+        deleteMealModal.ShowAsync<DeleteMealModal>(title:"Delete Meal",parameters: parameters);
+    }
+
+    private async Task HideDeleteMealModal()
+    {
+        await deleteMealModal.HideAsync();
+    }
+
+    // Sends api delete request for MealsController to delete meal with given id
+    private async Task RequestMealDelete(int id)
+    {
+        await Http.DeleteAsync($"api/meals/{id}");
+        await deleteMealModal.HideAsync();
+        await LoadMeals();
+    }
+
+    // Similar to ShowAddMealModal but we have to use AllergenService to properly convert the chosen meal to the MealFormData object
+    private async Task ShowEditMealModal(MealDto meal)
+    {
+        lastModalMealTime = meal.MealTime;
+        var parameters = new Dictionary<string,object>();
+        var mealTypes = await MealService.GetMealTypesAsync();
+        var allAllergens = await AllergenService.GetAllergenDtosAsync();
+        parameters.Add("MealTypes",mealTypes);
+        parameters.Add("MealFormData",meal.ToMealFormData(allAllergens));
+        parameters.Add("OnMealSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestMealEdit));
+        await editMealModal.ShowAsync<EditMealModal>(title: "Edit meal", parameters:parameters);
+    }
+
+    // Similar to RequestMealCreation but we send the api request at different route and also provide the id to the route
+    private async Task RequestMealEdit(MealFormData meal)
+    {
+        var mealDto = meal.ToMealDto(lastModalMealTime,currentDate);
+        await Http.PostAsJsonAsync<MealDto>($"api/meals/edit/{meal.Id}",mealDto,CancellationToken.None);
+        await editMealModal.HideAsync();
+        await LoadMeals();
+    }
+}

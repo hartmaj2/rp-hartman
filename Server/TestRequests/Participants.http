@@ -1,0 +1,43 @@
+### Test request for post method
+POST http://localhost:5142/api/participants/add 
+Content-Type: application/json
+
+{
+    "FirstName" : "John",
+    "LastName" : "Conway",
+    "Age" : 70,
+    "PhoneNumber" : "777003334",
+    "BirthNumber" : "0000000000",
+    "Diets" : [
+        {
+            "name": "Lactose"
+        }
+    ] 
+}
+
+### Test request for get method
+GET http://localhost:5142/api/participants/all
+
+### Test request for deleting the whole table
+DELETE http://localhost:5142/api/participants/delete-all
+
+### Test request for post method
+POST http://localhost:5142/api/participants/edit/1019
+Content-Type: application/json
+
+{
+    "id": 1019,
+    "firstName": "Alice",
+    "lastName": "Johnson",
+    "age": 28,
+    "phoneNumber": "777251356",
+    "birthNumber": "1231231232",
+    "diets": 
+    [
+      {
+        "id": 1014,
+        "name": "Meat"
+      }
+    ]
+}
+

@@ -1,0 +1,64 @@
+@namespace Client.Components
+
+@* Component that holds meals for the date of the parent component and meal time that gets passed to this component from the parent component *@
+
+<div class="div-table-container">
+    <div class="div-table-container-header">
+        <div> @ContainerMealTime </div>
+        <div class="button-right-container"> <button class="btn btn-primary" @onclick="OnAddMealButtonClicked"> + </button> </div>
+        
+    </div>
+    <div class="div-table">
+        <div class="div-table-header">
+            <div> Name </div>
+            <div> Type </div>
+            <div> Allergens </div>
+            <div class="justify-center-col" > Orders count </div>
+            <div class="button-right-container"></div>
+        </div>
+        <div class="div-table-body">
+            @foreach (var meal in Meals.Where(m => m.MealTime == ContainerMealTime).OrderBy(m => m, MealComparer.Instance))
+            {
+                <div class="div-table-row" >
+                    <div> @meal.Name </div>
+                    <div> @meal.Type </div>
+                    <div>
+                        @foreach( var allergen in meal.Allergens)
+                        {
+                            <span> @allergen.Name,  </span>
+                        }
+                    </div>
+                    <div class="justify-center-col" > @meal.Orders!.Count </div>
+                    <div class="button-right-container">
+                        <button class="btn btn-primary" @onclick="() => OnEditButtonClicked.InvokeAsync(meal)"> Edit </button>
+                        <button class="btn btn-primary" @onclick="() => OnDeleteButtonClicked.InvokeAsync(meal)"> Delete </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code
+{
+
+    // The meal time (lunch,dinner) of the foods that this container displays
+    [Parameter]
+    public required MealTime ContainerMealTime { get; set; }
+
+    // Reference to all meals for this date
+    [Parameter]
+    public required IEnumerable<MealDto> Meals { get; set; }
+
+    // Callback for the event triggered by the add meal button in the top right corner of the container
+    [Parameter]
+    public required EventCallback OnAddMealButtonClicked { get; set; }
+
+    // Callback for the event triggered by the add meal button for given meal. The meal is passed to the parent function in the function parameter
+    [Parameter]
+    public required EventCallback<MealDto> OnDeleteButtonClicked { get; set; }
+
+    // Callback for the event triggered by the edit meal button for given meal. (On the right side of the container row for this meal)
+    [Parameter]
+    public required EventCallback<MealDto> OnEditButtonClicked { get; set; }
+}

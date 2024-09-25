@@ -1,0 +1,209 @@
+POST http://localhost:5142/api/participants/add-many
+Content-Type: application/json
+
+[
+    {
+        "FirstName" : "Alice",
+        "LastName" : "Johnson",
+        "Age" : 28,
+        "PhoneNumber" : "777251356",
+        "BirthNumber" : "1754079503",
+        "Diets" : 
+        [
+            {
+                "Name": "Meat"
+            },
+            {
+                "Name": "Lactose"
+            },
+            {
+                "Name": "Gluten"
+            }
+        ]
+    },
+    {
+        "FirstName" : "Bob",
+        "LastName" : "Smith",
+        "Age" : 35,
+        "PhoneNumber" : "608542356",
+        "BirthNumber" : "1203054886",
+        "Diets" : 
+        [
+            {
+                "Name": "Nuts"
+            }
+        ]
+    },
+    {
+        "FirstName" : "Charlie",
+        "LastName" : "Brown",
+        "Age" : 42,
+        "PhoneNumber" : "605453482",
+        "BirthNumber" : "1610291551",
+        "Diets" : 
+        [
+            {
+                "Name": "Eggs"
+            },
+            {
+                "Name": "Fish"
+            }
+        ]
+    },
+    {
+        "FirstName" : "David",
+        "LastName" : "Miller",
+        "Age" : 29,
+        "PhoneNumber" : "712456789",
+        "BirthNumber" : "1306147469",
+        "Diets" : 
+        [
+            {
+                "Name": "Gluten"
+            }
+        ]
+    },
+    {
+        "FirstName" : "Eve",
+        "LastName" : "Davis",
+        "Age" : 31,
+        "PhoneNumber" : "619845267",
+        "BirthNumber" : "0754188886",
+        "Diets" : 
+        [
+            {
+                "Name": "Lactose"
+            }
+        ]
+    },
+    {
+        "FirstName" : "Frank",
+        "LastName" : "Wilson",
+        "Age" : 26,
+        "PhoneNumber" : "724582341",
+        "BirthNumber" : "1802153540",
+        "Diets" : 
+        [
+            {
+                "Name": "Meat"
+            }
+        ]
+    },
+    {
+        "FirstName" : "Grace",
+        "LastName" : "Moore",
+        "Age" : 33,
+        "PhoneNumber" : "608123456",
+        "BirthNumber" : "1953312493",
+        "Diets" : 
+        [
+            {
+                "Name": "Nuts"
+            }
+        ]
+    },
+    {
+        "FirstName" : "Hank",
+        "LastName" : "Taylor",
+        "Age" : 40,
+        "PhoneNumber" : "715643278",
+        "BirthNumber" : "2303126694",
+        "Diets" : 
+        [
+            {
+                "Name": "Fish"
+            }
+        ]
+    },
+    {
+        "FirstName" : "Ivy",
+        "LastName" : "Anderson",
+        "Age" : 27,
+        "PhoneNumber" : "703945612",
+        "BirthNumber" : "1352201026",
+        "Diets" : 
+        [
+            {
+                "Name": "Gluten"
+            }
+        ]
+    },
+    {
+        "FirstName" : "Jack",
+        "LastName" : "Thomas",
+        "Age" : 34,
+        "PhoneNumber" : "710256934",
+        "BirthNumber" : "1812137503",
+        "Diets" : 
+        [
+            {
+                "Name": "Eggs"
+            }
+        ]
+    },
+    {
+        "FirstName" : "Karen",
+        "LastName" : "Jackson",
+        "Age" : 36,
+        "PhoneNumber" : "709865432",
+        "BirthNumber" : "1452091366",
+        "Diets" : 
+        [
+            {
+                "Name": "Lactose"
+            }
+        ]
+    },
+    {
+        "FirstName" : "Leo",
+        "LastName" : "White",
+        "Age" : 39,
+        "PhoneNumber" : "714582390",
+        "BirthNumber" : "0806178065",
+        "Diets" : 
+        [
+            {
+                "Name": "Nuts"
+            }
+        ]
+    },
+    {
+        "FirstName" : "Mia",
+        "LastName" : "Harris",
+        "Age" : 24,
+        "PhoneNumber" : "703456789",
+        "BirthNumber" : "1851135352",
+        "Diets" : 
+        [
+            {
+                "Name": "Fish"
+            }
+        ]
+    },
+    {
+        "FirstName" : "Nina",
+        "LastName" : "Martinez",
+        "Age" : 38,
+        "PhoneNumber" : "719856341",
+        "BirthNumber" : "1156063315",
+        "Diets" : 
+        [
+            {
+                "Name": "Meat"
+            }
+        ]
+    },
+    {
+        "FirstName" : "Oscar",
+        "LastName" : "Clark",
+        "Age" : 41,
+        "PhoneNumber" : "723456789",
+        "BirthNumber" : "1604263705",
+        "Diets" : 
+        [
+            {
+                "Name": "Gluten"
+            }
+        ]
+    }
+]

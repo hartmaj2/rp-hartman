@@ -1,0 +1,193 @@
+@page "/food/diets"
+@layout SubLayoutFood
+@inject HttpClient Http
+@inject AllergenService AllergenService
+
+<Modal @ref="editDietsModal" />
+
+@* The if is needed because otherwise we try to render the DietFilterDropup before the allergens are known *@
+@if (dietsFilter != null && dietsFilter.DietSelections != null)
+{
+    <div class="div-table-container">
+        <div class="div-table-container-header"> <div> Diets </div> </div>
+        <div class="div-table">
+            <div class="div-table-header">
+                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(0)"> First name @sortingManager.HeaderArrows[0] </button> </div>
+                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(1)"> Last name @sortingManager.HeaderArrows[1] </button> </div>
+                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(2)"> Diets @sortingManager.HeaderArrows[2] </button> </div>
+                <div class="button-right-container">  </div>
+            </div>
+            <div class="div-table-header">
+                <div class="div-table-h-col"> <input class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div class="div-table-h-col"> <input class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div class="div-table-h-col">
+                    <Dropdown Color="DropdownColor.Secondary" Style="width:50%" Direction="DropdownDirection.Dropup" AutoCloseBehavior="DropdownAutoCloseBehavior.Outside" Size="DropdownSize.Small">
+                        <DropdownToggleButton Class="filter-button" > Filter diets </DropdownToggleButton>
+                        <DropdownMenu Class="px-3" Style="width:150px;">
+                            @foreach (var dietSelection in dietsFilter.DietSelections)
+                            {
+                                <label> <input type="checkbox" @bind="dietSelection.IsSelected" @bind:event="oninput"> @dietSelection.Name </label> <br/>
+                            }
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
+                <div class="button-right-container" style="flex:1"> 
+                    @if(filteringManager != null)
+                    {
+                        <button class="btn btn-primary" @onclick="() => filteringManager.ResetFilters()"> Reset filters </button> 
+                    }
+                </div>
+                
+            </div>
+            <div class="div-table-body">
+                @if (sortedParticipants == null)
+                {
+                    <div class="div-table-row">
+                        <span> Loading participants... </span>
+                    </div>
+                }
+                else
+                {
+                    @foreach(var participant in sortedParticipants)
+                    {
+                        <div class="div-table-row">
+                            <div style="flex:1"> @participant.FirstName </div>
+                            <div style="flex:1" > @participant.LastName </div>
+                            <div style="flex:1" >
+                                @foreach(var diet in participant.Diets)
+                                {
+                                    <span> @diet.Name,  </span>
+                                }
+                            </div>
+                            <div class="button-right-container" style="flex:1"> <button class="btn btn-primary" @onclick="() => ShowEditDietsModalAsync(participant)"> Edit diets </button> </div>
+                            
+                        </div>
+                    }
+                }
+            </div>
+
+        </div>
+
+    </div>
+}
+
+@code
+{
+
+    // Holds all participants, has to be loaded from api on initialization
+    private IEnumerable<ParticipantDto>? participantDtos;
+
+    // Initializes the filtering manager, then all loads all participants from api, then orders their diets so the diets column looks nicer
+    protected override async Task OnInitializedAsync()
+    {
+        await InitializeFilteringManagerAsync();
+        participantDtos = await Http.GetFromJsonAsync<List<ParticipantDto>>("/api/participants/all");
+        foreach (var participant in participantDtos!) participant.Diets = participant.Diets.OrderBy(diet => diet.Name).ToList();
+    }
+
+    // Provides a getter that first filters and then sorts the participants
+    private IEnumerable<ParticipantDto>? sortedParticipants
+    {
+        get 
+        {
+
+            // if necessary fields aren't loaded, just return null
+            if (filteringManager == null || participantDtos == null)
+            {
+                return null;
+            }
+
+            // first filter participants
+            var filteredParticipants = filteringManager.GetFilteredParticipants(participantDtos);
+
+            // then sort them
+            return sortingManager.GetSortedParticipants(filteredParticipants);
+        }
+    }
+
+    // Initialize the concrete filters (I need to have them named because I have to bind to their specific values)
+    // Couldn't just bind to any IParticipantFilter, because that inteface only provides the GetFiltered method and nothing to bind to
+    private TextFilter firstNameFilter = new() {FilterKeySelector = p => p.FirstName};
+    private TextFilter lastNameFilter = new() {FilterKeySelector = p => p.LastName};
+    private DietsFilter? dietsFilter;
+
+    // Holds the list of filters and provides way to reset all the filters
+    // Has to be initialized by calling InitializeFilteringManagerAsync method
+    private ColumnFilteringManager? filteringManager;
+    
+    // Add all filters to the filters list so I can apply them all sequentially
+    private async Task InitializeFilteringManagerAsync()
+    {
+
+        dietsFilter = new DietsFilter() {DietSelections = await GetFilterDietSelectionsAsync()};
+        filteringManager = 
+            new ColumnFilteringManager
+                (
+                    new List<IParticipantFilter>()
+                        {
+                            firstNameFilter,
+                            lastNameFilter,
+                            dietsFilter
+                        }
+                );
+    }
+
+    // Takes care of sorting the columns according to list of given sorters with key selectors and key comparers
+    private ColumnSortingManager sortingManager = 
+        new ColumnSortingManager
+        (
+            new ParticipantSorter<object>[] 
+            {
+                new ParticipantSorter<object>() { KeySelector = participant => participant.FirstName, KeyComparer = new StringSwitchableComparer() },
+                new ParticipantSorter<object>() { KeySelector = participant => participant.LastName, KeyComparer = new StringSwitchableComparer() },
+                new ParticipantSorter<object>() { KeySelector = participant => participant.Diets, KeyComparer = new DietsSwitchableComparer() }
+            },
+            0
+        );
+
+    // Reference used when showing or hiding the EditDietsModal component
+    private Modal editDietsModal = default!;
+
+    // Have to pass who was the participant at which it was clicked, their current diets as a list of allergen selections, and the function that we will trigger on click on modal button
+    private async Task ShowEditDietsModalAsync(ParticipantDto selectedParticipant)
+    {
+        var parameters = new Dictionary<string,object>();
+        parameters.Add("CurrentParticipant",selectedParticipant);
+        parameters.Add("DietSelections",await GetParticipantDietSelectionsAsync(selectedParticipant));
+        parameters.Add("OnSubmit",EventCallback.Factory.Create<ParticipantDto>(this,RequestParticipantEditAsync));
+        await editDietsModal.ShowAsync<EditDietsModal>(title: $"Edit {selectedParticipant.FirstName}'s diets", parameters:parameters);
+    }
+
+    // Helper method to get diet selection list for the given participant
+    private async Task<List<AllergenSelection>> GetParticipantDietSelectionsAsync(ParticipantDto participant)
+    {
+        var allAllergens = await AllergenService.GetAllergenDtosAsync();
+        var dietSelections = allAllergens.Select(allergen => new AllergenSelection() {Name = allergen.Name, IsSelected = false}).ToList();
+        foreach (var selection in dietSelections)
+        {
+            // Check if the name of this selection is contained in diet names of current participant
+            if (participant.Diets.Select(diet => diet.Name).Contains(selection.Name)) selection.IsSelected = true;
+        }
+        return dietSelections;
+    }
+
+    // Send request to edit the participant to api, and also hide the modal
+    private async Task RequestParticipantEditAsync(ParticipantDto updatedParticipant)
+    {
+        await Http.PostAsJsonAsync<ParticipantDto>($"api/participants/edit/{updatedParticipant.Id}",updatedParticipant,CancellationToken.None);
+        await editDietsModal.HideAsync();
+    }
+
+    // Used to create diet selections for the dietsFilter
+    private async Task<List<AllergenSelection>> GetFilterDietSelectionsAsync()
+    {
+        var filterDietSelections = new List<AllergenSelection>();
+        var allAllergens = await AllergenService.GetAllergenDtosAsync();
+        foreach (var allergen in allAllergens)
+        {
+            filterDietSelections.Add(new AllergenSelection() {Name = allergen.Name} );
+        }
+        return filterDietSelections;
+    }
+
+}

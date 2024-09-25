@@ -1,0 +1,38 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Tabor IS</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="participants">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Participants
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="food" Match="NavLinkMatch.Prefix">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Food
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+@code {
+
+    // Backing field which the NavMenuCssClass uses for returning its string
+    private bool collapseNavMenu = true;
+
+    // String that puts the correct class to the div containing the nav links
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    // Function to update the backing field
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

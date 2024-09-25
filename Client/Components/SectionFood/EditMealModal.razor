@@ -1,0 +1,94 @@
+@namespace Client.Components
+@inject AllergenService AllergenService
+
+@* Modal for editing properties of a meal like name, type, and allergens that the meal contains *@
+@* The meal time and meal date are determined by the context given by the current day selected by the selector and the meal time container *@
+@* in which the current meal sits *@
+
+<EditForm Model="@MealFormData" OnValidSubmit="OnFormSubmit">
+    <DataAnnotationsValidator/>
+
+    <div>
+        <label for="meal-name"> Meal name: </label> <br/>
+        <InputText id="meal-name" @bind-Value="MealFormData.Name"/> <br/>
+        <ValidationMessage For="() => MealFormData.Name"/>
+        <br/> 
+    </div>
+
+    <div>
+        <label> Meal type: </label> <br/>
+        <InputRadioGroup @bind-Value="MealFormData.MealType">
+            @foreach (var mealType in MealTypes)
+            {
+                <InputRadio id="@mealType" Value="@mealType"/> <label for="@mealType"> @mealType </label> <br/>
+            }
+        </InputRadioGroup>
+        <ValidationMessage For="() => MealFormData.MealType"/>
+        <br/>
+    </div>
+
+    <div>
+        <label> Allergens: </label> <br/>
+        @if (MealFormData.AllergenSelections != null)
+        {
+            @foreach (var allergenSelection in MealFormData.AllergenSelections)
+            {
+                <InputCheckbox id="@allergenSelection.Name" type="checkbox" @bind-Value="allergenSelection.IsSelected"/> <label for="@allergenSelection.Name"> @allergenSelection.Name </label> <br/>
+            }
+        }
+        <br/>
+    </div>
+
+    <button type="submit" class="btn btn-primary"> @SubmitButtonText </button>
+
+</EditForm>
+
+@code
+{
+
+    // Text shown on the submit button
+    [Parameter]
+    public string SubmitButtonText { get; set; } = "Confirm";
+
+    [Parameter]
+    public required MealFormData MealFormData { get; set; } = MealFormData.CreateDefault();
+
+    [Parameter]
+    public required IEnumerable<string> MealTypes { get; set; }
+
+    // When meal is submitted we trigger a function that will get the resulting meal passed to it
+    [Parameter]
+    public EventCallback<MealFormData> OnMealSubmit { get; set; }
+    
+
+    // Invoke the function to request creation of new meal from our api
+    private async Task OnFormSubmit()
+    {
+        await OnMealSubmit.InvokeAsync(MealFormData);
+        await ResetMealFormData(); // this is async so because I don't want to let the main thread wait before the form is reset
+    }
+
+    // Initialize the AllergenSelections of our mealFormData, we need to set the names of each AllergenSelection object to the correct allergen name
+    protected override async Task OnInitializedAsync()
+    {   
+        // I only need to create List of allergen selecitons if there is none already (when editing I have it prefilled)
+        if (MealFormData.AllergenSelections == null)
+        {
+            await LoadAllergensToMealFormData();
+        }
+    }
+    
+    // After a submit, the MealFormData needs to be reset so we don't see selections of our previous meal
+    private async Task ResetMealFormData()
+    {
+        MealFormData = MealFormData.CreateDefault();
+        await LoadAllergensToMealFormData();
+    }
+
+    // Sets AllergenSelections of the MealFormData based on the allergens available using the allergen service
+    private async Task LoadAllergensToMealFormData()
+    {
+        var allAllergens = await AllergenService.GetAllergenDtosAsync();
+        MealFormData.AllergenSelections = allAllergens.Select(allergen => new AllergenSelection() {Name = allergen.Name}).ToList();
+    }
+}

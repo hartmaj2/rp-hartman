@@ -1,0 +1,18 @@
+@* Serves as a layout used by participants section, it contains only one subsection but I wanted a unified look of both participants and food sections *@
+
+@inherits LayoutComponentBase
+@layout MainLayout
+
+<div class="sub-layout">
+    <div class="top-bar"> 
+        <div class="nav-item">
+            <NavLink class="nav-link" href="participants" Match="NavLinkMatch.All">
+                <span> All participants </span>
+            </NavLink>
+        </div>
+    </div>
+
+    <div class="content">
+        @Body
+    </div>
+</div>
