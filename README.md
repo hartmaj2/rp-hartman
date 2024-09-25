@@ -1,10 +1,10 @@
-# What is this project about?
+# Ročníkový projekt - Hledání chyb v informačním systému
 
-It is a web app that is meant to be used across schools in Czechia to help students learn about information systems.
+Projekt je webovou aplikací, která bude sloužit pro podporu výuky informatiky na českých středních školách. Konkrétně bude sloužit k výuce o tématu informační systémy, které je částí revize rámcového vzdělávacího programu pro gymnázia z roku 2021.
 
-The app will be an information system containing bugs, that the students will have to find and fix.
+Aplikace žákům představí informační systém a sadu úkolů, které budou žáci muset s tímto informačním systémem vykonat. Háček bude v tom, že v systému budou nastražené chyby, za jejichž nalezení a správné nahlášení budou žáci dostávat body.
 
-The server will be implemented using flask.# Dokumentace
+Zatím je projekt ve fázi vývoje. Níže je k dispozici dokumentace dosavadního stavu projektu:
 
 ## Obsah <!-- omit from toc -->
 
