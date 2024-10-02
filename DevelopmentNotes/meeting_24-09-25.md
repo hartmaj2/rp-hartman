@@ -43,7 +43,7 @@
 # Razeni podle veku
 - [ ] Vymyslet scencar
 - Vyhledat 10 nejmadsich
-- Bude to radit lexikograficky misto 
+- Bude to radit lexikograficky misto ciselne
 
 
 - Jak nahlasit?
@@ -75,7 +75,7 @@
 
 ## TODO
 
-- [ ] ! prevest Github na Gitlab (nejlepe do vetve)
+- [x] ! prevest Github na Gitlab (nejlepe do vetve)
 
 - [ ] vymyslet dalsi chyby - pasuje na to nas system
 - [ ] implementovat system s overlayem na spatne sorteni veku
