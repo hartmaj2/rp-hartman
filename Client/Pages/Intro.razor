@@ -1,0 +1,34 @@
+@page "/"
+@layout IntroLayout
+@inject NavigationManager Navigation
+
+<div class="intro-textbox-container">
+    <h1> 
+        Welcome to the information systems game!
+    </h1>
+    
+    <div class="intro-textbox"> 
+        You will have to complete some tasks by working with this information system. The current task is always shown in the task list beside the already completed tasks.
+    </div>
+
+    <div class="intro-textbox">
+        Also, the system will be broken and you will have to find bugs. When you find a bug, you will have to report it, if you want it to be fixed. After clicking the report button, you will have to choose, which page elements are affected by the bug. If you are correct, the bug will be fixed automatically.
+    </div>
+
+    <div class="intro-textbox">
+        Good luck!
+    </div>
+
+    <Button Color="ButtonColor.Primary" Size="ButtonSize.ExtraLarge" @onclick="NavigateToParticipants" > 
+        Start Game
+    </Button>
+    
+</div>
+
+@code
+{
+    private void NavigateToParticipants()
+    {
+        Navigation.NavigateTo("/participants");
+    }
+}
