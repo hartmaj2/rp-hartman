@@ -77,7 +77,7 @@
 
 - [x] ! prevest Github na Gitlab (nejlepe do vetve)
 
-- [ ] vymyslet dalsi chyby - pasuje na to nas system
+- [ ] vymyslet dalsi chyby - pasuje na to nas system?
 - [ ] implementovat system s overlayem na spatne sorteni veku
 - [ ] prohozeni hlavni databaze s jejich vlastnimi (co nejjednoduseji abych nemusel moc predelavat kod klienta)
-- [ ] prepinani mezi systemy vedouci a dite 
+- [ ] prepinani mezi systemy vedouci a dite - staci jen pouzit bocni panel
