@@ -2,6 +2,7 @@
 @layout SubLayoutParticipants
 @inject HttpClient Http
 @inject AllergenService AllergenService
+@inject ClientModeService ModeService
 
 <PageTitle> Participants </PageTitle>
 
@@ -15,6 +16,7 @@
 }
 else
 {
+    <div> @ModeService.CurrentMode </div>
 
     <div class="div-table-container">
         <div class="div-table-container-header"> 
@@ -105,6 +107,7 @@ else
     // Get a list of all participants
     protected override async Task OnInitializedAsync()
     {
+        ModeService.OnModeChangedEvent += StateHasChanged;
         InitializeFilteringManager();
         await LoadParticipants();
     }
