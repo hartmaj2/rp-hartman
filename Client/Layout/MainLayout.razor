@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject ClientModeService ModeService
 
 <Offcanvas @ref="tasksList"/>
 
@@ -10,7 +11,8 @@
     <main>
 
         <div class="top-row px-4 button-right-container">
-            <Button Color="ButtonColor.Danger"> Report a bug </Button>
+            <p> @ModeService.CurrentMode </p>
+            <Button @onclick="()=>ModeService.ToggleMode()" Color="ButtonColor.Danger"> Report a bug </Button>
             <Button @onclick="ShowTasksList" Color="ButtonColor.Info"> Show tasks list </Button>
         </div>
 

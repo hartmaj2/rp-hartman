@@ -3,6 +3,8 @@ public class ClientModeService
 {
     private ClientMode _currentMode;
 
+    public ClientMode CurrentMode => _currentMode;
+
     public ClientModeService()
     {
         _currentMode = ClientMode.Normal;
