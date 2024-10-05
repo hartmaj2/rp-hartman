@@ -640,3 +640,13 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Removed unnecessary method that set focus on first label of participant form
 - Implemented ColumnSortingManager to hide sorting logic from the components that need column sorting
 - Implemented ColumnFilteringManager for the same reason as above (problem is, we have to bind to filter values so the filters have to be named explicitly)
+
+## 5.10.2024
+
+- Problem with overlay is, that when I use a Blazor Bootstrap modal, the "Report a bug" button gets covered by the modal overlay
+- Possible solutions:
+  - add another "Report a bug" button inside every modal
+    - will be less scalable maybe?
+    - the UI will be less intuitive?
+  - use custom modals instead of Blazor Bootstrap modals
+    - would not help if the button gets covered by the modal 
