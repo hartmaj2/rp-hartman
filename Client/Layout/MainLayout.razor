@@ -11,9 +11,17 @@
     <main>
 
         <div class="top-row px-4 button-right-container">
-            <p> @ModeService.CurrentMode </p>
-            <Button @onclick="()=>ModeService.ToggleMode()" Color="ButtonColor.Danger"> Report a bug </Button>
-            <Button @onclick="ShowTasksList" Color="ButtonColor.Info"> Show tasks list </Button>
+
+            @if (@ModeService.CurrentMode == ClientMode.Normal)
+            {
+                <button class="btn btn-danger" @onclick="()=>ModeService.ToggleMode()" > Report a bug </button>
+                <button class="btn btn-info" @onclick="ShowTasksList"> Show tasks list </button>
+            }
+            else 
+            {
+                <button class="btn btn-info btn-forward" @onclick="()=>ModeService.ToggleMode()" > Do not report </button>
+                <button class="btn btn-success"> Confirm </button>
+            }
         </div>
 
         <article class="content px-4">

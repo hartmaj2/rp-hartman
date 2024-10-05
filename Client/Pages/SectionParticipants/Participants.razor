@@ -10,13 +10,17 @@
 <Modal @ref="deleteParticipantModal"/>
 <Modal @ref="addParticipantModal"/>
 
+@if (@ModeService.CurrentMode == ClientMode.BugReporting)
+{
+    <div class="overlay"> </div>
+}
+
 @if (sortedParticipants == null)
 {
     <p> Loading... </p>
 }
 else
 {
-    <div> @ModeService.CurrentMode </div>
 
     <div class="div-table-container">
         <div class="div-table-container-header"> 
