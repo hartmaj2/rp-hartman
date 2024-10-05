@@ -5,6 +5,8 @@ public class ClientModeService
 
     public ClientMode CurrentMode => _currentMode;
 
+    public event Action? OnModeChangedEvent; // field is nullable, if no subsribers -> null
+
     public ClientModeService()
     {
         _currentMode = ClientMode.Normal;
@@ -14,6 +16,7 @@ public class ClientModeService
     public void ToggleMode()
     {
         _currentMode = _currentMode == ClientMode.Normal ? ClientMode.BugReporting : ClientMode.Normal;
+        OnModeChangedEvent?.Invoke(); // only invoke when this event has subscribers
     }
 }
 
