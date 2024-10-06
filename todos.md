@@ -14,4 +14,8 @@
 
 - [x] introduce a service that tracks whether the client is in bug reporting mode
 - [x] add overlay after clicking `Report a bug` button
-- [ ] change buttons in the layout when BugReporting mode active
+- [x] make buttons inside the layout different when BugReporting mode active
+
+## 6.10.2024
+- [x] make selectable items glow and above the overlay when BugReporting mode active
+- [x] make items highlighted green when selected in BugReporting mode 
