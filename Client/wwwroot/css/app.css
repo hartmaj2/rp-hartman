@@ -332,3 +332,19 @@ code {
     background-color: rgba(0,0,0,0.5);
     z-index: 10;
 }
+
+.highlighted {
+    position: relative;
+    background-color: yellow;
+    box-shadow: 0 0 10px yellow;
+    text-shadow: 0 0 10px yellow;
+    z-index: 11;
+}
+
+.highlighted-selected {
+    position: relative;
+    background-color: green;
+    box-shadow: 0 0 10px green;
+    text-shadow: 0 0 10px green;
+    z-index: 11;
+}

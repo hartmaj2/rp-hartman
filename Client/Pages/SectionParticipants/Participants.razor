@@ -30,12 +30,12 @@ else
         </div>
         <div class="div-table">
             <div class="div-table-header">
-                <div style="flex:@colWidths[0]" class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(0)" > Id @sortingManager.HeaderArrows[0] </button> </div>
-                <div style="flex:@colWidths[1]" class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(1)" > First name @sortingManager.HeaderArrows[1] </button> </div>
-                <div style="flex:@colWidths[2]" class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(2)" > Last name @sortingManager.HeaderArrows[2] </button> </div>
-                <div style="flex:@colWidths[3]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(3)" > Age @sortingManager.HeaderArrows[3] </button> </div>
-                <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(4)" > Phone number @sortingManager.HeaderArrows[4] </button> </div>
-                <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(5)" > Birth number @sortingManager.HeaderArrows[5] </button> </div>
+                <div style="flex:@colWidths[0]" class="div-table-h-col"> <button id="@sorterNumToId[0]" class="clickable-header @GetClassFromMode(sorterNumToId[0])" @onclick="() => HandleSorterClick(0)" > Id @sortingManager.HeaderArrows[0] </button> </div>
+                <div style="flex:@colWidths[1]" class="div-table-h-col"> <button id="@sorterNumToId[1]" class="clickable-header @GetClassFromMode(sorterNumToId[1])" @onclick="() => HandleSorterClick(1)" > First name @sortingManager.HeaderArrows[1] </button> </div>
+                <div style="flex:@colWidths[2]" class="div-table-h-col"> <button id="@sorterNumToId[2]" class="clickable-header @GetClassFromMode(sorterNumToId[2])" @onclick="() => HandleSorterClick(2)" > Last name @sortingManager.HeaderArrows[2] </button> </div>
+                <div style="flex:@colWidths[3]" class="div-table-h-col justify-center-col"> <button id="@sorterNumToId[3]" class='clickable-header @GetClassFromMode(sorterNumToId[3])' @onclick="() => HandleSorterClick(3)" > Age @sortingManager.HeaderArrows[3] </button> </div>
+                <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <button id="@sorterNumToId[4]" class="clickable-header @GetClassFromMode(sorterNumToId[4])" @onclick="() => HandleSorterClick(4)" > Phone number @sortingManager.HeaderArrows[4] </button> </div>
+                <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <button id="@sorterNumToId[5]" class="clickable-header @GetClassFromMode(sorterNumToId[5])" @onclick="() => HandleSorterClick(5)" > Birth number @sortingManager.HeaderArrows[5] </button> </div>
                 <div style="flex:@colWidths[6]" class="button-right-container"> </div>
             </div>
             <div class="div-table-header">
@@ -101,6 +101,42 @@ else
 @code
 {
 
+    /* BUG REPORTING CODE */
+
+    private static string[] sorterNumToId = {"id-sorter","first-name-sorter","last-name-sorter","age-sorter","phone-number-sorter","birth-number-sorter"};
+    
+    private static Dictionary<string,bool> isElementSelected = new();
+
+    private void InitializeSelectedElementDictionary()
+    {
+        foreach (var elementId in sorterNumToId)
+        {
+            isElementSelected[elementId] = false;
+        }
+    }
+    
+    private List<string> selectedIds = new();
+    private string GetClassFromMode(string elementId)
+    {
+        if (ModeService.CurrentMode == ClientMode.BugReporting)
+        {
+            return isElementSelected[elementId] ? "highlighted-selected" : "highlighted";
+        }
+        return "";
+    }
+
+    private void HandleSorterClick(int sorterNum)
+    {
+        if (ModeService.CurrentMode == ClientMode.Normal)
+        {
+            sortingManager.HandleSortClick(sorterNum);
+        }
+        else
+        {
+            isElementSelected[sorterNumToId[sorterNum]] = !isElementSelected[sorterNumToId[sorterNum]];
+        }
+    }
+
     // Stores relative sizes of the table columns (the numbers are used as arguments to the flex css attribute)
     private int[] colWidths = {7,15,15,10,16,15,20};
 
@@ -112,6 +148,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         ModeService.OnModeChangedEvent += StateHasChanged;
+        InitializeSelectedElementDictionary();
         InitializeFilteringManager();
         await LoadParticipants();
     }
