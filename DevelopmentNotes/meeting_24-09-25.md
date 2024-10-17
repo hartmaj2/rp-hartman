@@ -81,3 +81,6 @@
 - [ ] implementovat system s overlayem na spatne sorteni veku
 - [ ] prohozeni hlavni databaze s jejich vlastnimi (co nejjednoduseji abych nemusel moc predelavat kod klienta)
 - [ ] prepinani mezi systemy vedouci a dite - staci jen pouzit bocni panel
+
+
+- [ ] poslat zdroje na C# a Blazor
