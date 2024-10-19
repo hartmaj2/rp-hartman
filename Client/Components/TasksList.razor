@@ -2,7 +2,7 @@
 
 <p>
     <h5> Dokončené úkoly </h5>
-    @foreach (var task in TaskService.FinishedTasks)
+    @foreach (var task in TaskService.CompletedTasks)
     {
         <label> <input type="checkbox" checked disabled> <s> @task.Description </s> </label>
     }

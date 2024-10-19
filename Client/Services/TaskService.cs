@@ -6,38 +6,37 @@ using Client.Components;
 /// </summary>
 public class TaskService
 {
-    public IEnumerable<Task> FinishedTasks { get; set; }
-    public IEnumerable<Task> ActiveTasks { get; set; }
-    public IEnumerable<Task> FutureTasks { get; set; }
+
+    public IEnumerable<Task> AllTasks { get; set; }
+    public IEnumerable<Task> CompletedTasks => AllTasks.Where(task => task.CompetionState == TaskCompletionState.Completed);
+    public IEnumerable<Task> ActiveTasks => AllTasks.Where(task => task.CompetionState == TaskCompletionState.Active);
+    public IEnumerable<Task> FutureTasks => AllTasks.Where(task => task.CompetionState == TaskCompletionState.Future);
 
     public int Score { get; set; }
 
     public TaskService()
     {
-        ActiveTasks = new List<Task>
-        {
-            new Task 
-            { 
-                TaskId = "1",
-                Description = "Najdi jména pěti nejstarších účastníků tábora",
-                PageId = "all-participants",
-                ElementIdsToSelect = new List<string> {"age-sorter"}
-            }
-        };
-        FinishedTasks = new List<Task>
+        AllTasks = new List<Task>
         {
             new Task
             {
                 TaskId = "0",
                 Description = "Přečti si úvodní text",
                 PageId = "root-page",
-                ElementIdsToSelect = new List<string> {}
-            }
+                ElementIdsToSelect = new List<string> {},
+                CompetionState = TaskCompletionState.Completed,
+            },
+            new Task 
+            { 
+                TaskId = "1",
+                Description = "Najdi jména pěti nejstarších účastníků tábora",
+                PageId = "all-participants",
+                ElementIdsToSelect = new List<string> {"age-sorter"},
+                CompetionState = TaskCompletionState.Active,
+            },
         };
-        FutureTasks = new List<Task>();
     }
 
-    public Taskf
 }
 
 /// <summary>
@@ -50,12 +49,15 @@ public class Task
     public required string Description { get; set; }
 
     public required List<string> ElementIdsToSelect { get; set; }
-    public Action? OnBugFixed;
+    
+    public TaskCompletionState CompetionState { get; set; } = TaskCompletionState.Future;
 
-    public void FixBug()
-    {
-        // Trigger the event when the bug is fixed
-        OnBugFixed?.Invoke();
-    }
+}
+
+public enum TaskCompletionState
+{
+    Completed,
+    Active,
+    Future
 }
 
