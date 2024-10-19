@@ -20,7 +20,8 @@ public class MealFormData
     }
     
     [Required(ErrorMessage = "Typ pokrmu musí být zvolen.")]
-    public required string MealType { get; set; }
+
+    public required MealType MealType { get; set; }
 
     // In contrast to MealDto, this class contains list of allergen selections 
     // Allergen selections are a combination of the name of the allergen and indicator whether it was selected
@@ -34,7 +35,7 @@ public class MealFormData
                 Id = Id,
                 Name = Name,
                 MealTime = mealTime,
-                Type = Enum.Parse<MealType>(MealType),
+                Type = MealType,
                 Date = date,
                 // Add a corresponding AllergenDto only when the selection IsSelected
                 Allergens = AllergenSelections!.Where(selection => selection.IsSelected).Select(selection => new AllergenDto {Name = selection.Name}).ToList()
@@ -43,7 +44,7 @@ public class MealFormData
 
     public static MealFormData CreateDefault()
     {
-        return new MealFormData(){Name = string.Empty, MealType = string.Empty};
+        return new MealFormData(){Name = string.Empty, MealType = MealType.Main};
     }
     
 }
@@ -65,7 +66,7 @@ public static class MealDtoExtensions
             {
                 Id = mealDto.Id,
                 Name = mealDto.Name,
-                MealType = mealDto.Type.ToString(),
+                MealType = mealDto.Type,
                 AllergenSelections = AllAllergens.Select(allergen => new AllergenSelection {Name = allergen.Name, IsSelected = false}).ToList()
             };
             

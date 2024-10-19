@@ -20,7 +20,7 @@
         <InputRadioGroup @bind-Value="MealFormData.MealType">
             @foreach (var mealType in MealTypes)
             {
-                <InputRadio id="@mealType" Value="@mealType"/> <label for="@mealType"> @mealType </label> <br/>
+                <InputRadio id="@mealType" Value="@mealType"/> <label for="@mealType"> @mealType.ToCustomString() </label> <br/>
             }
         </InputRadioGroup>
         <ValidationMessage For="() => MealFormData.MealType"/>
@@ -54,7 +54,7 @@
     public required MealFormData MealFormData { get; set; } = MealFormData.CreateDefault();
 
     [Parameter]
-    public required IEnumerable<string> MealTypes { get; set; }
+    public required IEnumerable<MealType> MealTypes { get; set; }
 
     // When meal is submitted we trigger a function that will get the resulting meal passed to it
     [Parameter]

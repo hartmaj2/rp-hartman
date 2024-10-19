@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 public class MealService
 {
     private readonly HttpClient _httpClient;
-    private List<string>? _mealTypes;
+    private List<MealType>? _mealTypes;
 
     // HttpClient is passed to this constructor automatically
     public MealService(HttpClient httpClient)
@@ -14,11 +14,11 @@ public class MealService
     }
 
     // Gets the meal types from api only if not loaded already
-    public async Task<List<string>> GetMealTypesAsync()
+    public async Task<List<MealType>> GetMealTypesAsync()
     {
         if (_mealTypes == null)
         {
-            _mealTypes = await _httpClient.GetFromJsonAsync<List<string>>("api/meals/meal-types");
+            _mealTypes = Enum.GetValues<MealType>().ToList();
         }
         return _mealTypes!;
     }
