@@ -1,41 +1,41 @@
 ###
-POST http://localhost:5142/api/allergens/add-many
+POST http://localhost:5141/api/allergens/add-many
 Content-Type: application/json
 
 [
     {
-        "Name" : "Gluten"
+        "Name" : "Lepek"
     },
     {
-        "Name" : "Lactose"
+        "Name" : "Laktóza"
     },
     {
-        "Name" : "Nuts"
+        "Name" : "Ořechy"
     },
     {
-        "Name" : "Eggs"
+        "Name" : "Vejce"
     },
     {
-        "Name" : "Fish"
+        "Name" : "Ryby"
     },
     {
-        "Name" : "Meat"
+        "Name" : "Maso"
     }
 ]
 
 ###
-POST http://localhost:5142/api/allergens/add
+POST http://localhost:5141/api/allergens/add
 Content-Type: application/json
 
 {
-    "Name" : "Meat"
+    "Name" : "Maso"
 }
 
 ### test if cascading enabled on foreign keys
-DELETE http://localhost:5142/api/allergens/delete/6
+DELETE http://localhost:5141/api/allergens/delete/6
 
 ###
-GET http://localhost:5142/api/allergens/all
+GET http://localhost:5141/api/allergens/all
 
 ###
-DELETE http://localhost:5142/api/allergens/delete-all
+DELETE http://localhost:5141/api/allergens/delete-all
