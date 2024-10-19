@@ -18,7 +18,7 @@ public class ParticipantFormData
 
     private string _firstName = string.Empty;
 
-    [Required(ErrorMessage = "First name is required.")]
+    [Required(ErrorMessage = "Jméno účastníka musí být zadáno.")]
     [ValidName("first name")]
     public required string FirstName
     {
@@ -35,7 +35,7 @@ public class ParticipantFormData
 
     private string _lastName = string.Empty;
 
-    [Required(ErrorMessage = "Last name is required.")]
+    [Required(ErrorMessage = "Příjmení účastníka musí být zadáno.")]
     [ValidName("last name")]
     public required string LastName 
     {
@@ -53,7 +53,7 @@ public class ParticipantFormData
     public const int LowestAge = 0;
     public const int HighestAge = 70; // I want to support only birth numbers later than 1954 that have the 10 digit format
 
-    [Required(ErrorMessage = "The age is required")]
+    [Required(ErrorMessage = "Věk účastníka musí být zadán")]
     [IntegerRangeValidator(LowestAge,HighestAge,nameof(Age))]
     public int? Age { get; set; } // the age is set automatically if the entered birth number is valid
 
@@ -66,7 +66,7 @@ public class ParticipantFormData
 
     private string _phoneNumber = string.Empty;
 
-    [Required(ErrorMessage = "Phone number is required.")]
+    [Required(ErrorMessage = "Telefonní číslo účastníka musí být zadáno.")]
     [ValidPhoneNumber]
     public required string PhoneNumber
     { 

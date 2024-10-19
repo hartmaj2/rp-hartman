@@ -9,7 +9,7 @@ public class MealFormData
 
     private string _name = string.Empty;
 
-    [Required(ErrorMessage = "Meal name is required.")]
+    [Required(ErrorMessage = "Jméno pokrmu musí být zadáno.")]
     public required string Name 
     { 
         get => _name;
@@ -19,7 +19,7 @@ public class MealFormData
         }
     }
     
-    [Required(ErrorMessage = "Meal type is required.")]
+    [Required(ErrorMessage = "Typ pokrmu musí být zvolen.")]
     public required string MealType { get; set; }
 
     // In contrast to MealDto, this class contains list of allergen selections 
