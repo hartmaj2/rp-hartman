@@ -12,9 +12,6 @@ public class TaskService
 
     public int Score { get; set; }
 
-    /// <summary>
-    /// Field is nullable, if no subsribers -> null
-    /// </summary>
     public TaskService()
     {
         ActiveTasks = new List<Task>
@@ -40,7 +37,7 @@ public class TaskService
         FutureTasks = new List<Task>();
     }
 
-
+    public Taskf
 }
 
 /// <summary>
