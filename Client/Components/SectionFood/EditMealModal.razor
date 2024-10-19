@@ -9,14 +9,14 @@
     <DataAnnotationsValidator/>
 
     <div>
-        <label for="meal-name"> Meal name: </label> <br/>
+        <label for="meal-name"> Jméno pokrmu: </label> <br/>
         <InputText id="meal-name" @bind-Value="MealFormData.Name"/> <br/>
         <ValidationMessage For="() => MealFormData.Name"/>
         <br/> 
     </div>
 
     <div>
-        <label> Meal type: </label> <br/>
+        <label> Typ pokrmu: </label> <br/>
         <InputRadioGroup @bind-Value="MealFormData.MealType">
             @foreach (var mealType in MealTypes)
             {
@@ -28,7 +28,7 @@
     </div>
 
     <div>
-        <label> Allergens: </label> <br/>
+        <label> Alergeny: </label> <br/>
         @if (MealFormData.AllergenSelections != null)
         {
             @foreach (var allergenSelection in MealFormData.AllergenSelections)
@@ -48,7 +48,7 @@
 
     // Text shown on the submit button
     [Parameter]
-    public string SubmitButtonText { get; set; } = "Confirm";
+    public string SubmitButtonText { get; set; } = "Potvrdit";
 
     [Parameter]
     public required MealFormData MealFormData { get; set; } = MealFormData.CreateDefault();

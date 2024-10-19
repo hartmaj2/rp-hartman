@@ -14,13 +14,13 @@
 
             @if (@ModeService.CurrentMode == ClientMode.Normal)
             {
-                <button class="btn btn-danger" @onclick="()=>ModeService.ToggleMode()" > Report a bug </button>
-                <button class="btn btn-info" @onclick="ShowTasksList"> Show tasks list </button>
+                <button class="btn btn-danger" @onclick="()=>ModeService.ToggleMode()" > Nahlásit chybu </button>
+                <button class="btn btn-info" @onclick="ShowTasksList"> Seznam úkolů </button>
             }
             else 
             {
-                <button class="btn btn-info btn-forward" @onclick="()=>ModeService.ToggleMode()" > Do not report </button>
-                <button class="btn btn-success"> Confirm </button>
+                <button class="btn btn-info btn-forward" @onclick="()=>ModeService.ToggleMode()" > Nenahlašovat </button>
+                <button class="btn btn-success"> Potvrdit výběr </button>
             }
         </div>
 
@@ -37,6 +37,6 @@
     private async Task ShowTasksList()
     {
         var parameters = new Dictionary<string, object>();
-        await tasksList.ShowAsync<TasksList>(title: "Tasks list:", parameters: parameters);
+        await tasksList.ShowAsync<TasksList>(title: "Seznam úkolů:", parameters: parameters);
     }
 }

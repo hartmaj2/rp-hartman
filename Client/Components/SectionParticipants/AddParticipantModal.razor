@@ -8,14 +8,14 @@
 <div class="modal-div">
 
     <div class="modal-section-headers"> 
-        <div class="modal-section-header"> <div> General information </div> </div>
-        <div class="modal-section-header"> <div> Diets </div> </div>
+        <div class="modal-section-header"> <div> Obecné informace </div> </div>
+        <div class="modal-section-header"> <div> Diety </div> </div>
     </div>
 
     <div class="modal-sections">
         <div class="modal-section">
             @* Use my custom component with 2-way-binding to its value *@
-            <ParticipantForm @bind-ThisParticipant="Participant" OnValidSubmitEvent="OnFormSubmitAsync"> Confirm </ParticipantForm> 
+            <ParticipantForm @bind-ThisParticipant="Participant" OnValidSubmitEvent="OnFormSubmitAsync"> Potvrdit </ParticipantForm> 
         </div>
 
         @if (Participant.DietSelections != null)
@@ -36,7 +36,7 @@
         }
         else
         {
-            <p> Loading diets.. </p>
+            <p> Načítám diety.. </p>
         }
     </div>
 </div>

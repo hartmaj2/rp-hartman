@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 // Meal database model
 
@@ -36,4 +37,33 @@ public enum MealType
 {
     Soup,
     Main
+}
+
+public static class EnumStringConversions
+{
+    public static string ToCustomString(this MealTime mealTime)
+    {
+        switch (mealTime)
+        {
+            case MealTime.Dinner: 
+                return "Večeře";
+            case MealTime.Lunch:
+                return "Oběd";
+            default:
+                throw new SwitchExpressionException();
+        }
+    }
+
+    public static string ToCustomString(this MealType mealTime)
+    {
+        switch (mealTime)
+        {
+            case MealType.Main: 
+                return "Hlavní chod";
+            case MealType.Soup:
+                return "Polévka";
+            default:
+                throw new SwitchExpressionException();
+        }
+    }
 }

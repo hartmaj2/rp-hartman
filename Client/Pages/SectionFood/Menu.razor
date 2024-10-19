@@ -11,7 +11,7 @@
 
 @if (meals == null)
 {
-    <p> Loading... </p>
+    <p> Načítám pokrmy... </p>
 }
 else
 {
@@ -55,11 +55,11 @@ else
     {
         lastModalMealTime = mealTime; // we need to update this so the api request to the meals controller sets the correct meal time
         var parameters = new Dictionary<string,object>();
-        parameters.Add("SubmitButtonText","Confirm");
+        parameters.Add("SubmitButtonText","Potvrdit");
         var mealTypes = await MealService.GetMealTypesAsync();
         parameters.Add("MealTypes",mealTypes);
         parameters.Add("OnMealSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestMealCreation));
-        await editMealModal.ShowAsync<EditMealModal>(title: $"Add {mealTime.ToString().ToLower()} meal on {currentDate.ToString("dd/MM/yyyy")}", parameters:parameters);
+        await editMealModal.ShowAsync<EditMealModal>(title: $"Přidat pokrm k datu {currentDate.ToString("dd/MM/yyyy")}", parameters:parameters);
     }
 
     // Sends api post request for the MealsController to create new meal with given values

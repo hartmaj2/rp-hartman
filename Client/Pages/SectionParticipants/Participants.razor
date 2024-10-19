@@ -4,7 +4,7 @@
 @inject AllergenService AllergenService
 @inject ClientModeService ModeService
 
-<PageTitle> Participants </PageTitle>
+<PageTitle> Účastníci </PageTitle>
 
 <Modal @ref="editParticipantModal"/>
 <Modal @ref="deleteParticipantModal"/>
@@ -17,34 +17,34 @@
 
 @if (sortedParticipants == null)
 {
-    <p> Loading... </p>
+    <p> Načítám účastníky... </p>
 }
 else
 {
 
     <div class="div-table-container">
         <div class="div-table-container-header"> 
-            <div> Participants </div> 
-            <div class="button-right-container"> <button @onclick="ShowAddParticipantModal" class="btn btn-primary"> Add a participant </button> </div>
+            <div> Účastníci </div> 
+            <div class="button-right-container"> <button @onclick="ShowAddParticipantModal" class="btn btn-primary"> Přidat účastníka </button> </div>
             
         </div>
         <div class="div-table">
             <div class="div-table-header">
                 <div style="flex:@colWidths[0]" class="div-table-h-col"> <button id="@sorterNumToId[0]" class="clickable-header @GetClassFromMode(sorterNumToId[0])" @onclick="() => HandleSorterClick(0)" > Id @sortingManager.HeaderArrows[0] </button> </div>
-                <div style="flex:@colWidths[1]" class="div-table-h-col"> <button id="@sorterNumToId[1]" class="clickable-header @GetClassFromMode(sorterNumToId[1])" @onclick="() => HandleSorterClick(1)" > First name @sortingManager.HeaderArrows[1] </button> </div>
-                <div style="flex:@colWidths[2]" class="div-table-h-col"> <button id="@sorterNumToId[2]" class="clickable-header @GetClassFromMode(sorterNumToId[2])" @onclick="() => HandleSorterClick(2)" > Last name @sortingManager.HeaderArrows[2] </button> </div>
-                <div style="flex:@colWidths[3]" class="div-table-h-col justify-center-col"> <button id="@sorterNumToId[3]" class='clickable-header @GetClassFromMode(sorterNumToId[3])' @onclick="() => HandleSorterClick(3)" > Age @sortingManager.HeaderArrows[3] </button> </div>
-                <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <button id="@sorterNumToId[4]" class="clickable-header @GetClassFromMode(sorterNumToId[4])" @onclick="() => HandleSorterClick(4)" > Phone number @sortingManager.HeaderArrows[4] </button> </div>
-                <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <button id="@sorterNumToId[5]" class="clickable-header @GetClassFromMode(sorterNumToId[5])" @onclick="() => HandleSorterClick(5)" > Birth number @sortingManager.HeaderArrows[5] </button> </div>
+                <div style="flex:@colWidths[1]" class="div-table-h-col"> <button id="@sorterNumToId[1]" class="clickable-header @GetClassFromMode(sorterNumToId[1])" @onclick="() => HandleSorterClick(1)" > Jméno @sortingManager.HeaderArrows[1] </button> </div>
+                <div style="flex:@colWidths[2]" class="div-table-h-col"> <button id="@sorterNumToId[2]" class="clickable-header @GetClassFromMode(sorterNumToId[2])" @onclick="() => HandleSorterClick(2)" > Příjmení @sortingManager.HeaderArrows[2] </button> </div>
+                <div style="flex:@colWidths[3]" class="div-table-h-col justify-center-col"> <button id="@sorterNumToId[3]" class='clickable-header @GetClassFromMode(sorterNumToId[3])' @onclick="() => HandleSorterClick(3)" > Věk @sortingManager.HeaderArrows[3] </button> </div>
+                <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <button id="@sorterNumToId[4]" class="clickable-header @GetClassFromMode(sorterNumToId[4])" @onclick="() => HandleSorterClick(4)" > Telefonní číslo @sortingManager.HeaderArrows[4] </button> </div>
+                <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <button id="@sorterNumToId[5]" class="clickable-header @GetClassFromMode(sorterNumToId[5])" @onclick="() => HandleSorterClick(5)" > Rodné číslo @sortingManager.HeaderArrows[5] </button> </div>
                 <div style="flex:@colWidths[6]" class="button-right-container"> </div>
             </div>
             <div class="div-table-header">
                 <div style="flex:@colWidths[0]" class="div-table-h-col">  <input class="id-search-box" @bind="idFilter.FilterText" @bind:event="oninput" placeholder="..." type="text"/> </div>
-                <div style="flex:@colWidths[1]" class="div-table-h-col"> <input class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                <div style="flex:@colWidths[2]" class="div-table-h-col"> <input class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div style="flex:@colWidths[1]" class="div-table-h-col"> <input class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="hledat..." type="text"/> </div>
+                <div style="flex:@colWidths[2]" class="div-table-h-col"> <input class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="hledat..." type="text"/> </div>
                 <div style="flex:@colWidths[3]" class="div-table-h-col">
                     <Dropdown Color="DropdownColor.Secondary" Direction="DropdownDirection.Dropup" AutoCloseBehavior="DropdownAutoCloseBehavior.Outside" Size="DropdownSize.Small">
-                        <DropdownToggleButton Class="filter-button"> Filter </DropdownToggleButton>
+                        <DropdownToggleButton Class="filter-button"> Filtrovat </DropdownToggleButton>
                         <DropdownMenu Class="px-3" Style="width:150px;">
                             <div>
                                 Min: 
@@ -60,13 +60,13 @@ else
                         </DropdownMenu>
                     </Dropdown>
                 </div>
-                <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <input class="name-search-box" @bind="phoneNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <input class="name-search-box" @bind="birthNumberFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div style="flex:@colWidths[4]" class="div-table-h-col justify-center-col"> <input class="name-search-box" @bind="phoneNumberFilter.FilterText" @bind:event="oninput" placeholder="hledat..." type="text"/> </div>
+                <div style="flex:@colWidths[5]" class="div-table-h-col justify-center-col"> <input class="name-search-box" @bind="birthNumberFilter.FilterText" @bind:event="oninput" placeholder="hledat..." type="text"/> </div>
                 
                 <div style="flex:@colWidths[6]" class="button-right-container"> 
                     @if (filteringManager != null)
                     {
-                        <button style="width:auto" class="btn btn-primary" @onclick="() => filteringManager.ResetFilters()"> Reset filters </button> 
+                        <button style="width:auto" class="btn btn-primary" @onclick="() => filteringManager.ResetFilters()"> Resetovat filtry </button> 
                     }
                 </div>
                     
@@ -85,8 +85,8 @@ else
                         <div style="flex:@colWidths[4]" class="justify-center-col"> @participant.PhoneNumber </div>
                         <div style="flex:@colWidths[5]" class="justify-center-col"> @participant.BirthNumber </div>
                         <div style="flex:@colWidths[6]" class="button-right-container"> 
-                            <button class="btn btn-primary" @onclick="() => ShowEditParticipantModal(participant)" > Edit </button>
-                            <button class="btn btn-primary" @onclick="() => ShowDeleteParticipantModal(participant)" > Delete </button>
+                            <button class="btn btn-primary" @onclick="() => ShowEditParticipantModal(participant)" > Upravit </button>
+                            <button class="btn btn-primary" @onclick="() => ShowDeleteParticipantModal(participant)" > Odstranit </button>
                         </div>
                     </div>
                 }
@@ -229,7 +229,7 @@ else
     {
         var parameters = new Dictionary<string,object>();
         parameters.Add("CreateParticipant",EventCallback.Factory.Create<ParticipantFormData>(this,RequestCreateParticipant));
-        await addParticipantModal.ShowAsync<AddParticipantModal>(title:$"Add participant",parameters: parameters);
+        await addParticipantModal.ShowAsync<AddParticipantModal>(title:$"Přidat účastníka",parameters: parameters);
     }
 
     // Connects to my api and posts the participant that was submitted to the form
@@ -251,7 +251,7 @@ else
         var allAllergens = await AllergenService.GetAllergenDtosAsync();
         parameters.Add("Participant",participant.ToParticipantFormData(allAllergens));
         parameters.Add("UpdateParticipant",EventCallback.Factory.Create<ParticipantFormData>(this,RequestParticipantEdit));
-        await editParticipantModal.ShowAsync<EditParticipantModal>(title:$"Edit {participant.FirstName}",parameters: parameters);
+        await editParticipantModal.ShowAsync<EditParticipantModal>(title:$"Upravit {participant.FirstName}",parameters: parameters);
     }
 
     // Send api request to update the participant
@@ -275,7 +275,7 @@ else
         parameters.Add("CurrentParticipant",participant);
         parameters.Add("OnDeleteParticipant",EventCallback.Factory.Create<int>(this,RequestParticipantDelete));
         parameters.Add("OnRejectButton",EventCallback.Factory.Create(this,HideDeleteParticipantModal));
-        deleteParticipantModal.ShowAsync<DeleteParticipantModal>(title:"Delete participant",parameters: parameters);
+        deleteParticipantModal.ShowAsync<DeleteParticipantModal>(title:"Odstranit účastníka",parameters: parameters);
     }
 
     private async Task HideDeleteParticipantModal()

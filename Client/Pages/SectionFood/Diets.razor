@@ -9,20 +9,20 @@
 @if (dietsFilter != null && dietsFilter.DietSelections != null)
 {
     <div class="div-table-container">
-        <div class="div-table-container-header"> <div> Diets </div> </div>
+        <div class="div-table-container-header"> <div> Diety </div> </div>
         <div class="div-table">
             <div class="div-table-header">
-                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(0)"> First name @sortingManager.HeaderArrows[0] </button> </div>
-                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(1)"> Last name @sortingManager.HeaderArrows[1] </button> </div>
-                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(2)"> Diets @sortingManager.HeaderArrows[2] </button> </div>
+                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(0)"> Jméno @sortingManager.HeaderArrows[0] </button> </div>
+                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(1)"> Příjmení @sortingManager.HeaderArrows[1] </button> </div>
+                <div class="div-table-h-col"> <button class="clickable-header" @onclick="() => sortingManager.HandleSortClick(2)"> Diety @sortingManager.HeaderArrows[2] </button> </div>
                 <div class="button-right-container">  </div>
             </div>
             <div class="div-table-header">
-                <div class="div-table-h-col"> <input class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
-                <div class="div-table-h-col"> <input class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="search..." type="text"/> </div>
+                <div class="div-table-h-col"> <input class="name-search-box" @bind="firstNameFilter.FilterText" @bind:event="oninput" placeholder="hledat..." type="text"/> </div>
+                <div class="div-table-h-col"> <input class="name-search-box" @bind="lastNameFilter.FilterText" @bind:event="oninput" placeholder="hledat..." type="text"/> </div>
                 <div class="div-table-h-col">
                     <Dropdown Color="DropdownColor.Secondary" Style="width:50%" Direction="DropdownDirection.Dropup" AutoCloseBehavior="DropdownAutoCloseBehavior.Outside" Size="DropdownSize.Small">
-                        <DropdownToggleButton Class="filter-button" > Filter diets </DropdownToggleButton>
+                        <DropdownToggleButton Class="filter-button" > Filtrovat diety </DropdownToggleButton>
                         <DropdownMenu Class="px-3" Style="width:150px;">
                             @foreach (var dietSelection in dietsFilter.DietSelections)
                             {
@@ -34,7 +34,7 @@
                 <div class="button-right-container" style="flex:1"> 
                     @if(filteringManager != null)
                     {
-                        <button class="btn btn-primary" @onclick="() => filteringManager.ResetFilters()"> Reset filters </button> 
+                        <button class="btn btn-primary" @onclick="() => filteringManager.ResetFilters()"> Resetovat filtry </button> 
                     }
                 </div>
                 
@@ -43,7 +43,7 @@
                 @if (sortedParticipants == null)
                 {
                     <div class="div-table-row">
-                        <span> Loading participants... </span>
+                        <span> Načítám účastníky... </span>
                     </div>
                 }
                 else
@@ -59,7 +59,7 @@
                                     <span> @diet.Name,  </span>
                                 }
                             </div>
-                            <div class="button-right-container" style="flex:1"> <button class="btn btn-primary" @onclick="() => ShowEditDietsModalAsync(participant)"> Edit diets </button> </div>
+                            <div class="button-right-container" style="flex:1"> <button class="btn btn-primary" @onclick="() => ShowEditDietsModalAsync(participant)"> Upravit diety </button> </div>
                             
                         </div>
                     }
@@ -155,7 +155,7 @@
         parameters.Add("CurrentParticipant",selectedParticipant);
         parameters.Add("DietSelections",await GetParticipantDietSelectionsAsync(selectedParticipant));
         parameters.Add("OnSubmit",EventCallback.Factory.Create<ParticipantDto>(this,RequestParticipantEditAsync));
-        await editDietsModal.ShowAsync<EditDietsModal>(title: $"Edit {selectedParticipant.FirstName}'s diets", parameters:parameters);
+        await editDietsModal.ShowAsync<EditDietsModal>(title: $"Upravit diety účastníka {selectedParticipant.FirstName}", parameters:parameters);
     }
 
     // Helper method to get diet selection list for the given participant
