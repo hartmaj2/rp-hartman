@@ -1,3 +1,15 @@
+@inject TaskService TaskService
+
 <p>
-    <label> <input type="checkbox" disabled> Najdi jména prvních pěti nejstarších účastníků tábora. </label>
+    <h5> Dokončené úkoly </h5>
+    @foreach (var task in TaskService.FinishedTasks)
+    {
+        <label> <input type="checkbox" checked disabled> <s> @task.Description </s> </label>
+    }
+    <br/> <br/>
+    <h5> Aktivní úkoly </h5>
+    @foreach (var task in TaskService.ActiveTasks)
+    {
+        <label> <input type="checkbox" disabled> @task.Description </label>
+    }
 </p>

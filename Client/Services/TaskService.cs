@@ -32,7 +32,7 @@ public class TaskService
             new Task
             {
                 TaskId = "0",
-                Description = "Přečti si úvodní text.",
+                Description = "Přečti si úvodní text",
                 PageId = "root-page",
                 ElementIdsToSelect = new List<string> {}
             }
