@@ -80,7 +80,7 @@ else
         parameters.Add("CurrentMeal",meal);
         parameters.Add("OnDeleteMeal",EventCallback.Factory.Create<int>(this,RequestMealDelete));
         parameters.Add("OnRejectButton",EventCallback.Factory.Create(this,HideDeleteMealModal));
-        deleteMealModal.ShowAsync<DeleteMealModal>(title:"Delete Meal",parameters: parameters);
+        deleteMealModal.ShowAsync<DeleteMealModal>(title:"Odstranit pokrm",parameters: parameters);
     }
 
     private async Task HideDeleteMealModal()
@@ -106,7 +106,7 @@ else
         parameters.Add("MealTypes",mealTypes);
         parameters.Add("MealFormData",meal.ToMealFormData(allAllergens));
         parameters.Add("OnMealSubmit",EventCallback.Factory.Create<MealFormData>(this,RequestMealEdit));
-        await editMealModal.ShowAsync<EditMealModal>(title: "Edit meal", parameters:parameters);
+        await editMealModal.ShowAsync<EditMealModal>(title: "Upravit pokrm", parameters:parameters);
     }
 
     // Similar to RequestMealCreation but we send the api request at different route and also provide the id to the route

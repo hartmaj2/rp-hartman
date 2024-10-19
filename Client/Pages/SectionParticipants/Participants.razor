@@ -251,7 +251,7 @@ else
         var allAllergens = await AllergenService.GetAllergenDtosAsync();
         parameters.Add("Participant",participant.ToParticipantFormData(allAllergens));
         parameters.Add("UpdateParticipant",EventCallback.Factory.Create<ParticipantFormData>(this,RequestParticipantEdit));
-        await editParticipantModal.ShowAsync<EditParticipantModal>(title:$"Upravit {participant.FirstName}",parameters: parameters);
+        await editParticipantModal.ShowAsync<EditParticipantModal>(title:$"Upravit účastníka {participant.FirstName}",parameters: parameters);
     }
 
     // Send api request to update the participant
