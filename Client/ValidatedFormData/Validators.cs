@@ -73,7 +73,6 @@ public class ValidBirthNumberAttribute : ValidationAttribute
     {
         var month = ParseMonth(birthNumber[2..4]).ToString("D2"); // D2 tells the parser to make the number at least 2 digits long
         string dateString = "20" + birthNumber[0..2] + month.ToString() + birthNumber[4..6];
-        Console.WriteLine($"Date string {dateString}");
         return DateOnly.TryParseExact(dateString,"yyyyMMdd",out _);
     }
 
