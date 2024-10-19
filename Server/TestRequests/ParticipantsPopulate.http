@@ -2,208 +2,193 @@ POST http://localhost:5141/api/participants/add-many
 Content-Type: application/json
 
 [
-    {
-        "FirstName" : "Alena",
-        "LastName" : "Nováková",
-        "Age" : 28,
-        "PhoneNumber" : "777251356",
-        "BirthNumber" : "1754079503",
-        "Diets" : 
-        [
-            {
-                "Name": "Maso"
-            },
-            {
-                "Name": "Laktóza"
-            },
-            {
-                "Name": "Lepek"
-            }
-        ]
-    },
-    {
-        "FirstName" : "Petr",
-        "LastName" : "Novák",
-        "Age" : 35,
-        "PhoneNumber" : "608542356",
-        "BirthNumber" : "1203054886",
-        "Diets" : 
-        [
-            {
-                "Name": "Ořechy"
-            }
-        ]
-    },
-    {
-        "FirstName" : "Karel",
-        "LastName" : "Černý",
-        "Age" : 42,
-        "PhoneNumber" : "605453482",
-        "BirthNumber" : "1610291551",
-        "Diets" : 
-        [
-            {
-                "Name": "Vejce"
-            },
-            {
-                "Name": "Ryby"
-            }
-        ]
-    },
-    {
-        "FirstName" : "David",
-        "LastName" : "Dvořák",
-        "Age" : 29,
-        "PhoneNumber" : "712456789",
-        "BirthNumber" : "1306147469",
-        "Diets" : 
-        [
-            {
-                "Name": "Lepek"
-            }
-        ]
-    },
-    {
-        "FirstName" : "Eva",
-        "LastName" : "Svobodová",
-        "Age" : 31,
-        "PhoneNumber" : "619845267",
-        "BirthNumber" : "0754188886",
-        "Diets" : 
-        [
-            {
-                "Name": "Laktóza"
-            }
-        ]
-    },
-    {
-        "FirstName" : "František",
-        "LastName" : "Veselý",
-        "Age" : 26,
-        "PhoneNumber" : "724582341",
-        "BirthNumber" : "1802153540",
-        "Diets" : 
-        [
-            {
-                "Name": "Maso"
-            }
-        ]
-    },
-    {
-        "FirstName" : "Lucie",
-        "LastName" : "Kučerová",
-        "Age" : 33,
-        "PhoneNumber" : "608123456",
-        "BirthNumber" : "1953312493",
-        "Diets" : 
-        [
-            {
-                "Name": "Ořechy"
-            }
-        ]
-    },
-    {
-        "FirstName" : "Jan",
-        "LastName" : "Král",
-        "Age" : 40,
-        "PhoneNumber" : "715643278",
-        "BirthNumber" : "2303126694",
-        "Diets" : 
-        [
-            {
-                "Name": "Ryby"
-            }
-        ]
-    },
-    {
-        "FirstName" : "Iveta",
-        "LastName" : "Kovářová",
-        "Age" : 27,
-        "PhoneNumber" : "703945612",
-        "BirthNumber" : "1352201026",
-        "Diets" : 
-        [
-            {
-                "Name": "Lepek"
-            }
-        ]
-    },
-    {
-        "FirstName" : "Jakub",
-        "LastName" : "Procházka",
-        "Age" : 34,
-        "PhoneNumber" : "710256934",
-        "BirthNumber" : "1812137503",
-        "Diets" : 
-        [
-            {
-                "Name": "Vejce"
-            }
-        ]
-    },
-    {
-        "FirstName" : "Klára",
-        "LastName" : "Horáková",
-        "Age" : 36,
-        "PhoneNumber" : "709865432",
-        "BirthNumber" : "1452091366",
-        "Diets" : 
-        [
-            {
-                "Name": "Laktóza"
-            }
-        ]
-    },
-    {
-        "FirstName" : "Leoš",
-        "LastName" : "Bartoš",
-        "Age" : 39,
-        "PhoneNumber" : "714582390",
-        "BirthNumber" : "0806178065",
-        "Diets" : 
-        [
-            {
-                "Name": "Ořechy"
-            }
-        ]
-    },
-    {
-        "FirstName" : "Michaela",
-        "LastName" : "Štěpánová",
-        "Age" : 24,
-        "PhoneNumber" : "703456789",
-        "BirthNumber" : "1851135352",
-        "Diets" : 
-        [
-            {
-                "Name": "Ryby"
-            }
-        ]
-    },
-    {
-        "FirstName" : "Nina",
-        "LastName" : "Jelínková",
-        "Age" : 38,
-        "PhoneNumber" : "719856341",
-        "BirthNumber" : "1156063315",
-        "Diets" : 
-        [
-            {
-                "Name": "Maso"
-            }
-        ]
-    },
-    {
-        "FirstName" : "Ondřej",
-        "LastName" : "Malý",
-        "Age" : 41,
-        "PhoneNumber" : "723456789",
-        "BirthNumber" : "1604263705",
-        "Diets" : 
-        [
-            {
-                "Name": "Lepek"
-            }
-        ]
-    }
+  {
+    "firstName": "Alena",
+    "lastName": "Nováková",
+    "age": 7,
+    "phoneNumber": "777251356",
+    "birthNumber": "1754079503",
+    "diets": [
+      {
+        "name": "Lepek"
+      },
+      {
+        "name": "Laktóza"
+      },
+      {
+        "name": "Maso"
+      }
+    ]
+  },
+  {
+    "firstName": "Petr",
+    "lastName": "Novák",
+    "age": 12,
+    "phoneNumber": "608542356",
+    "birthNumber": "1203054886",
+    "diets": [
+      {
+        "name": "Ořechy"
+      }
+    ]
+  },
+  {
+    "firstName": "Karel",
+    "lastName": "Černý",
+    "age": 7,
+    "phoneNumber": "605453482",
+    "birthNumber": "1610291551",
+    "diets": [
+      {
+        "name": "Vejce"
+      },
+      {
+        "name": "Ryby"
+      }
+    ]
+  },
+  {
+    "firstName": "David",
+    "lastName": "Dvořák",
+    "age": 11,
+    "phoneNumber": "712456789",
+    "birthNumber": "1306147469",
+    "diets": [
+      {
+        "name": "Lepek"
+      }
+    ]
+  },
+  {
+    "firstName": "Eva",
+    "lastName": "Svobodová",
+    "age": 17,
+    "phoneNumber": "619845267",
+    "birthNumber": "0754188886",
+    "diets": [
+      {
+        "name": "Laktóza"
+      }
+    ]
+  },
+  {
+    "firstName": "František",
+    "lastName": "Veselý",
+    "age": 6,
+    "phoneNumber": "724582341",
+    "birthNumber": "1802153540",
+    "diets": [
+      {
+        "name": "Maso"
+      }
+    ]
+  },
+  {
+    "firstName": "Lucie",
+    "lastName": "Kučerová",
+    "age": 5,
+    "phoneNumber": "608123456",
+    "birthNumber": "1953312493",
+    "diets": [
+      {
+        "name": "Ořechy"
+      }
+    ]
+  },
+  {
+    "firstName": "Jan",
+    "lastName": "Král",
+    "age": 1,
+    "phoneNumber": "715643278",
+    "birthNumber": "2303126694",
+    "diets": [
+      {
+        "name": "Ryby"
+      }
+    ]
+  },
+  {
+    "firstName": "Iveta",
+    "lastName": "Kovářová",
+    "age": 11,
+    "phoneNumber": "703945612",
+    "birthNumber": "1352201026",
+    "diets": [
+      {
+        "name": "Lepek"
+      }
+    ]
+  },
+  {
+    "firstName": "Jakub",
+    "lastName": "Procházka",
+    "age": 5,
+    "phoneNumber": "710256934",
+    "birthNumber": "1812137503",
+    "diets": [
+      {
+        "name": "Vejce"
+      }
+    ]
+  },
+  {
+    "firstName": "Klára",
+    "lastName": "Horáková",
+    "age": 10,
+    "phoneNumber": "709865432",
+    "birthNumber": "1452091366",
+    "diets": [
+      {
+        "name": "Laktóza"
+      }
+    ]
+  },
+  {
+    "firstName": "Leoš",
+    "lastName": "Bartoš",
+    "age": 16,
+    "phoneNumber": "714582390",
+    "birthNumber": "0806178065",
+    "diets": [
+      {
+        "name": "Ořechy"
+      }
+    ]
+  },
+  {
+    "firstName": "Michaela",
+    "lastName": "Štěpánová",
+    "age": 6,
+    "phoneNumber": "703456789",
+    "birthNumber": "1851135352",
+    "diets": [
+      {
+        "name": "Ryby"
+      }
+    ]
+  },
+  {
+    "firstName": "Nina",
+    "lastName": "Jelínková",
+    "age": 13,
+    "phoneNumber": "719856341",
+    "birthNumber": "1156063315",
+    "diets": [
+      {
+        "name": "Maso"
+      }
+    ]
+  },
+  {
+    "firstName": "Ondřej",
+    "lastName": "Malý",
+    "age": 8,
+    "phoneNumber": "723456789",
+    "birthNumber": "1604263705",
+    "diets": [
+      {
+        "name": "Lepek"
+      }
+    ]
+  }
 ]
