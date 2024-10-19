@@ -21,6 +21,7 @@
 }
 else
 {
+    <button @onclick="FixBreakableSorter"> Fix sorter </button>
 
     <div class="div-table-container">
         <div class="div-table-container-header"> 
@@ -205,6 +206,18 @@ else
                 );
     }
 
+    // Part of the breaking program
+    private static ParticipantSorter<object> breakableSorter = new ParticipantSorter<object>() { KeySelector = participant => participant.Age.ToString(), KeyComparer = new StringSwitchableComparer() };
+
+    private void FixBreakableSorter()
+    {
+        breakableSorter.KeySelector = participant => participant.Age; 
+
+        bool lastSortReversed = breakableSorter.KeyComparer.ReverseSort;
+        breakableSorter.KeyComparer = new IntegerSwitchableComparer();
+        breakableSorter.KeyComparer.ReverseSort= lastSortReversed;
+    }
+
     // Takes care of sorting the columns according to list of given sorters with key selectors and key comparers
     private ColumnSortingManager sortingManager = 
         new ColumnSortingManager
@@ -214,7 +227,7 @@ else
                 new ParticipantSorter<object>() { KeySelector = participant => participant.Id, KeyComparer = new IntegerSwitchableComparer() },
                 new ParticipantSorter<object>() { KeySelector = participant => participant.FirstName, KeyComparer = new StringSwitchableComparer() },
                 new ParticipantSorter<object>() { KeySelector = participant => participant.LastName, KeyComparer = new StringSwitchableComparer() },
-                new ParticipantSorter<object>() { KeySelector = participant => participant.Age, KeyComparer = new IntegerSwitchableComparer() },
+                breakableSorter,
                 new ParticipantSorter<object>() { KeySelector = participant => participant.PhoneNumber, KeyComparer = new StringSwitchableComparer() },
                 new ParticipantSorter<object>() { KeySelector = participant => participant.BirthNumber, KeyComparer = new StringSwitchableComparer() }
             },
