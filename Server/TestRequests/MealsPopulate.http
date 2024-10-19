@@ -1,45 +1,45 @@
 ###
-POST http://localhost:5142/api/meals/add-many
+POST http://localhost:5141/api/meals/add-many
 Content-Type: application/json
 
 [
     {
-        "name" : "Caesar salad",
+        "name" : "Caesar salát",
         "mealTime" : "Dinner",
         "type" : "Main",
         "date" : "2024-09-01",
         "allergens" : 
         [
             {
-                "name": "Meat"
+                "name": "Maso"
             },
             {
-                "name": "Lactose"
+                "name": "Laktóza"
             },
             {
-                "name": "Gluten"
+                "name": "Lepek"
             }
         ]
     },
     {
-        "name" : "Salmon fillet",
+        "name" : "Filet z lososa",
         "mealTime" : "Lunch",
         "type" : "Main",
         "date" : "2024-09-01",
         "allergens" : 
         [
             {
-                "name": "Meat"
+                "name": "Maso"
             },
             {
-                "Name" : "Fish"
+                "name": "Ryby"
             },
             {
-                "name": "Gluten"
+                "name": "Lepek"
             }
         ]
     },
-        {
+    {
         "name" : "Palak paneer",
         "mealTime" : "Lunch",
         "type" : "Main",
@@ -47,259 +47,259 @@ Content-Type: application/json
         "allergens" : 
         [
             {
-                "name": "Meat"
+                "name": "Maso"
             },
             {
-                "Name" : "Fish"
+                "name": "Ryby"
             },
             {
-                "name": "Gluten"
+                "name": "Lepek"
             }
         ]
     },
     {
-        "name" : "Broccoli soup",
+        "name" : "Brokolicová polévka",
         "mealTime" : "Lunch",
         "type" : "Soup",
         "date" : "2024-09-01",
         "allergens" : 
         [
             {
-                "name": "Gluten"
+                "name": "Lepek"
             },
             {
-                "name": "Lactose"
+                "name": "Laktóza"
             }
         ]
     },
-        {
-        "name" : "Mushroom soup",
+    {
+        "name" : "Houbová polévka",
         "mealTime" : "Lunch",
         "type" : "Soup",
         "date" : "2024-09-01",
         "allergens" : 
         [
             {
-                "name": "Gluten"
+                "name": "Lepek"
             },
             {
-                "name": "Lactose"
+                "name": "Laktóza"
             }
         ]
     },
     {
-        "name" : "Grilled Chicken Breast",
+        "name" : "Grilovaná kuřecí prsa",
         "mealTime" : "Dinner",
         "type" : "Main",
         "date" : "2024-09-02",
         "allergens" : 
         [
             {
-                "name": "Meat"
+                "name": "Maso"
             }
         ]
     },
     {
-        "name" : "Minestrone Soup",
+        "name" : "Minestrone polévka",
         "mealTime" : "Lunch",
         "type" : "Soup",
         "date" : "2024-09-02",
         "allergens" : 
         [
             {
-                "name": "Gluten"
+                "name": "Lepek"
             }
         ]
     },
     {
-        "name" : "Spaghetti Bolognese",
+        "name" : "Špagety Bolognese",
         "mealTime" : "Dinner",
         "type" : "Main",
         "date" : "2024-09-03",
         "allergens" : 
         [
             {
-                "name": "Gluten"
+                "name": "Lepek"
             },
             {
-                "name": "Meat"
+                "name": "Maso"
             }
         ]
     },
     {
-        "name" : "Vegetable Stir Fry",
+        "name" : "Zeleninové Stir Fry",
         "mealTime" : "Lunch",
         "type" : "Main",
         "date" : "2024-09-03",
         "allergens" : 
         [
             {
-                "name": "Gluten"
+                "name": "Lepek"
             },
             {
-                "name": "Nuts"
+                "name": "Ořechy"
             }
         ]
     },
     {
-        "name" : "Beef Stew",
+        "name" : "Hovězí guláš",
         "mealTime" : "Dinner",
         "type" : "Main",
         "date" : "2024-09-04",
         "allergens" : 
         [
             {
-                "name": "Meat"
+                "name": "Maso"
             }
         ]
     },
     {
-        "name" : "Creamy Tomato Soup",
+        "name" : "Krémová rajčatová polévka",
         "mealTime" : "Lunch",
         "type" : "Soup",
         "date" : "2024-09-04",
         "allergens" : 
         [
             {
-                "name": "Lactose"
+                "name": "Laktóza"
             },
             {
-                "name": "Gluten"
+                "name": "Lepek"
             }
         ]
     },
     {
-        "name" : "Tofu Salad",
+        "name" : "Tofu salát",
         "mealTime" : "Dinner",
         "type" : "Main",
         "date" : "2024-09-05",
         "allergens" : 
         [
             {
-                "name": "Nuts"
+                "name": "Ořechy"
             }
         ]
     },
     {
-        "name" : "Chicken Noodle Soup",
+        "name" : "Kuřecí nudlová polévka",
         "mealTime" : "Lunch",
         "type" : "Soup",
         "date" : "2024-09-05",
         "allergens" : 
         [
             {
-                "name": "Gluten"
+                "name": "Lepek"
             },
             {
-                "name": "Meat"
+                "name": "Maso"
             },
             {
-                "name": "Eggs"
+                "name": "Vejce"
             }
         ]
     },
     {
-        "name" : "Fish and Chips",
+        "name" : "Ryba s hranolky",
         "mealTime" : "Dinner",
         "type" : "Main",
         "date" : "2024-09-06",
         "allergens" : 
         [
             {
-                "name": "Gluten"
+                "name": "Lepek"
             },
             {
-                "name": "Fish"
+                "name": "Ryby"
             }
         ]
     },
     {
-        "name" : "Pumpkin Soup",
+        "name" : "Dýňová polévka",
         "mealTime" : "Lunch",
         "type" : "Soup",
         "date" : "2024-09-06",
         "allergens" : 
         [
             {
-                "name": "Lactose"
+                "name": "Laktóza"
             }
         ]
     },
     {
-        "name" : "Lamb Curry",
+        "name" : "Jehněčí kari",
         "mealTime" : "Dinner",
         "type" : "Main",
         "date" : "2024-09-07",
         "allergens" : 
         [
             {
-                "name": "Meat"
+                "name": "Maso"
             }
         ]
     },
     {
-        "name" : "Caesar Salad",
+        "name" : "Caesar salát",
         "mealTime" : "Lunch",
         "type" : "Main",
         "date" : "2024-09-07",
         "allergens" : 
         [
             {
-                "name": "Gluten"
+                "name": "Lepek"
             },
             {
-                "name": "Eggs"
+                "name": "Vejce"
             },
             {
-                "name": "Lactose"
+                "name": "Laktóza"
             }
         ]
     },
     {
-        "name" : "Beef Stroganoff",
+        "name" : "Hovězí Stroganoff",
         "mealTime" : "Dinner",
         "type" : "Main",
         "date" : "2024-09-08",
         "allergens" : 
         [
             {
-                "name": "Meat"
+                "name": "Maso"
             },
             {
-                "name": "Lactose"
+                "name": "Laktóza"
             },
             {
-                "name": "Gluten"
+                "name": "Lepek"
             }
         ]
     },
     {
-        "name" : "Miso Soup",
+        "name" : "Miso polévka",
         "mealTime" : "Lunch",
         "type" : "Soup",
         "date" : "2024-09-08",
         "allergens" : 
         [
             {
-                "name": "Gluten"
+                "name": "Lepek"
             },
             {
-                "name": "Fish"
+                "name": "Ryby"
             }
         ]
     },
     {
-        "name" : "Prawn Risotto",
+        "name" : "Rizoto s krevetami",
         "mealTime" : "Dinner",
         "type" : "Main",
         "date" : "2024-09-09",
         "allergens" : 
         [
             {
-                "name": "Gluten"
+                "name": "Lepek"
             },
             {
-                "name": "Fish"
+                "name": "Ryby"
             }
         ]
     }
