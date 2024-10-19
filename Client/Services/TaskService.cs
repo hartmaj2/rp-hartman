@@ -54,6 +54,9 @@ public class Task
 
 }
 
+/// <summary>
+/// Represents whether the task is completed, active or not yet started.
+/// </summary>
 public enum TaskCompletionState
 {
     Completed,
