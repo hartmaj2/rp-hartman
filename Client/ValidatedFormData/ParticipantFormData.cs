@@ -114,7 +114,6 @@ public class ParticipantFormData
             }
             if (ValidBirthNumberAttribute.Instance.IsValid(_birthNumber)) // if the birth number is valid, set the age automatically
             {
-                Console.WriteLine("setting age");
                 Age = BirthNumberToAgeParser.Parse(_birthNumber);
             }            
         } 
