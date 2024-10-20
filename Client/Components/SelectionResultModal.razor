@@ -1,0 +1,28 @@
+@* Modal that shows the result of selecting bugs to report *@
+
+<div> @GetOutputText()</div>
+
+@code
+{
+    [Parameter]
+    public required QuestSelectionResult QuestResult { get; set; }
+
+
+    private string GetOutputText()
+    {
+        switch (QuestResult)
+        {
+            case QuestSelectionResult.Correct:
+                return "Dobrá práce!";
+            case QuestSelectionResult.CompletelyWrong:
+                return "Úplně špatná volba!";
+            case QuestSelectionResult.LessElementsCausingBug:
+                return "Téměř správně, akorát máš vybrané i prvky, které chybu nezpůsobují.";
+            case QuestSelectionResult.MoreElementsCausingBug:
+                return "Jsi na dobré cestě, ale chybu způsobují i nějaké další prvky, které nemáš vybrané.";
+            default:
+                throw new Exception("Wrong quest result");
+        }
+        
+    }
+}

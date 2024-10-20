@@ -39,6 +39,16 @@ public class QuestService
         return AllQuests.First(task => task.TaskId == taskId);
     }
 
+    /// <summary>
+    /// Checks if what elements user selected corresponds to some active task.
+    /// </summary>
+    /// <param name="selectedElemsIds"> List of ids of the selected elements on the page </param>
+    /// <returns> The result of the selection (partially correct, completely incorrect, correct etc.) </returns>
+    public QuestSelectionResult ResolveQuestSelection(IEnumerable<string> selectedElemsIds)
+    {
+        return QuestSelectionResult.Correct;
+    }
+
 }
 
 /// <summary>
@@ -64,6 +74,17 @@ public enum QuestCompletionState
     Completed,
     Active,
     Future
+}
+
+/// <summary>
+/// List of possible results of selection. Used to print custom messages to user.
+/// </summary>
+public enum QuestSelectionResult
+{
+    MoreElementsCausingBug,
+    LessElementsCausingBug,
+    CompletelyWrong,
+    Correct
 }
 
 

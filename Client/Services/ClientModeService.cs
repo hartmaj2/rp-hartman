@@ -12,7 +12,7 @@ public class ClientModeService
     /// <summary>
     /// Triggers when user confirms selection of suspicious elements
     /// </summary>
-    public event Action? OnBugSelectionConfirmedEvent;
+    public event Func<Task>? OnBugSelectionConfirmedEvent;
 
     public ClientModeService()
     {

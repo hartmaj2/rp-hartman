@@ -10,6 +10,7 @@
 <Modal @ref="editParticipantModal"/>
 <Modal @ref="deleteParticipantModal"/>
 <Modal @ref="addParticipantModal"/>
+<Modal @ref="selectionResultModal"/>
 
 @if (@ModeService.CurrentMode == ClientMode.BugReporting)
 {
@@ -117,6 +118,9 @@ else
         }
     }
     
+    /// <summary>
+    /// Keeps track of which ids are selected in bug reporting mode
+    /// </summary>
     private List<string> selectedIds = new();
     private string GetClassFromMode(string elementId)
     {
@@ -127,6 +131,9 @@ else
         return "";
     }
 
+    /// <summary>
+    /// Handles a click on a sorter element depending on the current state
+    /// </summary>
     private void HandleSorterClick(int sorterNum)
     {
         if (ModeService.CurrentMode == ClientMode.Normal)
@@ -162,6 +169,31 @@ else
         SetupBreakableSorter();
     }
 
+    /// <summary>
+    /// Checks the current selection of elements in `selectedIds` array
+    /// </summary>
+    private async Task CheckBrokenElementsSelection()
+    {
+        // check all active quests, if some of the selections is good for some quest, mark the quest as completed
+        QuestSelectionResult result = 
+            QuestService.ResolveQuestSelection
+            (
+                isElementSelected.Where(kvp => kvp.Value == true).Select(kvp => kvp.Key)
+            );
+
+        await ShowSelectionResultModal(result);
+        
+    }
+
+    private Modal selectionResultModal = default!;
+
+    private async Task ShowSelectionResultModal(QuestSelectionResult questSelectionResult)
+    {
+        var parameters = new Dictionary<string,object>();
+        parameters.Add("QuestResult",questSelectionResult);
+        await selectionResultModal.ShowAsync<SelectionResultModal>(title:"Výsledek tvého výběru",parameters:parameters);
+    }
+
     /// END OF BUG FIXING PART
 
     // Stores relative sizes of the table columns (the numbers are used as arguments to the flex css attribute)
@@ -175,6 +207,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         ModeService.OnModeChangedEvent += StateHasChanged;
+        ModeService.OnBugSelectionConfirmedEvent += async() => await CheckBrokenElementsSelection();
         InitializeSelectedElementDictionary();
         InitializeFilteringManager();
         await LoadParticipants();
