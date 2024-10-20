@@ -3,6 +3,7 @@
 @inject HttpClient Http
 @inject AllergenService AllergenService
 @inject ClientModeService ModeService
+@inject QuestService QuestService
 
 <PageTitle> Účastníci </PageTitle>
 
@@ -21,7 +22,7 @@
 }
 else
 {
-    <button @onclick="FixBreakableSorter"> Fix sorter </button>
+    <button @onclick="SetupBreakableSorter"> Fix sorter </button>
 
     <div class="div-table-container">
         <div class="div-table-container-header"> 
@@ -143,13 +144,22 @@ else
     /// BUG FIXING PART
     private static ParticipantSorter<object> breakableSorter = new ParticipantSorter<object>() { KeySelector = participant => participant.Age.ToString(), KeyComparer = new StringSwitchableComparer() };
 
-    public void FixBreakableSorter()
+    private void SetupBreakableSorter()
     {
-        breakableSorter.KeySelector = participant => participant.Age; 
+        Quest thisQuest = QuestService.GetById(QuestId.WrongAgeSorting);
+        
+        if (thisQuest.CompetionState is QuestCompletionState.Completed or QuestCompletionState.Future)
+        {
+            bool lastSortReversed = breakableSorter.KeyComparer.ReverseSort;
+                breakableSorter.KeySelector = participant => participant.Age; 
+                breakableSorter.KeyComparer = new IntegerSwitchableComparer();
+                breakableSorter.KeyComparer.ReverseSort= lastSortReversed;
+        }
+    }
 
-        bool lastSortReversed = breakableSorter.KeyComparer.ReverseSort;
-        breakableSorter.KeyComparer = new IntegerSwitchableComparer();
-        breakableSorter.KeyComparer.ReverseSort= lastSortReversed;
+    private void SetupAllBreakableElements()
+    {
+        SetupBreakableSorter();
     }
 
     /// END OF BUG FIXING PART
@@ -168,6 +178,7 @@ else
         InitializeSelectedElementDictionary();
         InitializeFilteringManager();
         await LoadParticipants();
+        SetupAllBreakableElements();
     }
 
     // Is used OnInitializedAsync and also after deleting a participant so we can see the change immediately

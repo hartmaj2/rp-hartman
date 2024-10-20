@@ -1,15 +1,15 @@
-@inject TaskService TaskService
+@inject QuestService QuestService
 
 <p>
     <h5> Dokončené úkoly </h5>
-    @foreach (var task in TaskService.CompletedTasks)
+    @foreach (var quest in QuestService.CompletedQuests)
     {
-        <label> <input type="checkbox" checked disabled> <s> @task.Description </s> </label>
+        <label> <input type="checkbox" checked disabled> <s> @quest.Description </s> </label>
     }
     <br/> <br/>
     <h5> Aktivní úkoly </h5>
-    @foreach (var task in TaskService.ActiveTasks)
+    @foreach (var quest in QuestService.ActiveQuests)
     {
-        <label> <input type="checkbox" disabled> @task.Description </label>
+        <label> <input type="checkbox" disabled> @quest.Description </label>
     }
 </p>
