@@ -19,3 +19,11 @@
 ## 6.10.2024
 - [x] make selectable items glow and above the overlay when BugReporting mode active
 - [x] make items highlighted green when selected in BugReporting mode 
+
+## 19.10.2024
+- [x] translate all text in the app to Czech
+  - [x] use MealType in MealFormData instead of string (the Client and Server apps are dependent anyway)
+  - [x] then I could get rid of MealService
+- [x] added TaskService class
+  - [x] added Task class to represent a task with its id,description etc.
+  - [x] made a single list of all tasks, CompletedTasks are now a read only property
