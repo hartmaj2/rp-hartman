@@ -35,5 +35,6 @@
 - [ ] implement system for evaluating correct element as bug marking
   - [ ] when clicking exactly the broken elements, the bug will get fixed
   - [ ] add code into the broken component that makes it behave depending on the state of the corresponding task
+- [ ] add bug fixed field to every task which will be something different that task completed (it will be possible to complete the quest without reporting/fixing the bug)
 - [ ] make bug reporting possible in modals
   - [ ] maybe implement custom modal
