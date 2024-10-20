@@ -34,5 +34,6 @@
 
 - [ ] implement system for evaluating correct element as bug marking
   - [ ] when clicking exactly the broken elements, the bug will get fixed
+  - [ ] add code into the broken component that makes it behave depending on the state of the corresponding task
 - [ ] make bug reporting possible in modals
   - [ ] maybe implement custom modal
