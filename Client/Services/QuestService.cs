@@ -1,6 +1,7 @@
 /// <summary>
 /// Tracks the current state of task completion by the user. 
 /// </summary>
+
 public class QuestService
 {
 
@@ -40,12 +41,25 @@ public class QuestService
     }
 
     /// <summary>
+    /// Tells a page element, if the state should be broken or not depending on the quest state
+    /// </summary>
+    /// <param name="taskId"> Id of the quest that the broken element corresponds to </param>
+    /// <returns> True if it should work correctly (is fixed or not yet relevant) </returns>
+    public bool ShouldWorkCorrectly(QuestId taskId)
+    {
+        return GetById(taskId).BugFixed;
+    }
+
+    /// <summary>
     /// Checks if what elements user selected corresponds to some active task.
     /// </summary>
     /// <param name="selectedElemsIds"> List of ids of the selected elements on the page </param>
     /// <returns> The result of the selection (partially correct, completely incorrect, correct etc.) </returns>
-    public QuestSelectionResult ResolveQuestSelection(IEnumerable<string> selectedElemsIds)
+    public QuestSelectionResult ResolveQuestSelection(IEnumerable<string> selectedElemsIds, ClientModeService modeService)
     {
+        Quest completed = GetById(QuestId.WrongAgeSorting);
+        completed.BugFixed = true;
+        modeService.ToggleMode();
         return QuestSelectionResult.Correct;
     }
 
@@ -56,13 +70,15 @@ public class QuestService
 /// </summary>
 public class Quest
 {
-    public required QuestId TaskId { get; set; }
-    public required string PageId { get; set; }
-    public required string Description { get; set; }
+    public required QuestId TaskId { get; init; }
+    public required string PageId { get; init; }
+    public required string Description { get; init; }
 
-    public required List<string> ElementIdsToSelect { get; set; }
+    public required List<string> ElementIdsToSelect { get; init; }
     
     public QuestCompletionState CompetionState { get; set; } = QuestCompletionState.Future;
+
+    public bool BugFixed { get; set; } = false;
 
 }
 
