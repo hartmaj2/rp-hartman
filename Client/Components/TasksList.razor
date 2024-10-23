@@ -17,3 +17,11 @@
     }
 
 </p>
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        ModeService.SubscribeUniqueOnTaskListShownEvent(StateHasChanged);
+    }
+}

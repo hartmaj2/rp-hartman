@@ -16,6 +16,8 @@ public class ClientModeService
     /// </summary>
     public event Func<Task>? OnBugSelectionConfirmedEvent;
 
+    public event Action? OnTaskListShownEvent;
+
     public ClientModeService()
     {
         _currentMode = ClientMode.Normal;
@@ -37,6 +39,12 @@ public class ClientModeService
     {
         OnNotReportEvent = null;
         OnNotReportEvent += handler;
+    }
+
+    public void SubscribeUniqueOnTaskListShownEvent(Action handler)
+    {
+        OnTaskListShownEvent = null;
+        OnTaskListShownEvent += handler;
     }
 
     /// <summary>
@@ -61,6 +69,11 @@ public class ClientModeService
     {
         OnNotReportEvent?.Invoke();
         ToggleMode();
+    }
+
+    public void TriggerOnTaskListShownEvent()
+    {
+        OnTaskListShownEvent?.Invoke();
     }
 }
 

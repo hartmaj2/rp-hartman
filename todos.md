@@ -48,6 +48,11 @@
 
 - [x] fix bug when initializing a component multiple times, the handler subscribed multiple times also
 
+- [x] fix error with task list not rerendering when shown
+  - [x] add corresponding event to ClientModeService
+  - [x] trigger the event when the ShowTaskList button in MainLayout is clicked
+  - [x] subscribe to the event in TaskList component by doing StateHasChanged
+
 
 ## Near future
 

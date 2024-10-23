@@ -41,6 +41,7 @@
 
     private async Task ShowTasksList()
     {
+        ModeService.TriggerOnTaskListShownEvent();
         var parameters = new Dictionary<string, object>();
         await tasksList.ShowAsync<TasksList>(title: "Seznam úkolů:", parameters: parameters);
     }
