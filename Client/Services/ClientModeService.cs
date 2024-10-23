@@ -9,6 +9,8 @@ public class ClientModeService
 
     public event Action? OnModeChangedEvent; // field is nullable, if no subsribers -> null
 
+    public event Action? OnNotReportEvent;
+
     /// <summary>
     /// Triggers when user confirms selection of suspicious elements
     /// </summary>
@@ -19,16 +21,22 @@ public class ClientModeService
         _currentMode = ClientMode.Normal;
     }
 
-    public void SubscribeSingleOnModeChanged(Action handler)
+    public void SubscribeUniqueOnModeChanged(Action handler)
     {
         OnModeChangedEvent = null;
         OnModeChangedEvent += handler;
     }
 
-    public void SubscribeSingleOnSelectionConfirmed(Func<Task> handler)
+    public void SubscribeUniqueOnSelectionConfirmed(Func<Task> handler)
     {
         OnBugSelectionConfirmedEvent = null;
         OnBugSelectionConfirmedEvent += handler;
+    }
+
+    public void SubscribeUniqueOnNotReportEvent(Action handler)
+    {
+        OnNotReportEvent = null;
+        OnNotReportEvent += handler;
     }
 
     /// <summary>
@@ -47,6 +55,12 @@ public class ClientModeService
     {
         Console.WriteLine("event triggered");
         OnBugSelectionConfirmedEvent?.Invoke();
+        ToggleMode();
+    }
+
+    public void NotReportBug()
+    {
+        OnNotReportEvent?.Invoke();
         ToggleMode();
     }
 }

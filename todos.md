@@ -51,6 +51,8 @@
 
 ## Near future
 
+- [x] fix error with not reseting selection when choosing not to report
+
 - [ ] add more details into message after correctly reporting a bug
   - [ ] what was the problem exactly (some educational content)
   - [ ] what task will it help resolve
