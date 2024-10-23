@@ -65,6 +65,14 @@ public class QuestService
     /// <returns> The result of the selection (partially correct, completely incorrect, correct etc.) </returns>
     public BugSelectionResult ResolveQuestSelection(IEnumerable<string> selectedElemsIds)
     {
+        
+        Quest active = ActiveQuest;
+
+        // user already found the bug corresponding to the active quest
+        if (active.BugFixed)
+        {
+            return BugSelectionResult.BugAlreadyFound;
+        }
 
         // The user clicked on confirm selection without having anything selected
         if (!selectedElemsIds.Any())
@@ -72,8 +80,6 @@ public class QuestService
             return BugSelectionResult.NothingSelected;
         }
 
-        Quest active = ActiveQuest;
-        
         // check if for all elements it is true, that the target ids of the active tasks contains such an id
         bool allSelectedInTarget = selectedElemsIds.All(active.TargetIds.Contains);
         bool allTargetInSelected = active.TargetIds.All(selectedElemsIds.Contains);
@@ -137,7 +143,8 @@ public enum BugSelectionResult
     LessElementsCausingBug,
     CompletelyWrong,
     Correct,
-    NothingSelected
+    NothingSelected,
+    BugAlreadyFound
 }
 
 

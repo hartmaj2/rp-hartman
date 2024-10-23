@@ -17,7 +17,8 @@
             BugSelectionResult.CompletelyWrong => "Špatná volba!",
             BugSelectionResult.Correct => "Dobrá práce!",
             BugSelectionResult.NothingSelected => "Nemáš vybrané žádné prvky!",
-            _ => throw new Exception("Invalid BugSelectionResult enum")
+            BugSelectionResult.BugAlreadyFound => "Chybu pro tento úkol máš nahlášenou!",
+            _ => throw new Exception("Uncovered BugSelectionResult enum by a switch statement")
         };
         
     }
