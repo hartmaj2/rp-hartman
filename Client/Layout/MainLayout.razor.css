@@ -63,7 +63,6 @@ main {
     .top-row {
         position: sticky;
         top: 0;
-        z-index: 100;
     }
 
     .top-row.auth ::deep a:first-child {
