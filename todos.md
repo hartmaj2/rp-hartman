@@ -42,8 +42,11 @@
 - [x] implement system for evaluating if selected elements really cause the bug
   - [x] when clicking exactly the broken elements, the bug will get fixed (for the task, the bugfixed field will be set to true)
   - [x] add code into the broken component that makes it behave depending on the state of the corresponding task
+
 - [x] add score 
 - [x] add message to task list saying that the bug for active quest was reported successfuly
+
+- [x] fix bug when initializing a component multiple times, the handler subscribed multiple times also
 
 
 ## Near future
