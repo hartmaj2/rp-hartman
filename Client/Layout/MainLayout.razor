@@ -15,6 +15,7 @@
             @if (@ModeService.CurrentMode == ClientMode.Normal)
             {
                 <button class="btn btn-danger" @onclick="()=>ModeService.ToggleMode()" > Nahlásit chybu </button>
+                <button class="btn btn-success" @onclick="()=>Console.WriteLine(42)" > Ověřit splnění aktivního úkolu </button>
                 <button class="btn btn-info" @onclick="ShowTasksList"> Seznam úkolů </button>
             }
             else 
