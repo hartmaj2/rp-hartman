@@ -10,20 +10,23 @@
     </div>
 
     <main>
+        <div class="top-row">
 
-        <div class="top-row px-4 button-right-container">
+            <div class="score-div"> Score:&nbsp;@qs.Score </div>
 
-            @if (@ModeService.CurrentMode == ClientMode.Normal)
-            {
-                <button class="btn btn-danger" @onclick="()=>ModeService.ToggleMode()" > Nahlásit chybu </button>
-                <button class="btn btn-success" @onclick="ShouldWork" > Ověřit splnění aktivního úkolu </button>
-                <button class="btn btn-info" @onclick="ShowTasksList"> Seznam úkolů </button>
-            }
-            else 
-            {
-                <button class="btn btn-success" @onclick="()=>ModeService.ConfirmBugSelection()"> Potvrdit výběr </button>
-                <button class="btn btn-info btn-forward" @onclick="()=>ModeService.ToggleMode()" > Nenahlašovat </button>
-            }
+            <div class="button-right-container">
+                @if (@ModeService.CurrentMode == ClientMode.Normal)
+                {
+                    <button class="btn btn-danger" @onclick="()=>ModeService.ToggleMode()" > Nahlásit chybu </button>
+                    <button class="btn btn-success" @onclick="ShouldWork" > Ověřit splnění aktivního úkolu </button>
+                    <button class="btn btn-info" @onclick="ShowTasksList"> Seznam úkolů </button>
+                }
+                else 
+                {
+                    <button class="btn btn-success" @onclick="()=>ModeService.ConfirmBugSelection()"> Potvrdit výběr </button>
+                    <button class="btn btn-info btn-forward" @onclick="()=>ModeService.ToggleMode()" > Nenahlašovat </button>
+                }
+            </div>
         </div>
 
         <article class="content px-4">
