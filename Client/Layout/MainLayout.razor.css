@@ -19,6 +19,8 @@ main {
     height: 3.5rem;
     display: flex;
     align-items: center;
+    position:relative;
+    z-index: 100;
 }
 
     .top-row ::deep a, .top-row ::deep .btn-link {
