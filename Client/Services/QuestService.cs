@@ -9,7 +9,7 @@ public class QuestService
     public Quest ActiveQuest => AllQuests.Where(quest => quest.CompetionState== QuestCompletionState.Active).First();
     public IEnumerable<Quest> FutureQuests => AllQuests.Where(quest => quest.CompetionState == QuestCompletionState.Future);
 
-    private int _score = 0;
+    private int _score = 10;
 
     public int Score 
     { 
@@ -65,7 +65,7 @@ public class QuestService
     /// <returns> The result of the selection (partially correct, completely incorrect, correct etc.) </returns>
     public BugSelectionResult ResolveQuestSelection(IEnumerable<string> selectedElemsIds)
     {
-        
+
         Quest active = ActiveQuest;
 
         // user already found the bug corresponding to the active quest
