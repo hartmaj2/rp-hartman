@@ -202,7 +202,7 @@ else
     private async Task ShowSelectionResultModal(BugSelectionResult questSelectionResult)
     {
         var parameters = new Dictionary<string,object>();
-        parameters.Add("QuestResult",questSelectionResult);
+        parameters.Add("BugSelectionResult",questSelectionResult);
         await selectionResultModal.ShowAsync<SelectionResultModal>(title:"Výsledek tvého výběru",parameters:parameters);
     }
 

@@ -65,8 +65,12 @@ public class QuestService
     /// <returns> The result of the selection (partially correct, completely incorrect, correct etc.) </returns>
     public BugSelectionResult ResolveQuestSelection(IEnumerable<string> selectedElemsIds)
     {
-        // Quest completed = GetById(QuestId.WrongAgeSorting);
-        // completed.BugFixed = true;
+
+        // The user clicked on confirm selection without having anything selected
+        if (!selectedElemsIds.Any())
+        {
+            return BugSelectionResult.NothingSelected;
+        }
 
         Quest active = ActiveQuest;
         
@@ -132,7 +136,8 @@ public enum BugSelectionResult
     MoreElementsCausingBug,
     LessElementsCausingBug,
     CompletelyWrong,
-    Correct
+    Correct,
+    NothingSelected
 }
 
 

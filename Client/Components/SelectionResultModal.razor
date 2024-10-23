@@ -5,24 +5,20 @@
 @code
 {
     [Parameter]
-    public required BugSelectionResult QuestResult { get; set; }
+    public required BugSelectionResult BugSelectionResult { get; set; }
 
 
     private string GetOutputText()
     {
-        switch (QuestResult)
+        return BugSelectionResult switch 
         {
-            case BugSelectionResult.Correct:
-                return "Dobrá práce!";
-            case BugSelectionResult.CompletelyWrong:
-                return "Špatná volba!";
-            case BugSelectionResult.LessElementsCausingBug:
-                return "Pozor! Máš vybrané i prvky, které chybu nezpůsobují.";
-            case BugSelectionResult.MoreElementsCausingBug:
-                return "Jsi na dobré cestě, ale chybu způsobují i nějaké další prvky, které nemáš vybrané.";
-            default:
-                throw new Exception("Wrong quest result");
-        }
+            BugSelectionResult.MoreElementsCausingBug => "Jsi na dobré cestě, ale chybu způsobují i nějaké další prvky, které nemáš vybrané.",
+            BugSelectionResult.LessElementsCausingBug => "Pozor! Máš vybrané i prvky, které chybu nezpůsobují.",
+            BugSelectionResult.CompletelyWrong => "Špatná volba!",
+            BugSelectionResult.Correct => "Dobrá práce!",
+            BugSelectionResult.NothingSelected => "Nemáš vybrané žádné prvky!",
+            _ => throw new Exception("Invalid BugSelectionResult enum")
+        };
         
     }
 }
