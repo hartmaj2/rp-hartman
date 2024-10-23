@@ -189,7 +189,7 @@ else
             (
                 isElementSelected.Where(kvp => kvp.Value == true).Select(kvp => kvp.Key)
             );
-        Console.WriteLine("handler handling");
+        
         ResetElementsSelection();
         SetupAllBreakableElements();
         await ShowSelectionResultModal(result);
@@ -215,22 +215,9 @@ else
 
     // Add all filters to the list
     // Get a list of all participants
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        if (firstRender)
-        {
-            Console.WriteLine("first render");
-        }
-        else
-        {
-            Console.WriteLine("another render");
-        }
-    }
-
     protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine("on initialized");
+        
         ModeService.SubscribeUniqueOnModeChanged(StateHasChanged);
         ModeService.SubscribeUniqueOnSelectionConfirmed(async() => await CheckBrokenElementsSelection());
         ModeService.SubscribeUniqueOnNotReportEvent(ResetElementsSelection);
