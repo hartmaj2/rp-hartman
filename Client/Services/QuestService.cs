@@ -1,7 +1,6 @@
 /// <summary>
 /// Tracks the current state of task completion by the user. 
 /// </summary>
-
 public class QuestService
 {
 
@@ -21,7 +20,7 @@ public class QuestService
                 TaskId = QuestId.DefaultQuest,
                 Description = "Přečti si úvodní text",
                 PageId = "root-page",
-                ElementIdsToSelect = new List<string> {},
+                TargetIds = new List<string> {},
                 CompetionState = QuestCompletionState.Completed,
             },
             new Quest 
@@ -29,7 +28,7 @@ public class QuestService
                 TaskId = QuestId.WrongAgeSorting,
                 Description = "Najdi jména pěti nejstarších účastníků tábora",
                 PageId = "all-participants",
-                ElementIdsToSelect = new List<string> {"age-sorter"},
+                TargetIds = new List<string> {"age-sorter"},
                 CompetionState = QuestCompletionState.Active,
             },
         };
@@ -55,12 +54,32 @@ public class QuestService
     /// </summary>
     /// <param name="selectedElemsIds"> List of ids of the selected elements on the page </param>
     /// <returns> The result of the selection (partially correct, completely incorrect, correct etc.) </returns>
-    public QuestSelectionResult ResolveQuestSelection(IEnumerable<string> selectedElemsIds, ClientModeService modeService)
+    public QuestSelectionResult ResolveQuestSelection(IEnumerable<string> selectedElemsIds)
     {
-        Quest completed = GetById(QuestId.WrongAgeSorting);
-        completed.BugFixed = true;
-        modeService.ToggleMode();
-        return QuestSelectionResult.Correct;
+        // Quest completed = GetById(QuestId.WrongAgeSorting);
+        // completed.BugFixed = true;
+
+        Quest active = ActiveQuests.First();
+        
+        // check if for all elements it is true, that the target ids of the active tasks contains such an id
+        bool allSelectedInTarget = selectedElemsIds.All(active.TargetIds.Contains);
+        bool allTargetInSelected = active.TargetIds.All(selectedElemsIds.Contains);
+
+        if (allSelectedInTarget && allTargetInSelected)
+        {
+            active.BugFixed = true;
+            return QuestSelectionResult.Correct;
+        }
+        if (allSelectedInTarget)
+        {
+            return QuestSelectionResult.MoreElementsCausingBug;
+        }
+        if (allTargetInSelected)
+        {
+            return QuestSelectionResult.LessElementsCausingBug;
+        }
+        return QuestSelectionResult.CompletelyWrong;
+
     }
 
 }
@@ -74,7 +93,7 @@ public class Quest
     public required string PageId { get; init; }
     public required string Description { get; init; }
 
-    public required List<string> ElementIdsToSelect { get; init; }
+    public required List<string> TargetIds { get; init; }
     
     public QuestCompletionState CompetionState { get; set; } = QuestCompletionState.Future;
 

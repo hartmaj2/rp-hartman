@@ -170,6 +170,14 @@ else
         SetupBreakableSorter();
     }
 
+    private void ResetElementsSelection()
+    {
+        foreach (var kvp in isElementSelected)
+        {
+            isElementSelected[kvp.Key] = false;
+        }
+    }
+
     /// <summary>
     /// Checks the current selection of elements in `selectedIds` array
     /// </summary>
@@ -179,10 +187,11 @@ else
         QuestSelectionResult result = 
             QuestService.ResolveQuestSelection
             (
-                isElementSelected.Where(kvp => kvp.Value == true).Select(kvp => kvp.Key),
-                ModeService
+                isElementSelected.Where(kvp => kvp.Value == true).Select(kvp => kvp.Key)
             );
 
+        ModeService.ToggleMode();
+        ResetElementsSelection();
         SetupAllBreakableElements();
         await ShowSelectionResultModal(result);
         

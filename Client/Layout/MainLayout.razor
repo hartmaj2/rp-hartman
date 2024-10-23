@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject ClientModeService ModeService
+@inject QuestService qs
 
 <Offcanvas @ref="tasksList"/>
 
@@ -15,7 +16,7 @@
             @if (@ModeService.CurrentMode == ClientMode.Normal)
             {
                 <button class="btn btn-danger" @onclick="()=>ModeService.ToggleMode()" > Nahlásit chybu </button>
-                <button class="btn btn-success" @onclick="()=>Console.WriteLine(42)" > Ověřit splnění aktivního úkolu </button>
+                <button class="btn btn-success" @onclick="ShouldWork" > Ověřit splnění aktivního úkolu </button>
                 <button class="btn btn-info" @onclick="ShowTasksList"> Seznam úkolů </button>
             }
             else 
@@ -39,5 +40,15 @@
     {
         var parameters = new Dictionary<string, object>();
         await tasksList.ShowAsync<TasksList>(title: "Seznam úkolů:", parameters: parameters);
+    }
+
+    private void ShouldWork()
+    {
+        if (qs.ShouldWorkCorrectly(QuestId.WrongAgeSorting))
+        {
+            Console.WriteLine("It should work");
+            return;
+        }
+        Console.WriteLine("It is still broken");
     }
 }
