@@ -54,7 +54,7 @@ public class QuestService
     /// </summary>
     /// <param name="selectedElemsIds"> List of ids of the selected elements on the page </param>
     /// <returns> The result of the selection (partially correct, completely incorrect, correct etc.) </returns>
-    public QuestSelectionResult ResolveQuestSelection(IEnumerable<string> selectedElemsIds)
+    public BugSelectionResult ResolveQuestSelection(IEnumerable<string> selectedElemsIds)
     {
         // Quest completed = GetById(QuestId.WrongAgeSorting);
         // completed.BugFixed = true;
@@ -68,17 +68,17 @@ public class QuestService
         if (allSelectedInTarget && allTargetInSelected)
         {
             active.BugFixed = true;
-            return QuestSelectionResult.Correct;
+            return BugSelectionResult.Correct;
         }
         if (allSelectedInTarget)
         {
-            return QuestSelectionResult.MoreElementsCausingBug;
+            return BugSelectionResult.MoreElementsCausingBug;
         }
         if (allTargetInSelected)
         {
-            return QuestSelectionResult.LessElementsCausingBug;
+            return BugSelectionResult.LessElementsCausingBug;
         }
-        return QuestSelectionResult.CompletelyWrong;
+        return BugSelectionResult.CompletelyWrong;
 
     }
 
@@ -114,7 +114,7 @@ public enum QuestCompletionState
 /// <summary>
 /// List of possible results of selection. Used to print custom messages to user.
 /// </summary>
-public enum QuestSelectionResult
+public enum BugSelectionResult
 {
     MoreElementsCausingBug,
     LessElementsCausingBug,

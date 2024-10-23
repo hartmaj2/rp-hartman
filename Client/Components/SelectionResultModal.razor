@@ -5,20 +5,20 @@
 @code
 {
     [Parameter]
-    public required QuestSelectionResult QuestResult { get; set; }
+    public required BugSelectionResult QuestResult { get; set; }
 
 
     private string GetOutputText()
     {
         switch (QuestResult)
         {
-            case QuestSelectionResult.Correct:
+            case BugSelectionResult.Correct:
                 return "Dobrá práce!";
-            case QuestSelectionResult.CompletelyWrong:
+            case BugSelectionResult.CompletelyWrong:
                 return "Špatná volba!";
-            case QuestSelectionResult.LessElementsCausingBug:
+            case BugSelectionResult.LessElementsCausingBug:
                 return "Pozor! Máš vybrané i prvky, které chybu nezpůsobují.";
-            case QuestSelectionResult.MoreElementsCausingBug:
+            case BugSelectionResult.MoreElementsCausingBug:
                 return "Jsi na dobré cestě, ale chybu způsobují i nějaké další prvky, které nemáš vybrané.";
             default:
                 throw new Exception("Wrong quest result");

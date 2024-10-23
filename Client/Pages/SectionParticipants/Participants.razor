@@ -184,7 +184,7 @@ else
     private async Task CheckBrokenElementsSelection()
     {
         // check all active quests, if some of the selections is good for some quest, mark the quest as completed
-        QuestSelectionResult result = 
+        BugSelectionResult result = 
             QuestService.ResolveQuestSelection
             (
                 isElementSelected.Where(kvp => kvp.Value == true).Select(kvp => kvp.Key)
@@ -199,7 +199,7 @@ else
 
     private Modal selectionResultModal = default!;
 
-    private async Task ShowSelectionResultModal(QuestSelectionResult questSelectionResult)
+    private async Task ShowSelectionResultModal(BugSelectionResult questSelectionResult)
     {
         var parameters = new Dictionary<string,object>();
         parameters.Add("QuestResult",questSelectionResult);
