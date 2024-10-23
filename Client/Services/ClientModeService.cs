@@ -53,7 +53,6 @@ public class ClientModeService
     /// </summary>
     public void ConfirmBugSelection()
     {
-        Console.WriteLine("event triggered");
         OnBugSelectionConfirmedEvent?.Invoke();
         ToggleMode();
     }
