@@ -4,12 +4,21 @@
 public class QuestService
 {
 
-    public IEnumerable<Quest> AllQuests { get; set; }
+    public IEnumerable<Quest> AllQuests { get; init; }
     public IEnumerable<Quest> CompletedQuests => AllQuests.Where(quest => quest.CompetionState == QuestCompletionState.Completed);
     public Quest ActiveQuest => AllQuests.Where(quest => quest.CompetionState== QuestCompletionState.Active).First();
     public IEnumerable<Quest> FutureQuests => AllQuests.Where(quest => quest.CompetionState == QuestCompletionState.Future);
 
-    public int Score { get; set; }
+    private int _score = 0;
+
+    public int Score 
+    { 
+        get => _score;  
+        private set
+        {
+            _score = Math.Max(0,value);
+        }
+    }
 
     public QuestService()
     {
@@ -68,16 +77,20 @@ public class QuestService
         if (allSelectedInTarget && allTargetInSelected)
         {
             active.BugFixed = true;
+            Score += 5;
             return BugSelectionResult.Correct;
         }
         if (allSelectedInTarget)
         {
+            Score -= 1;
             return BugSelectionResult.MoreElementsCausingBug;
         }
         if (allTargetInSelected)
         {
+            Score -= 1;
             return BugSelectionResult.LessElementsCausingBug;
         }
+        Score -= 2;
         return BugSelectionResult.CompletelyWrong;
 
     }
