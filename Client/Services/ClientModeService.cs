@@ -19,6 +19,18 @@ public class ClientModeService
         _currentMode = ClientMode.Normal;
     }
 
+    public void SubscribeSingleOnModeChanged(Action handler)
+    {
+        OnModeChangedEvent = null;
+        OnModeChangedEvent += handler;
+    }
+
+    public void SubscribeSingleOnSelectionConfirmed(Func<Task> handler)
+    {
+        OnBugSelectionConfirmedEvent = null;
+        OnBugSelectionConfirmedEvent += handler;
+    }
+
     /// <summary>
     /// Flips the mode to the other one
     /// </summary>
@@ -33,6 +45,7 @@ public class ClientModeService
     /// </summary>
     public void ConfirmBugSelection()
     {
+        Console.WriteLine("event triggered");
         OnBugSelectionConfirmedEvent?.Invoke();
         ToggleMode();
     }

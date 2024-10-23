@@ -217,8 +217,8 @@ else
     // Get a list of all participants
     protected override async Task OnInitializedAsync()
     {
-        ModeService.OnModeChangedEvent += StateHasChanged;
-        ModeService.OnBugSelectionConfirmedEvent += async() => await CheckBrokenElementsSelection();
+        ModeService.SubscribeSingleOnModeChanged(StateHasChanged);
+        ModeService.SubscribeSingleOnSelectionConfirmed(async() => await CheckBrokenElementsSelection());
         InitializeSelectedElementDictionary();
         InitializeFilteringManager();
         await LoadParticipants();
