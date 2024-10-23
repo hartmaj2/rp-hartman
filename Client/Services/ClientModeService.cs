@@ -34,6 +34,7 @@ public class ClientModeService
     public void ConfirmBugSelection()
     {
         OnBugSelectionConfirmedEvent?.Invoke();
+        ToggleMode();
     }
 }
 

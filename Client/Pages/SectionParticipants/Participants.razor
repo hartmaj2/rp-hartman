@@ -190,7 +190,6 @@ else
                 isElementSelected.Where(kvp => kvp.Value == true).Select(kvp => kvp.Key)
             );
 
-        ModeService.ToggleMode();
         ResetElementsSelection();
         SetupAllBreakableElements();
         await ShowSelectionResultModal(result);
