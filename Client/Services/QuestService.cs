@@ -6,7 +6,7 @@ public class QuestService
 
     public IEnumerable<Quest> AllQuests { get; set; }
     public IEnumerable<Quest> CompletedQuests => AllQuests.Where(quest => quest.CompetionState == QuestCompletionState.Completed);
-    public IEnumerable<Quest> ActiveQuests => AllQuests.Where(quest => quest.CompetionState == QuestCompletionState.Active);
+    public Quest ActiveQuest => AllQuests.Where(quest => quest.CompetionState== QuestCompletionState.Active).First();
     public IEnumerable<Quest> FutureQuests => AllQuests.Where(quest => quest.CompetionState == QuestCompletionState.Future);
 
     public int Score { get; set; }
@@ -59,7 +59,7 @@ public class QuestService
         // Quest completed = GetById(QuestId.WrongAgeSorting);
         // completed.BugFixed = true;
 
-        Quest active = ActiveQuests.First();
+        Quest active = ActiveQuest;
         
         // check if for all elements it is true, that the target ids of the active tasks contains such an id
         bool allSelectedInTarget = selectedElemsIds.All(active.TargetIds.Contains);

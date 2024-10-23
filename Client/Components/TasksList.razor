@@ -7,9 +7,7 @@
         <label> <input type="checkbox" checked disabled> <s> @quest.Description </s> </label>
     }
     <br/> <br/>
-    <h5> Aktivní úkoly </h5>
-    @foreach (var quest in QuestService.ActiveQuests)
-    {
-        <label> <input type="checkbox" disabled> @quest.Description </label>
-    }
+    <h5> Aktivní úkol </h5>
+    <label> <input type="checkbox" disabled> @QuestService.ActiveQuest.Description </label>
+
 </p>
