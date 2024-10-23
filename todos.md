@@ -42,9 +42,15 @@
 - [x] implement system for evaluating if selected elements really cause the bug
   - [x] when clicking exactly the broken elements, the bug will get fixed (for the task, the bugfixed field will be set to true)
   - [x] add code into the broken component that makes it behave depending on the state of the corresponding task
+- [x] add score 
+- [x] add message to task list saying that the bug for active quest was reported successfuly
 
 
 ## Near future
+
+- [ ] add more details into message after correctly reporting a bug
+  - [ ] what was the problem exactly (some educational content)
+  - [ ] what task will it help resolve
 
 - [ ] make bug reporting possible in modals
   - [ ] maybe implement custom modal
