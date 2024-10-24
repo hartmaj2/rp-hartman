@@ -23,10 +23,7 @@
                     <div> @meal.Name </div>
                     <div> @meal.Type.ToCustomString() </div>
                     <div>
-                        @foreach( var allergen in meal.Allergens)
-                        {
-                            <span> @allergen.Name,  </span>
-                        }
+                            <span>@string.Join(", ",meal.Allergens.Select(a => a.Name))</span>
                     </div>
                     <div class="justify-center-col" > @meal.Orders!.Count </div>
                     <div class="button-right-container">

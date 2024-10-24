@@ -54,10 +54,7 @@
                             <div style="flex:1"> @participant.FirstName </div>
                             <div style="flex:1" > @participant.LastName </div>
                             <div style="flex:1" >
-                                @foreach(var diet in participant.Diets)
-                                {
-                                    <span> @diet.Name,  </span>
-                                }
+                                <span>@string.Join(", ",participant.Diets.Select(d => d.Name))</span>
                             </div>
                             <div class="button-right-container" style="flex:1"> <button class="btn btn-primary" @onclick="() => ShowEditDietsModalAsync(participant)"> Upravit diety </button> </div>
                             
