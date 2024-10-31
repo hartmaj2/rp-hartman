@@ -4,6 +4,10 @@
 public class QuestService
 {
 
+    private const int POINTS_CORRECT_REPORT = 5;
+    private const int POINTS_PARTIALLY_INCORRECT = -1;
+    private const int POINTS_COMPLETELY_INCORRECT = -2;
+
     public IEnumerable<Quest> AllQuests { get; init; }
     public IEnumerable<Quest> CompletedQuests => AllQuests.Where(quest => quest.CompetionState == QuestCompletionState.Completed);
     public Quest ActiveQuest => AllQuests.Where(quest => quest.CompetionState== QuestCompletionState.Active).First();
@@ -87,20 +91,20 @@ public class QuestService
         if (allSelectedInTarget && allTargetInSelected)
         {
             active.BugFixed = true;
-            Score += 5;
+            Score += POINTS_CORRECT_REPORT;
             return BugSelectionResult.Correct;
         }
         if (allSelectedInTarget)
         {
-            Score -= 1;
+            Score += POINTS_PARTIALLY_INCORRECT;
             return BugSelectionResult.MoreElementsCausingBug;
         }
         if (allTargetInSelected)
         {
-            Score -= 1;
+            Score += POINTS_PARTIALLY_INCORRECT;
             return BugSelectionResult.LessElementsCausingBug;
         }
-        Score -= 2;
+        Score += POINTS_COMPLETELY_INCORRECT;
         return BugSelectionResult.CompletelyWrong;
 
     }
