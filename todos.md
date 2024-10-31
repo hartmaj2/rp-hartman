@@ -55,12 +55,14 @@
 
 ## 31.10.2024
 
-- [ ] after correctly reporting a bug:
+- [x] after correctly reporting a bug:
   - [ ] say name of the bug (what was the bug)
-  - [ ] state that it was fixed
-  - [ ] how many points increased
-- [ ] incorrectly reporting:
-  - [ ] how many points decreased
+  - [x] state that it was fixed
+  - [x] how many points increased
+- [x] incorrectly reporting:
+  - [x] how many points decreased
+
+- [ ] think about more quests to be done with corresponding bugs
 
 ## Near future
 
