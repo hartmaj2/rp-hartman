@@ -205,7 +205,8 @@ else
         var parameters = new Dictionary<string,object>();
         parameters.Add("BugSelectionResult",questSelectionResult);
         parameters.Add("ActiveQuest",activeQuest);
-        await selectionResultModal.ShowAsync<SelectionResultModal>(title:"Výsledek tvého výběru",parameters:parameters);
+        string titleWithScore = QuestService.GetPointsUpdateText(QuestService.GetPointIncrease(questSelectionResult));
+        await selectionResultModal.ShowAsync<SelectionResultModal>(title:titleWithScore,parameters:parameters);
     }
 
     /// END OF BUG FIXING PART

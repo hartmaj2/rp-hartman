@@ -1,12 +1,15 @@
+using BlazorBootstrap;
+
+
 /// <summary>
 /// Tracks the current state of task completion by the user. 
 /// </summary>
 public class QuestService
 {
 
-    private const int POINTS_CORRECT_REPORT = 5;
-    private const int POINTS_PARTIALLY_INCORRECT = -1;
-    private const int POINTS_COMPLETELY_INCORRECT = -2;
+    private const int CORRECT_SELECTIONS_POINTS_GAIN = 5;
+    private const int PARTIALLY_INCORRECT_POINTS_GAIN = -1;
+    private const int COMPLETELY_INCORRECT_POINTS_GAIN = -2;
 
     public IEnumerable<Quest> AllQuests { get; init; }
     public IEnumerable<Quest> CompletedQuests => AllQuests.Where(quest => quest.CompetionState == QuestCompletionState.Completed);
@@ -64,11 +67,28 @@ public class QuestService
     }
 
     /// <summary>
-    /// Checks if what elements user selected corresponds to some active task.
+    /// Returns what result the bug selection corresponds do while also adjusting score and the fact, whether the bug of active quest was fixed
     /// </summary>
     /// <param name="selectedElemsIds"> List of ids of the selected elements on the page </param>
     /// <returns> The result of the selection (partially correct, completely incorrect, correct etc.) </returns>
     public BugSelectionResult ResolveQuestSelection(IEnumerable<string> selectedElemsIds, Quest activeQuest)
+    {
+        BugSelectionResult result = GetBugSelectionResult(selectedElemsIds,activeQuest);
+        if (result == BugSelectionResult.Correct)
+        {
+            activeQuest.BugFixed = true;
+        }
+        Score += GetPointIncrease(result);
+        return result;
+    }
+
+    /// <summary>
+    /// Returs what result this bug selection corresponds to without doing any side effects
+    /// </summary>
+    /// <param name="selectedElemsIds"></param>
+    /// <param name="activeQuest"></param>
+    /// <returns> The result of the selection (partially correct, completely incorrect, correct etc.) </returns>
+    public BugSelectionResult GetBugSelectionResult(IEnumerable<string> selectedElemsIds, Quest activeQuest)
     {
 
         // user already found the bug corresponding to the active quest
@@ -89,23 +109,80 @@ public class QuestService
 
         if (allSelectedInTarget && allTargetInSelected)
         {
-            activeQuest.BugFixed = true;
-            Score += POINTS_CORRECT_REPORT;
             return BugSelectionResult.Correct;
         }
         if (allSelectedInTarget)
         {
-            Score += POINTS_PARTIALLY_INCORRECT;
             return BugSelectionResult.MoreElementsCausingBug;
         }
         if (allTargetInSelected)
         {
-            Score += POINTS_PARTIALLY_INCORRECT;
             return BugSelectionResult.LessElementsCausingBug;
         }
-        Score += POINTS_COMPLETELY_INCORRECT;
         return BugSelectionResult.CompletelyWrong;
 
+    }
+
+    /// <summary>
+    /// Returns what text should be shown to user according to the result of their selection
+    /// </summary>
+    /// <param name="selectionResult"> The result of users selection </param>
+    /// <returns> The text to be printed to the user </returns>
+    /// <exception cref="Exception"> If the selectionResult is invalid </exception>
+    public string GetTextForSelectionResult(BugSelectionResult selectionResult)
+    {
+        return selectionResult switch 
+        {
+            BugSelectionResult.MoreElementsCausingBug => "Jsi na dobré cestě, ale chybu způsobují i nějaké další prvky, které nemáš vybrané.",
+            BugSelectionResult.LessElementsCausingBug => "Pozor! Máš vybrané i prvky, které chybu nezpůsobují.",
+            BugSelectionResult.CompletelyWrong => "Špatná volba!",
+            BugSelectionResult.Correct => "Dobrá práce!",
+            BugSelectionResult.NothingSelected => "Nemáš vybrané žádné prvky!",
+            BugSelectionResult.BugAlreadyFound => "Chybu pro tento úkol už máš nahlášenou!",
+            _ => throw new Exception("Uncovered BugSelectionResult enum by a switch statement")
+        };
+    }
+
+    /// <summary>
+    /// Calculates points increase based on the result of the bug selection
+    /// </summary>
+    /// <param name="selectionResult"> The result of users selection </param>
+    /// <returns> The amount of points the user should get </returns>
+    /// <exception cref="Exception"> If the selectionResult is invalid </exception>
+    public int GetPointIncrease(BugSelectionResult selectionResult)
+    {
+        return selectionResult switch
+        {
+            BugSelectionResult.Correct => CORRECT_SELECTIONS_POINTS_GAIN,
+            BugSelectionResult.MoreElementsCausingBug => PARTIALLY_INCORRECT_POINTS_GAIN,
+            BugSelectionResult.LessElementsCausingBug => PARTIALLY_INCORRECT_POINTS_GAIN,
+            BugSelectionResult.CompletelyWrong => COMPLETELY_INCORRECT_POINTS_GAIN,
+            BugSelectionResult.NothingSelected => 0,
+            BugSelectionResult.BugAlreadyFound => 0,
+            _ => throw new Exception("Wrong selection result argument"),
+        };
+    }
+
+    /// <summary>
+    /// Returns the text that should be shown to user when their score updated by pointsGain
+    /// </summary>
+    /// <param name="pointsGain"> How many points the user gains </param>
+    /// <returns> The text to be printed to user </returns>
+    public string GetPointsUpdateText(int pointsGain)
+    {
+        
+        if (pointsGain == 0)
+        {
+            return "Neztrácíš ani nezískáváš žádné body.";
+        }
+        string text = "";
+        if (pointsGain < 0) text = "Ztrácíš";
+        else if (pointsGain > 0) text = "Získáváš";
+        text += " " + Math.Abs(pointsGain) + " ";
+        if (Math.Abs(pointsGain) == 1) text += "bod.";
+        else if (Math.Abs(pointsGain) == 2 || Math.Abs(pointsGain) == 3 || Math.Abs(pointsGain) == 4) text += "body.";
+        else text += "bodů.";
+        return text;
     }
 
 }

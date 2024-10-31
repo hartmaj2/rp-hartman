@@ -1,6 +1,15 @@
 @* Modal that shows the result of selecting bugs to report *@
 
-<div> @GetOutputText()</div>
+@inject QuestService QuestService
+
+<h4> @GetOutputText()</h4>
+
+@if (BugSelectionResult == BugSelectionResult.Correct)
+{
+    <br/>
+    <h6> Co bylo špatně: </h6>
+    <div> @ActiveQuest.BugDescription </div>
+}
 
 @code
 {
@@ -14,16 +23,6 @@
     /// TODO: FINISH THIS PIECE OF CODE (SHOW BUG DESCRIPTION FOR THE ACTIVE TASK)
     private string GetOutputText()
     {
-        return BugSelectionResult switch 
-        {
-            BugSelectionResult.MoreElementsCausingBug => "Jsi na dobré cestě, ale chybu způsobují i nějaké další prvky, které nemáš vybrané.",
-            BugSelectionResult.LessElementsCausingBug => "Pozor! Máš vybrané i prvky, které chybu nezpůsobují.",
-            BugSelectionResult.CompletelyWrong => "Špatná volba!",
-            BugSelectionResult.Correct => "Dobrá práce!",
-            BugSelectionResult.NothingSelected => "Nemáš vybrané žádné prvky!",
-            BugSelectionResult.BugAlreadyFound => "Chybu pro tento úkol už máš nahlášenou!",
-            _ => throw new Exception("Uncovered BugSelectionResult enum by a switch statement")
-        };
-        
+        return QuestService.GetTextForSelectionResult(BugSelectionResult);
     }
 }
