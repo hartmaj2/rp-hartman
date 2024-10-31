@@ -53,6 +53,14 @@
   - [x] trigger the event when the ShowTaskList button in MainLayout is clicked
   - [x] subscribe to the event in TaskList component by doing StateHasChanged
 
+## 31.10.2024
+
+- [ ] after correctly reporting a bug:
+  - [ ] say name of the bug (what was the bug)
+  - [ ] state that it was fixed
+  - [ ] how many points increased
+- [ ] incorrectly reporting:
+  - [ ] how many points decreased
 
 ## Near future
 
