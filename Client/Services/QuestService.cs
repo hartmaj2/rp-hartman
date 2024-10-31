@@ -33,16 +33,17 @@ public class QuestService
                 TaskId = QuestId.DefaultQuest,
                 Description = "Přečti si úvodní text",
                 PageId = "root-page",
-                TargetIds = new List<string> {},
                 CompetionState = QuestCompletionState.Completed,
+                BugTargetIds = new List<string> {},
             },
             new Quest 
             { 
                 TaskId = QuestId.WrongAgeSorting,
                 Description = "Najdi jména pěti nejstarších účastníků tábora",
                 PageId = "all-participants",
-                TargetIds = new List<string> {"age-sorter"},
                 CompetionState = QuestCompletionState.Active,
+                BugTargetIds = new List<string> {"age-sorter"},
+                BugDescription = "Třídění žáků podle věku třídilo čísla, jako by se jednalo o slova ze slovníku, akorát místo písmenek jsme měli jednotlivé cifry. Ve slovníku rozhodujeme už podle prvního písmenka, že slovo začínající na 'a' musí být před slovem začínajícím na 'b'. U čísel ale nechceme, aby pokud začíná na cifru 1, tak bylo automaticky před číslem začínajícím na 2. To by přece znamenalo, že 10 je menší než 2, a tak se čísla netřídí!",
             },
         };
     }
@@ -67,13 +68,11 @@ public class QuestService
     /// </summary>
     /// <param name="selectedElemsIds"> List of ids of the selected elements on the page </param>
     /// <returns> The result of the selection (partially correct, completely incorrect, correct etc.) </returns>
-    public BugSelectionResult ResolveQuestSelection(IEnumerable<string> selectedElemsIds)
+    public BugSelectionResult ResolveQuestSelection(IEnumerable<string> selectedElemsIds, Quest activeQuest)
     {
 
-        Quest active = ActiveQuest;
-
         // user already found the bug corresponding to the active quest
-        if (active.BugFixed)
+        if (activeQuest.BugFixed)
         {
             return BugSelectionResult.BugAlreadyFound;
         }
@@ -85,12 +84,12 @@ public class QuestService
         }
 
         // check if for all elements it is true, that the target ids of the active tasks contains such an id
-        bool allSelectedInTarget = selectedElemsIds.All(active.TargetIds.Contains);
-        bool allTargetInSelected = active.TargetIds.All(selectedElemsIds.Contains);
+        bool allSelectedInTarget = selectedElemsIds.All(activeQuest.BugTargetIds.Contains);
+        bool allTargetInSelected = activeQuest.BugTargetIds.All(selectedElemsIds.Contains);
 
         if (allSelectedInTarget && allTargetInSelected)
         {
-            active.BugFixed = true;
+            activeQuest.BugFixed = true;
             Score += POINTS_CORRECT_REPORT;
             return BugSelectionResult.Correct;
         }
@@ -119,12 +118,11 @@ public class Quest
     public required QuestId TaskId { get; init; }
     public required string PageId { get; init; }
     public required string Description { get; init; }
-
-    public required List<string> TargetIds { get; init; }
-    
     public QuestCompletionState CompetionState { get; set; } = QuestCompletionState.Future;
 
+    public required List<string> BugTargetIds { get; init; }
     public bool BugFixed { get; set; } = false;
+    public string? BugDescription { get; init; } = null;
 
 }
 

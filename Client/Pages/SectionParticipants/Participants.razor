@@ -184,24 +184,27 @@ else
     private async Task CheckBrokenElementsSelection()
     {
         // check all active quests, if some of the selections is good for some quest, mark the quest as completed
+        Quest activeQuest = QuestService.ActiveQuest;
         BugSelectionResult result = 
             QuestService.ResolveQuestSelection
             (
-                isElementSelected.Where(kvp => kvp.Value == true).Select(kvp => kvp.Key)
+                isElementSelected.Where(kvp => kvp.Value == true).Select(kvp => kvp.Key),
+                activeQuest
             );
         
         ResetElementsSelection();
         SetupAllBreakableElements();
-        await ShowSelectionResultModal(result);
+        await ShowSelectionResultModal(result,activeQuest);
         
     }
 
     private Modal selectionResultModal = default!;
 
-    private async Task ShowSelectionResultModal(BugSelectionResult questSelectionResult)
+    private async Task ShowSelectionResultModal(BugSelectionResult questSelectionResult,Quest activeQuest)
     {
         var parameters = new Dictionary<string,object>();
         parameters.Add("BugSelectionResult",questSelectionResult);
+        parameters.Add("ActiveQuest",activeQuest);
         await selectionResultModal.ShowAsync<SelectionResultModal>(title:"Výsledek tvého výběru",parameters:parameters);
     }
 
