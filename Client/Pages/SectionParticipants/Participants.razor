@@ -4,6 +4,7 @@
 @inject AllergenService AllergenService
 @inject ClientModeService ModeService
 @inject QuestService QuestService
+@inject IJSRuntime JS
 
 <PageTitle> Účastníci </PageTitle>
 
@@ -11,6 +12,8 @@
 <Modal @ref="deleteParticipantModal"/>
 <Modal @ref="addParticipantModal"/>
 <Modal @ref="selectionResultModal"/>
+
+<button class="always-visible" @onclick="CheckModalOrOffcanvasActive"> Check active </button>
 
 @if (@ModeService.CurrentMode == ClientMode.BugReporting)
 {
@@ -102,6 +105,24 @@ else
 
 @code
 {
+
+    
+    /* CHECKING IF MODAL OR OFFCANVAS ACTIVE */
+
+    private async Task CheckModalOrOffcanvasActive()
+    {
+        bool isActive = await JS.InvokeAsync<bool>("checkModalOrOffcanvasActive");
+
+        if (isActive)
+        {
+            Console.WriteLine("A modal or offcanvas is active");
+        }
+        else
+        {
+            Console.WriteLine("No modals or offcanvas components are active");
+        }
+
+    }
 
     /* BUG REPORTING CODE */
 
