@@ -67,11 +67,14 @@
 ## 4.11.2024
 
 - [ ] make bug reporting possible in modals
-  - [ ] fix problem with highlighting elements on the page behind the modal
+  - [x] fix problem with highlighting elements on the page behind the modal
+  - [ ] make elements on the modal highlighted when the mode is bug reporting
+
+- [x] add entry to denik.md about the bug with tasks list not rendering on 23.10.2024
 
 ## Near future
 
-- [ ] add entry to denik.md about the bug with tasks list not rendering on 23.10.2024
+- [ ] add a possibility to choose a bug from a list of possible bugs (for bugs that can not be marked)
 
 ## Far future
 

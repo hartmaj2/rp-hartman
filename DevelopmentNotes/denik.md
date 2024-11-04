@@ -667,3 +667,5 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - use the fact that modals have class "modal" and offcanvas "offcanvas" (this can be checked by inspecting in the browser)
   - all shown elements also have class "shown"
   - use JS interop to call a JS function that looks whether a component with "modal"/"offcanvas" and "show" is somewhere in the DOM
+
+- There was a problem with the procedure above because I was first rerendering the style and the check if modal was covering the page was only done after the render
