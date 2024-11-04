@@ -650,3 +650,14 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
     - the UI will be less intuitive?
   - use custom modals instead of Blazor Bootstrap modals
     - would not help if the button gets covered by the modal 
+
+## 4.11.2024
+
+- If I want to edit the z-index I also need to set position: relative !
+
+- Modals in bootstrap have z-index in (1050,1055)
+  
+- To check whether modal or offcanvas shown
+  - use the fact that modals have class "modal" and offcanvas "offcanvas" (this can be checked by inspecting in the browser)
+  - all shown elements also have class "shown"
+  - use JS interop to call a JS function that looks whether a component with "modal"/"offcanvas" and "show" is somewhere in the DOM
