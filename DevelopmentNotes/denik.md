@@ -651,6 +651,12 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - use custom modals instead of Blazor Bootstrap modals
     - would not help if the button gets covered by the modal 
 
+## 23.10.2024
+
+- There was a bug when I was registering an event listener using += 
+  - I was registering the events inside OnInitializedAsync using += but that resulted in the listener being added repeatedly
+  - So if I was switching from different pages on my webapp multiple times, I suddenly had a function listen to a single event multiple times
+
 ## 4.11.2024
 
 - If I want to edit the z-index I also need to set position: relative !
