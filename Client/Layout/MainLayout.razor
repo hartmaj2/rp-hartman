@@ -2,7 +2,7 @@
 @inject ClientModeService ModeService
 @inject QuestService qs
 
-<Offcanvas @ref="tasksList"/>
+<Offcanvas Class="task-list" @ref="tasksList"/>
 
 <div class="page">
     <div class="sidebar">
@@ -41,7 +41,7 @@
 
     private async Task ShowTasksList()
     {
-        ModeService.TriggerOnTaskListShownEvent();
+        ModeService.TriggerOnTaskListShownEvent(); // this triggers the event so the TaskList.razor component is rerendered and reflects the change if a bug was found in the meantime
         var parameters = new Dictionary<string, object>();
         await tasksList.ShowAsync<TasksList>(title: "Seznam úkolů:", parameters: parameters);
     }
