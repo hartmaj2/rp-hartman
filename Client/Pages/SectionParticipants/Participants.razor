@@ -109,19 +109,13 @@ else
     
     /* CHECKING IF MODAL OR OFFCANVAS ACTIVE */
 
+    private bool isModalOrOffcanvasActive; // tracks whether a modal or offcanvas is currently hiding the page
+
+    /// should be triggered after the mode has changed from normal to bug reporting or vice versa so the page elements have updated info about whether they are covered by modal or not and then they can render correspondingly
     private async Task CheckModalOrOffcanvasActive()
     {
-        bool isActive = await JS.InvokeAsync<bool>("checkModalOrOffcanvasActive");
-
-        if (isActive)
-        {
-            Console.WriteLine("A modal or offcanvas is active");
-        }
-        else
-        {
-            Console.WriteLine("No modals or offcanvas components are active");
-        }
-
+        isModalOrOffcanvasActive = await JS.InvokeAsync<bool>("checkModalOrOffcanvasActive");
+        StateHasChanged();
     }
 
     /* BUG REPORTING CODE */
@@ -144,11 +138,15 @@ else
     private List<string> selectedIds = new();
     private string GetClassFromMode(string elementId)
     {
-        if (ModeService.CurrentMode == ClientMode.BugReporting)
+        if (isModalOrOffcanvasActive) // the buttons on this page are covered by a modal or offcanvas
         {
-            return isElementSelected[elementId] ? "highlighted-selected" : "highlighted";
+            return "";
         }
-        return "";
+        if (ModeService.CurrentMode == ClientMode.Normal) // we are not currently in bug reporting mode
+        {
+            return "";
+        }
+        return isElementSelected[elementId] ? "highlighted-selected" : "highlighted";
     }
 
     /// <summary>
@@ -242,8 +240,9 @@ else
     // Get a list of all participants
     protected override async Task OnInitializedAsync()
     {
-        
-        ModeService.SubscribeUniqueOnModeChanged(StateHasChanged);
+        // when mode changed, first we need to update the state of whether a modal or offcanvas is covering some elements and only then request a rerender of the page
+        ModeService.SubscribeUniqueOnModeChanged(async() => await CheckModalOrOffcanvasActive()); 
+
         ModeService.SubscribeUniqueOnSelectionConfirmed(async() => await CheckBrokenElementsSelection());
         ModeService.SubscribeUniqueOnNotReportEvent(ResetElementsSelection);
         InitializeSelectedElementDictionary();
