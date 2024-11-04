@@ -20,7 +20,7 @@ main {
     align-items: center;
     justify-content: space-between;
     position:relative;
-    z-index: 100;
+    z-index: 3000;
 }
 
 
