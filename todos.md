@@ -62,18 +62,20 @@
 - [x] incorrectly reporting:
   - [x] how many points decreased
 
-- [ ] think about more quests to be done with corresponding bugs
+- [x] think about more quests to be done with corresponding bugs
+
+## 4.11.2024
+
+- [ ] make bug reporting possible in modals
+  - [ ] maybe implement custom modal
 
 ## Near future
 
 - [x] fix error with not reseting selection when choosing not to report
 
-- [ ] add more details into message after correctly reporting a bug
-  - [ ] what was the problem exactly (some educational content)
-  - [ ] what task will it help resolve
-
-- [ ] make bug reporting possible in modals
-  - [ ] maybe implement custom modal
+- [x] add more details into message after correctly reporting a bug
+  - [x] what was the problem exactly (some educational content)
+  - [x] what task will it help resolve
 
 - [ ] add system for evaluating if the quest was completed (not just bug found)
   - [ ] maybe add a button for checking if the necessary change in the system was made (added something, removed something, edited something, etc.)
