@@ -3,7 +3,7 @@
 @inject HttpClient Http
 @inject AllergenService AllergenService
 
-<Modal @ref="editDietsModal" />
+<Modal IsVerticallyCentered="true" @ref="editDietsModal" />
 
 @* The if is needed because otherwise we try to render the DietFilterDropup before the allergens are known *@
 @if (dietsFilter != null && dietsFilter.DietSelections != null)

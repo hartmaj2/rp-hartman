@@ -3,8 +3,8 @@
 @inject HttpClient Http
 @inject AllergenService AllergenService
 
-<Modal @ref="editMealModal" />
-<Modal @ref="deleteMealModal" />
+<Modal IsVerticallyCentered="true" @ref="editMealModal" />
+<Modal IsVerticallyCentered="true" @ref="deleteMealModal" />
 
 <DateSelector @bind-CurrentDate="currentDate" @bind-CurrentDate:after="LoadMeals"> </DateSelector>
 
