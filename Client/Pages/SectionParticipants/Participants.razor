@@ -149,6 +149,14 @@ else
         return isElementSelected[elementId] ? "highlighted-selected" : "highlighted";
     }
 
+    private void ResetElementsSelection()
+    {
+        foreach (var kvp in isElementSelected)
+        {
+            isElementSelected[kvp.Key] = false;
+        }
+    }
+
     /// <summary>
     /// Handles a click on a sorter element depending on the current state
     /// </summary>
@@ -199,13 +207,7 @@ else
         SetupBreakableSorter();
     }
 
-    private void ResetElementsSelection()
-    {
-        foreach (var kvp in isElementSelected)
-        {
-            isElementSelected[kvp.Key] = false;
-        }
-    }
+
 
     /// <summary>
     /// Checks the current selection of elements in `selectedIds` array
