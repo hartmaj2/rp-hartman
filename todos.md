@@ -82,7 +82,7 @@
 - [ ] add a bug with the validator not letting entering a birth number without a value
   - [ ] automatically fix this bug
 
-- [ ] translate specific error messages from custom validators to Czech
+- [x] translate specific error messages from custom validators to Czech
 
 ## Near future
 
