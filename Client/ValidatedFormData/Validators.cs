@@ -163,7 +163,7 @@ public class ValidNameAttribute : ValidationAttribute
         {
             if (word.Length == 0) // if we got an empty string after a split, there must have been more separators in a row
             {
-                ErrorMessage = $"{_validatedPropertyName} can't contain more than one separator (white space eg.) in a row.";
+                ErrorMessage = $"{_validatedPropertyName} nesmí obsahovat více než jeden oddělovač v řadě.";
                 return false;
             }
             for (int i = 0; i < word.Length; i++) // got through each letter and check if it is valid
@@ -171,26 +171,26 @@ public class ValidNameAttribute : ValidationAttribute
                 ErrorMessage = null;
                 if (char.IsDigit(word[i]))
                 {
-                    ErrorMessage = $"{_validatedPropertyName} can't contain digits.";
+                    ErrorMessage = $"{_validatedPropertyName} nesmí obsahovat cifry.";
                 }
                 else if (char.IsSymbol(word[i]))
                 {
-                    ErrorMessage = $"{_validatedPropertyName} can't contain symbols.";
+                    ErrorMessage = $"{_validatedPropertyName} nesmí obsahovat symboly.";
                 }
                 else if (char.IsPunctuation(word[i]))
                 {
                     if (i != word.Length - 1)
                     {
-                        ErrorMessage = $"{_validatedPropertyName} can only contain punctuation at the end of a word.";
+                        ErrorMessage = $"{_validatedPropertyName} může obsahovat diakritiku pouze na konci slov.";
                     }
                     if (word[i] != '.') // . can be in names that contain Jr. or Bc. or similar
                     {
-                        ErrorMessage = $"The only punctuation {_validatedPropertyName} can contain is . or ' ";
+                        ErrorMessage = $"Jediná povolená diakritika ve {_validatedPropertyName} je . nebo ' ";
                     }
                 }
                 else if (!char.IsLetter(word[i]))
                 {
-                    ErrorMessage = $"{_validatedPropertyName} can't contain special special characters.";
+                    ErrorMessage = $"{_validatedPropertyName} nesmí obsahovat speciální znaky.";
                 }
                 if (ErrorMessage is not null) // there was some error becuase we set the ErrorMessage to something
                 {
@@ -220,14 +220,14 @@ public class ValidPhoneNumberAttribute : ValidationAttribute
         }
         if (!ContainsOnlyDigits(stringValue))
         {
-            ErrorMessage = "The only non-digit character the number can contain is +.";
+            ErrorMessage = "Telefonní číslo nesmí obsahovat žádné jiné symboly než je +.";
             return false;
         }
         if (isForeign) // is foreign phone number
         {
             if (stringValue.Length < 7 || stringValue.Length > 15)
             {
-                ErrorMessage = "This international phone number has incorrect length.";
+                ErrorMessage = "Toto mezinárodní telefonní číslo má neplatnou délku.";
                 return false;
             }
         }
@@ -235,7 +235,7 @@ public class ValidPhoneNumberAttribute : ValidationAttribute
         {
             if (stringValue.Length != 9)
             {
-                ErrorMessage = "Czech phone numbers must consist of exactly 9 digits.";
+                ErrorMessage = "Česká telefoní čísla musí mít přesně 9 cifer.";
                 return false;
             }
         }
@@ -284,7 +284,7 @@ public class IntegerRangeValidator : ValidationAttribute
                 return true;
             }
         }
-        ErrorMessage = $"{_validatedPropertyName} must be between {_minValue} and {_maxValue}";
+        ErrorMessage = $"{_validatedPropertyName} musí mít hodnotu v rozmezí od {_minValue} do {_maxValue}";
         return false;
     }
 }
