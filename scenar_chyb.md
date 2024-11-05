@@ -14,12 +14,9 @@ Najdi v roli vedouciho 5 nejstarsich deti.
 
 ## Ukol 2
 
-Na tabor se na posledni chvili prihlasil Josef Novotny. Budeme ho muset pridat do systemu, ale formular na pridavani bude moc restriktivni. (Ukol by tedy byl pridat Josefa Novotneho do systemu)
+Na tabor se na posledni chvili prihlasil Hans Müller. Hans Müller je ale puvodem z Nemecka a nema tedy ceske rodne cislo, ktere by se do systemu dalo zadat. Jeho cislo je: T220001293.
 
-Co konkretne by mohl byt problem:
-- rodne cislo
-- nepujde zadat telefon na rodice, ktery bude mit jen zahranicni format telefonniho cisla
-- bude mit prostredni jmeno, ktere nepujde zadat ani do jmena ani do prijmeni
+Pridej Hanse Müllera do systemu.
 
 ## Ukol 3
 
