@@ -116,6 +116,8 @@ else
         StateHasChanged();
     }
 
+    /* END OF CHECKING IF MODAL OR OFFCANVAS ACTIVE */
+
     /* BUG REPORTING CODE */
 
     private static string[] sorterNumToId = {"id-sorter","first-name-sorter","last-name-sorter","age-sorter","phone-number-sorter","birth-number-sorter"};
@@ -160,6 +162,16 @@ else
         {
             isElementSelected[sorterNumToId[sorterNum]] = !isElementSelected[sorterNumToId[sorterNum]];
         }
+    }
+
+    // This is useful because after selecting bugs I want to show a modal with the result of the bug selection
+    // But if I already select bugs on a modal, then the result modal appears on the old modal
+    // So it is best to just hide all other modal before showing the one with the results
+    private async Task HideAllModals()
+    {
+        await editParticipantModal.HideAsync();
+        await deleteParticipantModal.HideAsync();
+        await addParticipantModal.HideAsync();
     }
 
     /// END OF BUG REPORTING CODE
@@ -211,6 +223,7 @@ else
         
         ResetElementsSelection();
         SetupAllBreakableElements();
+        await HideAllModals();
         await ShowSelectionResultModal(result,activeQuest);
         
     }
