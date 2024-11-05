@@ -14,7 +14,7 @@ Najdi v roli vedouciho 5 nejstarsich deti.
 
 ## Ukol 2
 
-Na tabor se na posledni chvili prihlasil Hans Müller. Hans Müller je ale puvodem z Nemecka a nema tedy ceske rodne cislo, ktere by se do systemu dalo zadat. Jeho cislo je: T220001293.
+Na tabor se na posledni chvili prihlasil Hans Müller. Hans Müller je ale puvodem z Nemecka a nema tedy ceske rodne cislo, ktere by se do systemu dalo zadat. Jeho cislo je: T220001293. Telefon na rodice: +49 30 12345678. Vek 14.
 
 Pridej Hanse Müllera do systemu.
 
