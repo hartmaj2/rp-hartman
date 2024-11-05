@@ -356,6 +356,11 @@ code {
     z-index: 4000;
 }
 
+.offcanvas-backdrop
+{
+    z-index: 3900;
+}
+
 /* TESTING CLASS */
 
 .always-visible{

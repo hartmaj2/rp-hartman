@@ -16,6 +16,8 @@ Because at this point, I have introduces many different layers of z-indices. It 
 
 3000 - the top row with buttons to report bug, show tasks list etc.
 
+3900 - the backdrop of the task list
+
 4000 - tasks list
 
 10000 - elements marked with always visible for testing
