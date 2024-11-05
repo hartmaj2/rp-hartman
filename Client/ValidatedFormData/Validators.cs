@@ -20,26 +20,26 @@ public class ValidBirthNumberAttribute : ValidationAttribute
             if (stringValue == String.Empty) return true; // allow also when user doesn't enter any birth number
             if (stringValue.Length != CorrectDigitsCount)
             {
-                ErrorMessage = $"The birth number must consist of exactly {CorrectDigitsCount} digits";
+                ErrorMessage = $"Rodné číslo musí obsahovat přesně {CorrectDigitsCount} cifer.";
                 return false;
             }
             if (!ContainsOnlyDigits(stringValue))
             {
-                ErrorMessage = "The birth number must contain digits only.";
+                ErrorMessage = "Rodné číslo musí obsahovat pouze cifry.";
             }
             if (!IsDivisibleByEleven(stringValue))
             {
-                ErrorMessage = "The birth number must be divisible by 11.";
+                ErrorMessage = "Rodné číslo musí být dělitelné číslem 11.";
                 return false;
             }
             if (!RepresentsValidDate(stringValue))
             {
-                ErrorMessage = "The birth date is incorrect.";
+                ErrorMessage = "Část rodného čísla odpovídající datu není platná.";
                 return false;        
             }
             return true;
         }
-        ErrorMessage = "For some reason the birth number is incorrect.";
+        ErrorMessage = "Z neznámého důvodu toto rodné číslo není platné.";
         return false;
     }
 
