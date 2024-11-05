@@ -1,10 +1,18 @@
+# Zapisky ze setkani 31.10.2024
+
+## Dulezita rozhodnuti
+
 - overovani splneni ukolu vyresime pozdeji
 - hlaseni chyb bude mozne i vyberem z dropdownu
 
 
 - realne chyby vs chyby, ktere by udelal nekdo nezkuseny
 
+
 ## Bestiar chyb
+
+Nize se nachazi seznam moznych chyb, ktere muzou vzniknout pri vyvoji informacniho systemu. Je to pouhy vycet bez jakekoliv snaze o kategorizaci.
+
 - alergie by mela zamezit objednavce jidla s alergenem
 - **spatne trideni**
 - spatne filtrovani
@@ -16,7 +24,10 @@
 - prijmeni brano jako id - uprava cloveka upravi i toho druheho se stejnym prijmenim
 - orezani dat, ktere se nevejdou do tabulky
 
+
 ## Kategorie chyb
+
+Nize jsou jednotlive chyby roztridene do kategorii, ktere vsak nejsou disjunktni a muze tedy existovat chyba spadajici pod vice kategorii.
 
 ### UI Chyby - Ne user friendly design
 - spatne citelny text 
@@ -60,6 +71,6 @@
 - [ ] vybrat chyby, ktere pouzijeme
   - dobre naimplementovatelne
   - ne moc komplexni 
-  - nejlepe z ruchnych kategorii 
+  - nejlepe z ruznych kategorii 
   - pripadne rozmyslet navazujici minihru
-- [ ] v jakem poradi dame oznacene chyby
+- [ ] v jakem poradi budou oznacene chyby na uzivatele nastrazene
