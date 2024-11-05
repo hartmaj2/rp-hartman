@@ -12,9 +12,9 @@ public class QuestService
     private const int COMPLETELY_INCORRECT_POINTS_GAIN = -2;
 
     public IEnumerable<Quest> AllQuests { get; init; }
-    public IEnumerable<Quest> CompletedQuests => AllQuests.Where(quest => quest.CompetionState == QuestCompletionState.Completed);
-    public Quest ActiveQuest => AllQuests.Where(quest => quest.CompetionState== QuestCompletionState.Active).First();
-    public IEnumerable<Quest> FutureQuests => AllQuests.Where(quest => quest.CompetionState == QuestCompletionState.Future);
+    public IEnumerable<Quest> CompletedQuests => AllQuests.Where(quest => quest.CompletionState == QuestCompletionState.Completed);
+    public Quest ActiveQuest => AllQuests.Where(quest => quest.CompletionState== QuestCompletionState.Active).First();
+    public IEnumerable<Quest> FutureQuests => AllQuests.Where(quest => quest.CompletionState == QuestCompletionState.Future);
 
     private int _score = 10;
 
@@ -36,7 +36,7 @@ public class QuestService
                 TaskId = QuestId.DefaultQuest,
                 ShortDescription = "Přečti si úvodní text",
                 PageId = "root-page",
-                CompetionState = QuestCompletionState.Completed,
+                CompletionState = QuestCompletionState.Completed,
                 BugTargetIds = new List<string> {},
             },
             new Quest 
@@ -44,7 +44,7 @@ public class QuestService
                 TaskId = QuestId.WrongAgeSorting,
                 ShortDescription = "Najdi jména pěti nejstarších účastníků tábora",
                 PageId = "all-participants",
-                CompetionState = QuestCompletionState.Active,
+                CompletionState = QuestCompletionState.Active,
                 BugTargetIds = new List<string> {"age-sorter"},
                 BugDescription = "Třídění žáků podle věku třídilo čísla, jako by se jednalo o slova ze slovníku, akorát místo písmenek jsme měli jednotlivé cifry. Ve slovníku rozhodujeme už podle prvního písmenka, že slovo začínající na 'a' musí být před slovem začínajícím na 'b'. U čísel ale nechceme, aby pokud začíná na cifru 1, tak bylo automaticky před číslem začínajícím na 2. To by přece znamenalo, že 10 je menší než 2, a tak se čísla netřídí!",
             },
@@ -54,7 +54,7 @@ public class QuestService
                 ShortDescription = "Přidej nového účastníka:",
                 DescriptionAppendix = "Jméno a příjmení:\tHans Müller\nTelefonní číslo:\t+49 30 12345678\nVěk:\t14",
                 PageId = "all-participants",
-                CompetionState = QuestCompletionState.Future,
+                CompletionState = QuestCompletionState.Future,
                 BugTargetIds = new List<string> {"birth-number-textbox"},
                 BugDescription = "Formulář na přidání nového účastníka měl příliš omezující podmínku. Konkrétně bylo nutné zadat rodné číslo. Někdy je takové omezení dobré, nutnost zadat jméno a příjmení dává smysl, jelikož nechceme v našem systému mít bezejmenné účastníky. U rodného čísla ale mohou nastat případy, kdy nás pak systém spíš omezuje, než aby nám pomáhal.",
             },
@@ -88,7 +88,7 @@ public class QuestService
         {
             activeQuest.BugFixed = true;
             // TODO: change following lines in the final implementation
-            activeQuest.CompetionState = QuestCompletionState.Completed;
+            activeQuest.CompletionState = QuestCompletionState.Completed;
             ActivateNextQuest();
         }
         Score += GetPointIncrease(result);
@@ -100,7 +100,7 @@ public class QuestService
     /// </summary>
     public void ActivateNextQuest()
     {
-        AllQuests.Where(quest => quest.CompetionState == QuestCompletionState.Future).First().CompetionState = QuestCompletionState.Active;
+        AllQuests.Where(quest => quest.CompletionState == QuestCompletionState.Future).First().CompletionState = QuestCompletionState.Active;
     }
 
     /// <summary>
@@ -217,7 +217,7 @@ public class Quest
     public required string PageId { get; init; }
     public required string ShortDescription { get; init; }
     public string? DescriptionAppendix { get; init; }
-    public QuestCompletionState CompetionState { get; set; } = QuestCompletionState.Future;
+    public QuestCompletionState CompletionState { get; set; } = QuestCompletionState.Future;
 
     public required List<string> BugTargetIds { get; init; }
     public bool BugFixed { get; set; } = false;
