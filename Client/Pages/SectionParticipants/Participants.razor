@@ -13,8 +13,6 @@
 <Modal IsVerticallyCentered="true" @ref="addParticipantModal"/>
 <Modal IsVerticallyCentered="true" @ref="selectionResultModal"/>
 
-<button class="always-visible" @onclick="CheckModalOrOffcanvasActive"> Check active </button>
-
 @if (@ModeService.CurrentMode == ClientMode.BugReporting)
 {
     <div class="overlay"> </div>
