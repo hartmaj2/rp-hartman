@@ -34,7 +34,7 @@ public class QuestService
             new Quest
             {
                 TaskId = QuestId.DefaultQuest,
-                Description = "Přečti si úvodní text",
+                ShortDescription = "Přečti si úvodní text",
                 PageId = "root-page",
                 CompetionState = QuestCompletionState.Completed,
                 BugTargetIds = new List<string> {},
@@ -42,11 +42,21 @@ public class QuestService
             new Quest 
             { 
                 TaskId = QuestId.WrongAgeSorting,
-                Description = "Najdi jména pěti nejstarších účastníků tábora",
+                ShortDescription = "Najdi jména pěti nejstarších účastníků tábora",
                 PageId = "all-participants",
                 CompetionState = QuestCompletionState.Active,
                 BugTargetIds = new List<string> {"age-sorter"},
                 BugDescription = "Třídění žáků podle věku třídilo čísla, jako by se jednalo o slova ze slovníku, akorát místo písmenek jsme měli jednotlivé cifry. Ve slovníku rozhodujeme už podle prvního písmenka, že slovo začínající na 'a' musí být před slovem začínajícím na 'b'. U čísel ale nechceme, aby pokud začíná na cifru 1, tak bylo automaticky před číslem začínajícím na 2. To by přece znamenalo, že 10 je menší než 2, a tak se čísla netřídí!",
+            },
+            new Quest 
+            { 
+                TaskId = QuestId.StrictBirthNumberValidation,
+                ShortDescription = "Přidej nového účastníka:",
+                DescriptionAppendix = "Jméno a příjmení:\tHans Müller\nTelefonní číslo:\t+49 30 12345678\nVěk:\t14",
+                PageId = "all-participants",
+                CompetionState = QuestCompletionState.Future,
+                BugTargetIds = new List<string> {"birth-number-textbox"},
+                BugDescription = "Formulář na přidání nového účastníka měl příliš omezující podmínku. Konkrétně bylo nutné zadat rodné číslo. Někdy je takové omezení dobré, nutnost zadat jméno a příjmení dává smysl, jelikož nechceme v našem systému mít bezejmenné účastníky. U rodného čísla ale mohou nastat případy, kdy nás pak systém spíš omezuje, než aby nám pomáhal.",
             },
         };
     }
@@ -77,9 +87,20 @@ public class QuestService
         if (result == BugSelectionResult.Correct)
         {
             activeQuest.BugFixed = true;
+            // TODO: change following lines in the final implementation
+            activeQuest.CompetionState = QuestCompletionState.Completed;
+            ActivateNextQuest();
         }
         Score += GetPointIncrease(result);
         return result;
+    }
+
+    /// <summary>
+    /// Looks at all future quests and sets the first one as active.
+    /// </summary>
+    public void ActivateNextQuest()
+    {
+        AllQuests.Where(quest => quest.CompetionState == QuestCompletionState.Future).First().CompetionState = QuestCompletionState.Active;
     }
 
     /// <summary>
@@ -194,7 +215,8 @@ public class Quest
 {
     public required QuestId TaskId { get; init; }
     public required string PageId { get; init; }
-    public required string Description { get; init; }
+    public required string ShortDescription { get; init; }
+    public string? DescriptionAppendix { get; init; }
     public QuestCompletionState CompetionState { get; set; } = QuestCompletionState.Future;
 
     public required List<string> BugTargetIds { get; init; }
@@ -233,5 +255,6 @@ public enum BugSelectionResult
 public enum QuestId
 {
     DefaultQuest,
-    WrongAgeSorting
+    WrongAgeSorting,
+    StrictBirthNumberValidation
 }
