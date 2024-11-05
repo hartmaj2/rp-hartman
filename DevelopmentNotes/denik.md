@@ -669,3 +669,8 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - use JS interop to call a JS function that looks whether a component with "modal"/"offcanvas" and "show" is somewhere in the DOM
 
 - There was a problem with the procedure above because I was first rerendering the style and the check if modal was covering the page was only done after the render
+
+# 5.11.2024
+
+- The problem was, I was just taking the ErrorMessage from one validator without callid the IsValid method on it, maybe that could be the issue as well
+- Or maybe assigning to ErrorMessage inside a ValidationAttribute class when IsValid return true is not possible?

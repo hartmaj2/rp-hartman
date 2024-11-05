@@ -72,6 +72,18 @@
 
 - [x] add entry to denik.md about the bug with tasks list not rendering on 23.10.2024
 
+## 5.11.2024
+
+- [x] fix modals being covered partially by the top bar
+
+- [ ] make bug reporting possible in modals
+  - [ ] make elements on the modal highlighted when the mode is bug reporting
+
+- [ ] add a bug with the validator not letting entering a birth number without a value
+  - [ ] automatically fix this bug
+
+- [ ] translate specific error messages from custom validators to Czech
+
 ## Near future
 
 - [ ] add a possibility to choose a bug from a list of possible bugs (for bugs that can not be marked)
