@@ -17,7 +17,7 @@ public class ValidBirthNumberAttribute : ValidationAttribute
     {
         if (value is string stringValue)
         {
-            if (stringValue == "") return true; // allow also when user doesn't enter any birth number
+            if (stringValue == String.Empty) return true; // allow also when user doesn't enter any birth number
             if (stringValue.Length != CorrectDigitsCount)
             {
                 ErrorMessage = $"The birth number must consist of exactly {CorrectDigitsCount} digits";
@@ -85,6 +85,57 @@ public class ValidBirthNumberAttribute : ValidationAttribute
         if (month >= 51) month -= 50;
         if (month >= 21) month -= 20;
         return month;     
+    }
+
+}
+
+public class StrictValidBirthNumberAttribute : ValidBirthNumberAttribute
+{
+    public override bool IsValid(object? value)
+    {
+        if (value is string strval)
+        {
+            if (strval == String.Empty) 
+            {
+                ErrorMessage = "Rodné číslo účastníka musí být zadáno.";
+                return false;
+            }
+        }
+        return base.IsValid(value);
+    }
+}
+
+public class SwitchableBirthNumberValidationAttribute : ValidationAttribute
+{
+
+    private static readonly StrictValidBirthNumberAttribute StrictValidator = new();
+    private static readonly ValidBirthNumberAttribute LenientValidator = new();
+
+    public static bool UseStrictValidator { get; set; } = true;
+
+    public override bool IsValid(object? value)
+    {
+        // ErrorMessage = UseStrictValidator ? StrictValidator.ErrorMessage : LenientValidator.ErrorMessage;
+        // ErrorMessageString = UseStrictValidator ? StrictValidator.ErrorMessage : LenientValidator.ErrorMessage;
+        // ErrorMessage = "Switchable validator error";
+        if (UseStrictValidator)
+        {
+            if (!StrictValidator.IsValid(value))
+            {
+                ErrorMessage = StrictValidator.ErrorMessage;
+                return false;
+            }
+            return true;
+        }
+        else
+        {
+            if (!LenientValidator.IsValid(value))
+            {
+                ErrorMessage = LenientValidator.ErrorMessage;
+                return false;
+            }
+            return true;  
+        }
     }
 
 }

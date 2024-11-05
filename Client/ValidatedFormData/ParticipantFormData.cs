@@ -95,14 +95,22 @@ public class ParticipantFormData
 
     private string _birthNumber = string.Empty;
 
-    [ValidBirthNumber]
+    [SwitchableBirthNumberValidation]
     public required string BirthNumber 
     { 
         get => _birthNumber;
         set 
         {
-            if (value == string.Empty) return;
             var stringValue = value.Trim();
+
+            // handle case when the string is empty separately
+            if (stringValue == string.Empty)
+            {
+                _birthNumber = stringValue;  
+                return;
+            }
+
+            // preprocess the string for the BirthNumberValidator and the BirthNumberToAgeParser
             if (stringValue.Length == 11 && stringValue[6] == '/') // if user entered the birth number with / character
             {
     
