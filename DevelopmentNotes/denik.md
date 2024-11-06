@@ -672,8 +672,9 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 ## 5.11.2024
 
-- The problem was, I was just taking the ErrorMessage from one validator without callid the IsValid method on it, maybe that could be the issue as well
-- Or maybe assigning to ErrorMessage inside a ValidationAttribute class when IsValid return true is not possible?
+- I was not getting a correct validation error message when using switchable validator
+  - The problem could be, that I was just taking the ErrorMessage from one validator without calling the IsValid method on it, maybe that could be the issue
+  - Or maybe assigning to ErrorMessage inside a ValidationAttribute class when IsValid return true is not possible?
 
 - Problem with reporting bugs on a modal because the result of the selection is also a modal and then I have two modals overlapping
   - solution was to preventively hide all modals before showing the selection result modal
