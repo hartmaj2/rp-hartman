@@ -1,5 +1,14 @@
 # Improvement ideas
 
+## Active ideas
+
+Make bug reporting logic more scalable. Now I have to repeat fragments of code like:
+- Subscribing to OnModeChanged in all components manually (could I do this always on inject?)
+- Having a list of id's so I can initialize a dictionary that maps the ids to flags that signify if the element is selected 
+- Method for getting the class of the element based on if it is selected
+
+## Old ideas
+
 - Add exception handling
 - Add other sections needed for my RP
 - Add switching between CZ and ENG

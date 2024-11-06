@@ -84,6 +84,10 @@
 
 - [x] translate specific error messages from custom validators to Czech
 
+## 6.11.2024
+
+- [x] fix bug with unsubscribing the underlying page of the modal when modal subscribes to OnClientModeChanged
+
 ## Near future
 
 - [ ] add a possibility to choose a bug from a list of possible bugs (for bugs that can not be marked)

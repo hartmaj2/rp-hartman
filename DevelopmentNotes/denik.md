@@ -678,3 +678,10 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 - Problem with reporting bugs on a modal because the result of the selection is also a modal and then I have two modals overlapping
   - solution was to preventively hide all modals before showing the selection result modal
+
+## 6.11.2024
+
+- Solved problem with SubscribeUnique
+  - the problem was, that I needed to subscribe to ModeChanged also in the modal so the elements get highlighted after I report a bug (that is clicking on a button in another component)
+  - when using subscribe unique, I unsubscribed from the underlying page of the modal and thus the page was not notified to show the overlay for bug reporting
+  - the solution was, to use -= and then += when subscribing to ensure I never subscribe multiple times (this allows multiple handlers subscribing but none of them is subscribed repeatedly)
