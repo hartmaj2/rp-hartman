@@ -1,37 +1,39 @@
 @namespace Client.Components
 
+@inject ClientModeService ModeService
+
 @* Form to edit general information of the participant, makes use of EditForm input validation *@
 
 <EditForm Model="@ThisParticipant" OnValidSubmit="OnValidSubmitEvent" OnInvalidSubmit="OnInvalidSubmitEvent">
     <DataAnnotationsValidator/>
 
     <div>
-        <label for="firstname"> Jméno: </label> <br/>
-        <InputText id="firstname" @bind-Value="ThisParticipant.FirstName"/>
+        <label  for="firstname-box"> Jméno: </label> <br/>
+        <InputText class="@GetClassFromMode(elementNumToId[0])" id="firstname-box" @bind-Value="ThisParticipant.FirstName"/>
         <ValidationMessage For="() => ThisParticipant.FirstName" />
     </div>
 
-    <div>
-        <label for="lastname"> Příjmení: </label> <br/>
-        <InputText id="lastname" @bind-Value="ThisParticipant.LastName"/>
+    <div class="@GetClassFromMode(elementNumToId[1])">
+        <label for="lastname-box"> Příjmení: </label> <br/>
+        <InputText id="lastname-box" @bind-Value="ThisParticipant.LastName"/>
         <ValidationMessage For="() => ThisParticipant.LastName" />
     </div>
 
-    <div>
-        <label for="phonenumber"> Telefonní číslo: </label> <br/>
-        <InputText id="phonenumber" @bind-Value="ThisParticipant.PhoneNumber"/>
+    <div class="@GetClassFromMode(elementNumToId[2])">
+        <label for="phonenumber-box"> Telefonní číslo: </label> <br/>
+        <InputText id="phonenumber-box" @bind-Value="ThisParticipant.PhoneNumber"/>
         <ValidationMessage For="() => ThisParticipant.PhoneNumber" />
     </div>
 
-    <div>
-        <label for="birthnumber"> Rodné číslo: </label> <br/>
-        <InputText id="birthnumber" @bind-Value="ThisParticipant.BirthNumber"/>
+    <div class="@GetClassFromMode(elementNumToId[3])">
+        <label for="birthnumber-box"> Rodné číslo: </label> <br/>
+        <InputText id="birthnumber-box" @bind-Value="ThisParticipant.BirthNumber"/>
         <ValidationMessage For="() => ThisParticipant.BirthNumber" />
     </div>
 
-    <div>
-        <label for="birthnumber"> Věk: </label> <br/>
-        <InputNumber id="birthnumber" @bind-Value="ThisParticipant.Age"/>
+    <div class="@GetClassFromMode(elementNumToId[4])">
+        <label for="age-box"> Věk: </label> <br/>
+        <InputNumber id="age-box" @bind-Value="ThisParticipant.Age"/>
         <ValidationMessage For="() => ThisParticipant.Age" />
     </div>
 
@@ -42,6 +44,72 @@
 @* The following code uses two way binding  *@
 @code
 {
+
+    /* BUG REPORTING CODE */
+
+    private static string[] elementNumToId = {"firstname-box","lastname-box","phonenumber-box","birthnumber-box","age-box"};
+    
+    private static Dictionary<string,bool> isElementSelected = new();
+
+    private void InitializeSelectedElementDictionary()
+    {
+        foreach (var elementId in elementNumToId)
+        {
+            isElementSelected[elementId] = false;
+        }
+    }
+    
+    /// <summary>
+    /// Keeps track of which ids are selected in bug reporting mode
+    /// </summary>
+    private List<string> selectedIds = new();
+    private string GetClassFromMode(string elementId)
+    {
+        @* return ""; *@
+        if (ModeService.CurrentMode == ClientMode.Normal) // we are not currently in bug reporting mode
+        {
+            return "";
+        }
+        return isElementSelected[elementId] ? "highlighted-selected" : "highlighted";
+    }
+
+       private void ResetElementsSelection()
+    {
+        foreach (var kvp in isElementSelected)
+        {
+            isElementSelected[kvp.Key] = false;
+        }
+    }
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("Participant form was initialized");
+        // when mode changed, first we need to update the state of whether a modal or offcanvas is covering some elements and only then request a rerender of the page
+        ModeService.SubscribeOnceOnModeChanged(StateHasChanged); 
+        @* ModeService.SubscribeUniqueOnNotReportEvent(ResetElementsSelection); *@
+        InitializeSelectedElementDictionary(); 
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Console.WriteLine("Participant form rerender");
+    }
+
+    /// <summary>
+    /// Handles a click on a sorter element depending on the current state
+    /// </summary>
+    @* private void HandleSorterClick(int sorterNum)
+    {
+        if (ModeService.CurrentMode == ClientMode.Normal)
+        {
+            sortingManager.HandleSortClick(sorterNum);
+        }
+        else
+        {
+            isElementSelected[sorterNumToId[sorterNum]] = !isElementSelected[sorterNumToId[sorterNum]];
+        }
+    } *@
+
+    /* END OF BUG REPORTING CODE */
 
     // Used to hookup to my custom OnValidSubmitEvent of this component
     [Parameter]
