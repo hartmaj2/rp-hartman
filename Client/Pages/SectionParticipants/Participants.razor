@@ -254,7 +254,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         // when mode changed, first we need to update the state of whether a modal or offcanvas is covering some elements and only then request a rerender of the page
-        ModeService.SubscribeUniqueOnModeChanged(async() => await CheckModalOrOffcanvasActive()); 
+        ModeService.SubscribeOnceOnModeChanged(async() => await CheckModalOrOffcanvasActive()); 
 
         ModeService.SubscribeUniqueOnSelectionConfirmed(async() => await CheckBrokenElementsSelection());
         ModeService.SubscribeUniqueOnNotReportEvent(ResetElementsSelection);

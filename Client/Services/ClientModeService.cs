@@ -23,9 +23,9 @@ public class ClientModeService
         _currentMode = ClientMode.Normal;
     }
 
-    public void SubscribeUniqueOnModeChanged(Action handler)
+    public void SubscribeOnceOnModeChanged(Action handler)
     {
-        OnModeChangedEvent = null;
+        OnModeChangedEvent -= handler;
         OnModeChangedEvent += handler;
     }
 
