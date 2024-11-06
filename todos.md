@@ -90,6 +90,11 @@
 
 ## Near future
 
+- [x] change validation logic inside birth number validator dynamically 
+  - [x] maybe use the overit splneni aktivniho ukolu button?
+
+- [ ] use custom modal instead of blazor modal
+
 - [ ] add a possibility to choose a bug from a list of possible bugs (for bugs that can not be marked)
 
 ## Far future
