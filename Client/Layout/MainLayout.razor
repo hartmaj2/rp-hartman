@@ -18,7 +18,8 @@
                 @if (@ModeService.CurrentMode == ClientMode.Normal)
                 {
                     <button class="btn btn-danger" @onclick="()=>ModeService.ToggleMode()" > Nahlásit chybu </button>
-                    <button class="btn btn-success"> Ověřit splnění aktivního úkolu </button>
+                    @* <button class="btn btn-success"> Ověřit splnění aktivního úkolu </button> *@
+                    <button class="btn btn-success" @onclick="SwitchValidator"> Opravit validátor rodného čísla </button>
                     <button class="btn btn-info" @onclick="ShowTasksList"> Seznam úkolů </button>
                 }
                 else 
@@ -44,6 +45,12 @@
         ModeService.TriggerOnTaskListShownEvent(); // this triggers the event so the TaskList.razor component is rerendered and reflects the change if a bug was found in the meantime
         var parameters = new Dictionary<string, object>();
         await tasksList.ShowAsync<TasksList>(title: "Seznam úkolů:", parameters: parameters);
+    }
+
+    private void SwitchValidator()
+    {
+        SwitchableBirthNumberValidationAttribute.UseStrictValidator = false;
+        Console.WriteLine("Validator switched");
     }
 
 }
