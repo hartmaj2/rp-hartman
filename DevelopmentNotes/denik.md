@@ -685,3 +685,8 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - the problem was, that I needed to subscribe to ModeChanged also in the modal so the elements get highlighted after I report a bug (that is clicking on a button in another component)
   - when using subscribe unique, I unsubscribed from the underlying page of the modal and thus the page was not notified to show the overlay for bug reporting
   - the solution was, to use -= and then += when subscribing to ensure I never subscribe multiple times (this allows multiple handlers subscribing but none of them is subscribed repeatedly)
+
+## 7.11.2024
+
+- Implemented the delete participant modal using my own custom component
+  -   the biggest issue was, that I was previously using .modal and .modal-background classes for my modals and this is now not possible until I still have some Blazor Bootstrap modals with which this css style clashes

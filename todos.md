@@ -88,12 +88,18 @@
 
 - [x] fix bug with unsubscribing the underlying page of the modal when modal subscribes to OnClientModeChanged
 
-## Near future
-
 - [x] change validation logic inside birth number validator dynamically 
   - [x] maybe use the overit splneni aktivniho ukolu button?
 
-- [ ] use custom modal instead of blazor modal
+## 7.11.2024
+
+- [x] implement delete participant modal using a custom modal
+
+## Near future
+
+- [ ] test if possible to change z-index of elements inside a custom add participant modal
+  - [ ] implement add participant modal as custom modal
+  - [ ] try to change z-index of some elements dynamically when report bug button pressed
 
 - [ ] add a possibility to choose a bug from a list of possible bugs (for bugs that can not be marked)
 
