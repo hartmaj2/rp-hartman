@@ -1,0 +1,64 @@
+@namespace Client.Components
+
+@* This component represents a simple modal for confirming deletion of a participant *@
+
+@if (isVisible)
+{
+    <div class="custom-modal-background ">
+        <div class="custom-modal @GetShowClass()">
+
+            <div class="modal-div">
+                <div class="modal-text"> Opravdu chcete odstranit @currentParticipant!.FirstName @currentParticipant.LastName? </div>
+                <div class="modal-buttons">
+                    <button class="btn btn-primary" @onclick="OnDeleteButton"> Ano </button>
+                    <button class="btn btn-primary" @onclick="OnRejectButton"> Ne </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+
+@code {
+
+    /* CODE SPECIFIC FOR CUSTOM MODAL */
+
+    private bool isVisible = false;
+
+    public void Show(ParticipantDto participant)
+    {
+        currentParticipant = participant;
+        isVisible = true;
+    }
+
+    public void Hide()
+    {
+        currentParticipant = null;
+        isVisible = false;
+    }
+
+    private string GetShowClass()
+    {
+        return isVisible ? "show" : "";
+    }
+
+    /* END OF CODE SPECIFIC FOR CUSTOM MODAL */
+
+    // The participant to be deleted or not
+    private ParticipantDto? currentParticipant;
+
+    // Callback to which connects the method that requests deletion from participants api (the api needs to be given the id of the participant to delete)
+    [Parameter]
+    public EventCallback<int> OnDeleteParticipant { get; set; }
+
+    // Used to hide the modal in parent component
+    [Parameter]
+    public EventCallback OnRejectButton { get; set; }
+
+    // We want to invoke the method that connected to the OnDeleteParticipant EventCallback with the current participant id
+    private void OnDeleteButton()
+    {
+        OnDeleteParticipant.InvokeAsync(currentParticipant!.Id);
+    }
+}

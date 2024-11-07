@@ -9,7 +9,7 @@
 <PageTitle> Účastníci </PageTitle>
 
 <Modal IsVerticallyCentered="true" @ref="editParticipantModal"/>
-<Modal IsVerticallyCentered="true" @ref="deleteParticipantModal"/>
+<DeleteParticipantCustomModal OnDeleteParticipant="RequestParticipantDelete" OnRejectButton="HideDeleteParticipantModal" @ref="deleteParticipantModal"/>
 <Modal IsVerticallyCentered="true" @ref="addParticipantModal"/>
 <Modal IsVerticallyCentered="true" @ref="selectionResultModal"/>
 
@@ -178,7 +178,7 @@ else
     private async Task HideAllModals()
     {
         await editParticipantModal.HideAsync();
-        await deleteParticipantModal.HideAsync();
+        deleteParticipantModal!.Hide();
         await addParticipantModal.HideAsync();
     }
 
@@ -376,22 +376,20 @@ else
     }
 
     // Add reference to my modal which I will use to confirm deletion of given participant
-    private Modal deleteParticipantModal = default!;
+    private DeleteParticipantCustomModal? deleteParticipantModal;
 
     // Uses the reference to deletion modal to call the ShowAsync method with the component to be shown by the modal modal
     // The parameters are passed to the modal using dictionary with entries in format -> parameter_name : passed_value
     private void ShowDeleteParticipantModal(ParticipantDto participant)
     {
-        var parameters = new Dictionary<string,object>();
-        parameters.Add("CurrentParticipant",participant);
-        parameters.Add("OnDeleteParticipant",EventCallback.Factory.Create<int>(this,RequestParticipantDelete));
-        parameters.Add("OnRejectButton",EventCallback.Factory.Create(this,HideDeleteParticipantModal));
-        deleteParticipantModal.ShowAsync<DeleteParticipantModal>(title:"Odstranit účastníka",parameters: parameters);
+        deleteParticipantModal!.Show(participant);
+        StateHasChanged();
+
     }
 
-    private async Task HideDeleteParticipantModal()
+    private void HideDeleteParticipantModal()
     {
-        await deleteParticipantModal.HideAsync();
+        deleteParticipantModal!.Hide();
     }
 
     // Sends api request to delete participant with given id
@@ -399,7 +397,7 @@ else
     {
         await Http.DeleteAsync($"api/participants/delete/{id}");
         await LoadParticipants();
-        await deleteParticipantModal.HideAsync();
+        deleteParticipantModal!.Hide();
     }
 
 }

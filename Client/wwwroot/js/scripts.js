@@ -1,4 +1,4 @@
 function checkModalOrOffcanvasActive() {
-    return document.querySelectorAll('.modal.show, .offcanvas.show').length > 0;
+    return document.querySelectorAll('.modal.show, .offcanvas.show, .custom-modal.show').length > 0;
   }
   
