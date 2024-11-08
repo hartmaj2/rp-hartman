@@ -29,6 +29,7 @@ Nize se nachazi seznam moznych chyb, ktere muzou vzniknout pri vyvoji informacni
 
 Nize jsou jednotlive chyby roztridene do kategorii, ktere vsak nejsou disjunktni a muze tedy existovat chyba spadajici pod vice kategorii.
 
+
 ### UI Chyby - Ne user friendly design
 - spatne citelny text 
 - elementy schovane za sebou
@@ -36,6 +37,8 @@ Nize jsou jednotlive chyby roztridene do kategorii, ktere vsak nejsou disjunktni
 - nepta se na potvrzeni volby
 - nejednotny design
 - neco upravit je moc slozite 
+- filtrovani alergenu by melo zobrazovat lidi s alespon jednim z alergenu volby (klasicke pouziti bude, hledam vsechny, kdo nebudou moci jist tohle jidlo)
+
 
 ### Validacni chyby
 - zadavani hodnot souvisejicich na jinych hodnotach (logicke souvislosti/vazby)
@@ -47,6 +50,7 @@ Nize jsou jednotlive chyby roztridene do kategorii, ktere vsak nejsou disjunktni
   - povinne pole
   - platne datum
 
+
 ### Chyby v technickem provedeni (z nepozornosti programatora)
 - nefungujici tlacitka
 - neupravujici se pocty (objednavky)
@@ -55,6 +59,8 @@ Nize jsou jednotlive chyby roztridene do kategorii, ktere vsak nejsou disjunktni
   - **navrh tabulek neumoznuje vybrat vice nez 2 alegreny**
 
 ### Chyba v zachazeni s daty
+- vek jako desetinna cisla (to je fuj)
+- vek jako 0?
 
 ### Chyby v zabezpeceni
 - soukromi
