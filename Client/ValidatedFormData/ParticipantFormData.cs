@@ -50,7 +50,7 @@ public class ParticipantFormData
     // AGE
     // 
 
-    public const int LowestAge = 0;
+    public const int LowestAge = 4;
     public const int HighestAge = 70; // I want to support only birth numbers later than 1954 that have the 10 digit format
 
     [Required(ErrorMessage = "Věk účastníka musí být zadán")]
