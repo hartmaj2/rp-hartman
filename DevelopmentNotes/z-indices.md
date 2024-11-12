@@ -16,7 +16,7 @@ Because at this point, I have introduces many different layers of z-indices. It 
 
 1550 - custom modal window
 
-2000 - the overlay for marking bugs on the webpage
+2000 - the overlay for marking bugs on the webpage, highlighted elements
 
 3000 - the top row with buttons to report bug, show tasks list etc.
 
