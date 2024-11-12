@@ -1,0 +1,113 @@
+@namespace Client.Components
+@inject AllergenService AllergenService
+
+@* A modal to add participants, consists of: *@
+@*  1. the form to enter general information that can be seen in the participants table *@ 
+@*  2. checkboxes to set diets *@
+
+@if(isVisible)
+{
+    <div class="custom-modal-background" @onclick="Hide">
+        <div class="custom-modal @GetShowClass()" @onclick:stopPropagation="true">
+            <div class="modal-div">
+
+                <div class="modal-section-headers"> 
+                    <div class="modal-section-header"> <div> Obecné informace </div> </div>
+                    <div class="modal-section-header"> <div> Diety </div> </div>
+                </div>
+
+                <div class="modal-sections">
+                    <div class="modal-section">
+                        @* Use my custom component with 2-way-binding to its value *@
+                        <ParticipantForm @bind-ThisParticipant="currentParticipant" OnValidSubmitEvent="OnFormSubmitAsync"> Potvrdit </ParticipantForm> 
+                    </div>
+
+                    @if (currentParticipant.DietSelections != null)
+                    {
+                        <div class="modal-section">
+                            <div class="modal-allergen-selections">       
+                                @foreach (var selection in currentParticipant.DietSelections)
+                                {
+                                    <div class="modal-allergen-selection">
+                                        <div style="flex:2"></div>
+                                        <label style="flex: 3"> <input type="checkbox" @bind="selection.IsSelected"> @selection.Name </label>
+                                        <div style="flex:1"></div>
+                                    </div>
+                                    
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <p> Načítám diety.. </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+@code
+{
+
+    /* CODE SPECIFIC FOR CUSTOM MODAL */
+
+    private bool isVisible = false;
+
+    public void Show()
+    {
+        currentParticipant = ParticipantFormData.CreateDefault();
+        isVisible = true;
+    }
+
+    public void Hide()
+    {
+        isVisible = false;
+    }
+
+    private string GetShowClass()
+    {
+        return isVisible ? "show" : "";
+    }
+
+    /* END OF CODE SPECIFIC FOR CUSTOM MODAL */
+    
+
+    // The participant data that will be edited by setting the general information
+    private ParticipantFormData currentParticipant = ParticipantFormData.CreateDefault();
+    
+    // Event triggered, when the ocnfirm button of the edit participant form is pressed
+    [Parameter]
+    public EventCallback<ParticipantFormData> CreateParticipant { get; set; }
+
+    // when we submit the form we trigger the function connected to CreateParticipant callback with the participant form data
+    // then reset the modal so next time it is opened, we don't have data from the previous participant there
+    private async Task OnFormSubmitAsync()
+    {
+        await CreateParticipant.InvokeAsync(currentParticipant);
+        await ResetParticipantFormDataAsync();
+    }
+
+    // on start, we need to load the diet selections for all possible allergens
+    protected override async Task OnInitializedAsync()
+    {
+        await InitializeParticipantDietSelectionsAsync();
+    }
+
+    // create participant with all values empty and initialize their diet selections
+    private async Task ResetParticipantFormDataAsync()
+    {
+        currentParticipant = ParticipantFormData.CreateDefault();
+        await InitializeParticipantDietSelectionsAsync();
+    }
+
+    // load diet selections of this participant using AllergenService service injected to this component
+    private async Task InitializeParticipantDietSelectionsAsync()
+    {
+        var allAllergens = await AllergenService.GetAllergenDtosAsync();
+        currentParticipant.DietSelections = allAllergens.Select(allergen => new AllergenSelection() {Name = allergen.Name }).ToList();
+    }
+}
