@@ -690,3 +690,9 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 
 - Implemented the delete participant modal using my own custom component
   -   the biggest issue was, that I was previously using .modal and .modal-background classes for my modals and this is now not possible until I still have some Blazor Bootstrap modals with which this css style clashes
+
+## 12.11.2024
+
+- Using a custom modal I wanted to make user be able to exit clicking on the overlay
+  - the problem was: the dialog window (child div of the overlay) was also responding to the onclick event
+  - solution: use @onclick:stopPropagation="true"

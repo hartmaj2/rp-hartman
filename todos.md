@@ -95,11 +95,14 @@
 
 - [x] implement delete participant modal using a custom modal
 
-## Near future
+## 12.11.2024
 
 - [ ] test if possible to change z-index of elements inside a custom add participant modal
   - [ ] implement add participant modal as custom modal
   - [ ] try to change z-index of some elements dynamically when report bug button pressed
+
+## Near future
+
 
 - [ ] add a possibility to choose a bug from a list of possible bugs (for bugs that can not be marked)
 
