@@ -10,7 +10,7 @@
 
 <Modal IsVerticallyCentered="true" @ref="editParticipantModal"/>
 <DeleteParticipantCustomModal OnDeleteParticipant="RequestParticipantDelete" OnRejectButton="HideDeleteParticipantModal" @ref="deleteParticipantModal"/>
-<Modal IsVerticallyCentered="true" @ref="addParticipantModal"/>
+<AddParticipantCustomModal CreateParticipant="RequestCreateParticipant" @ref="addParticipantModal"/>
 <Modal IsVerticallyCentered="true" @ref="selectionResultModal"/>
 
 @if (@ModeService.CurrentMode == ClientMode.BugReporting)
@@ -179,7 +179,7 @@ else
     {
         await editParticipantModal.HideAsync();
         deleteParticipantModal!.Hide();
-        await addParticipantModal.HideAsync();
+        await addParticipantModal!.Hide();
     }
 
     /// END OF BUG REPORTING CODE
@@ -334,13 +334,11 @@ else
 
 
     // Reference used when showing or hiding the AddParticipantModal component
-    private Modal addParticipantModal = default!;
+    private AddParticipantCustomModal? addParticipantModal;
 
-    private async Task ShowAddParticipantModal()
+    private void ShowAddParticipantModal()
     {
-        var parameters = new Dictionary<string,object>();
-        parameters.Add("CreateParticipant",EventCallback.Factory.Create<ParticipantFormData>(this,RequestCreateParticipant));
-        await addParticipantModal.ShowAsync<AddParticipantModal>(title:$"Přidat účastníka",parameters: parameters);
+        addParticipantModal!.Show();
     }
 
     // Connects to my api and posts the participant that was submitted to the form
@@ -348,7 +346,7 @@ else
     {
         await Http.PostAsJsonAsync<ParticipantDto>("/api/participants/add",participant.ToParticipantDto(),CancellationToken.None);
         await LoadParticipants();
-        await addParticipantModal.HideAsync();
+        await addParticipantModal!.Hide();
     }
 
 
