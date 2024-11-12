@@ -28,12 +28,11 @@
                             <div class="modal-allergen-selections">       
                                 @foreach (var selection in currentParticipant.DietSelections)
                                 {
-                                    <div class="modal-allergen-selection">
-                                        <div style="flex:2"></div>
-                                        <label style="flex: 3"> <input type="checkbox" @bind="selection.IsSelected"> @selection.Name </label>
-                                        <div style="flex:1"></div>
-                                    </div>
-                                    
+             
+                                        @* <div style="flex:2"></div> *@
+                                        <label> <input type="checkbox" @bind="selection.IsSelected"> @selection.Name </label>
+                                        @* <div style="flex:1"></div> *@
+                                                                        
                                 }
                             </div>
                         </div>
