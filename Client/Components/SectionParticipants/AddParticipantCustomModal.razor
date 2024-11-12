@@ -59,12 +59,12 @@
 
     public void Show()
     {
-        currentParticipant = ParticipantFormData.CreateDefault();
         isVisible = true;
     }
 
-    public void Hide()
+    public async Task Hide()
     {
+        await ResetParticipantFormDataAsync();
         isVisible = false;
     }
 
