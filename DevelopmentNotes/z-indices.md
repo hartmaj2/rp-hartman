@@ -12,7 +12,9 @@ Because at this point, I have introduces many different layers of z-indices. It 
 
 1050 - Blazor Bootstrap modals (and probably offcanvases by default)
 
-1500 - custom modals
+1500 - custom modal overlay
+
+1550 - custom modal window
 
 2000 - the overlay for marking bugs on the webpage
 
