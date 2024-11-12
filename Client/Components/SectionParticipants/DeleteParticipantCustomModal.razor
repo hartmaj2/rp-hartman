@@ -4,8 +4,8 @@
 
 @if (isVisible)
 {
-    <div class="custom-modal-background ">
-        <div class="custom-modal @GetShowClass()">
+    <div class="custom-modal-background " @onclick="Hide">
+        <div class="custom-modal @GetShowClass()" @onclick:stopPropagation="true">
 
             <div class="modal-div">
                 <div class="modal-text"> Opravdu chcete odstranit @currentParticipant!.FirstName @currentParticipant.LastName? </div>
