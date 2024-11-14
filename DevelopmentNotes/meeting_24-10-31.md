@@ -14,7 +14,7 @@
 Nize se nachazi seznam moznych chyb, ktere muzou vzniknout pri vyvoji informacniho systemu. Je to pouhy vycet bez jakekoliv snaze o kategorizaci.
 
 - alergie by mela zamezit objednavce jidla s alergenem
-- **spatne trideni**
+- **spatne trideni** (1)
 - spatne filtrovani
 - spatny format data
 - error 404 - stranka neexistuje 
@@ -45,7 +45,7 @@ Nize jsou jednotlive chyby roztridene do kategorii, ktere vsak nejsou disjunktni
   - alergie by mela zamezit objednavce jidla s alergenem
   - nemoznost pridat ucastnika do plne chatky
   - **nemoznost pridat ucastnika na tabor pokud uz je vice ucastniku nez celkova kapacita chatek dohromady**
-- **jednoducha validace**
+- **jednoducha validace** (2)
   - prilis volna / prilis prisna
   - povinne pole
   - platne datum
@@ -54,7 +54,7 @@ Nize jsou jednotlive chyby roztridene do kategorii, ktere vsak nejsou disjunktni
 ### Chyby v technickem provedeni (z nepozornosti programatora)
 - nefungujici tlacitka
 - neupravujici se pocty (objednavky)
-- **neexistujici tlacitko, ktere je potreba k nejakemu ukonu** (nahlasovani mozna vybranim osviceneho mistecka tam, kde by to tlacitko melo byt)
+- **neexistujici tlacitko, ktere je potreba k nejakemu ukonu** (3) (chybi tlacitko na odstraneni)
 - navrh tabulky
   - **navrh tabulek neumoznuje vybrat vice nez 2 alegreny**
 
