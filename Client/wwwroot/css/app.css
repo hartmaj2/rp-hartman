@@ -337,6 +337,7 @@ code {
     box-shadow: 0 0 10px yellow;
     text-shadow: 0 0 10px yellow;
     z-index: 2100;
+    color: black;
 }
 
 .highlighted-selected {
@@ -345,6 +346,7 @@ code {
     box-shadow: 0 0 10px green;
     text-shadow: 0 0 10px green;
     z-index: 2100;
+    color: black;
 }
 
 /* OFFCANVAS (TASK LIST) WITH BUG REPORTING SHOULD HIDE TOP ROW */
