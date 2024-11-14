@@ -696,3 +696,12 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 - Using a custom modal I wanted to make user be able to exit clicking on the overlay
   - the problem was: the dialog window (child div of the overlay) was also responding to the onclick event
   - solution: use @onclick:stopPropagation="true"
+
+## 13.11.2024
+
+- Found out why can't set z-index of components inside a modal higher than z-index of the report bug overlay
+  - the reason is:
+    - the modal (custom or not custom) is a component with set z-index and position relative/fixed -> creates its own stacking context so changing z-index of an element means changing it only with respect to the parent modal, this way it is not possible to appear in front or behind anything from outside of the context that the parent element is in front/behind of
+  - possible solutions:
+    - find out a way to overcome this using javascript interop
+      - use a 'portal' to move the element in DOM (document object model)
