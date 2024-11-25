@@ -56,7 +56,7 @@ Nize jsou jednotlive chyby roztridene do kategorii, ktere vsak nejsou disjunktni
 - neupravujici se pocty (objednavky)
 - **neexistujici tlacitko, ktere je potreba k nejakemu ukonu** (3) (chybi tlacitko na odstraneni)
 - navrh tabulky
-  - **navrh tabulek neumoznuje vybrat vice nez 2 alegreny**
+  - **navrh tabulek neumoznuje vybrat vice nez 2 alegreny** (do policka alergeny se zapisuje, jaky alergen clovek ma?)
 
 ### Chyba v zachazeni s daty
 - vek jako desetinna cisla (to je fuj)
