@@ -705,3 +705,7 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
   - possible solutions:
     - find out a way to overcome this using javascript interop
       - use a 'portal' to move the element in DOM (document object model)
+
+## 3.12.2024
+
+- 

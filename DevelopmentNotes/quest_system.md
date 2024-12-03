@@ -8,7 +8,7 @@ A quest consists of the following properies:
 
 - id - this must be unique and is of type `QuestId` which is an enum 
   - this allows me to retrieve the quest by its id whenever I would like to in the code
-  - this might not be a good idea but since the quests are static and won't change during the run of the program, it should be fine
+  - this might not be a good idea, but since the quests are static and won't change during the run of the program, it should be fine
 
 - short description - should be a one line description of the task the user has to complete (visible in tasks list)
 
@@ -38,7 +38,7 @@ The quests are stored in a List. I also tried to make most functions work with j
 
 The main thing to focus on should be modularity and ease of use of the data structure.
 
-## Non written rules that the system follows
+## Important notes
 
 The quests have to be completed in the order they are stored in the data structure.
 
