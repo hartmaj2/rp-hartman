@@ -709,3 +709,14 @@ Reseni bylo v serverovem `launchSettings.json` upravit polozku `"applicationUrl"
 ## 3.12.2024
 
 - asked question about making elements inside stacking context appear over elements in another (higher) stacking context on stack overflow
+
+## 4.12.2024
+
+- one useful answer was -> add the overlay inside a the modals so they are in the same stacking context
+  - that is acutally a good solution which will work exactly because I have my custom modal into which I can place the overlay
+  - I can also use the already implemented mechanism of checking whether some modal or offcanvas are active so there are no two overlays active at once (I only want to activate the overlay of the custom modal)
+
+- idea:
+  - it would be good if I could handle the highlighting in only one single way universally for all types of elements
+    - so far, I have to come up with specific code for each element
+    - maybe there could be a way to create a button that looks exactly like the element looked but is highlighted yellow or green (and will only show when the bug reporting mode is active)

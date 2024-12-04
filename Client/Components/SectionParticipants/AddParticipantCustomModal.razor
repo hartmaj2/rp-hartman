@@ -1,5 +1,6 @@
 @namespace Client.Components
 @inject AllergenService AllergenService
+@inject ClientModeService ModeService
 
 @* A modal to add participants, consists of: *@
 @*  1. the form to enter general information that can be seen in the participants table *@ 
@@ -8,6 +9,12 @@
 @if(isVisible)
 {
     <div class="custom-modal-background" @onclick="Hide">
+        
+        @if (ModeService.CurrentMode == ClientMode.BugReporting)
+        {
+            <div class="overlay" @onclick:stopPropagation="true"> </div>
+        }
+
         <div class="custom-modal @GetShowClass()" @onclick:stopPropagation="true">
             <div class="modal-div">
 
@@ -19,7 +26,7 @@
                 <div class="modal-sections">
                     <div class="modal-section">
                         @* Use my custom component with 2-way-binding to its value *@
-                        <ParticipantForm @bind-ThisParticipant="currentParticipant" OnValidSubmitEvent="OnFormSubmitAsync"> Potvrdit </ParticipantForm> 
+                        <ParticipantForm @bind-ThisParticipant="currentParticipant" OnValidSubmitEvent="OnFormSubmitAsync" OnReportButtonPressed="Hide"> Potvrdit </ParticipantForm> 
                     </div>
 
                     @if (currentParticipant.DietSelections != null)
@@ -61,6 +68,7 @@
     public async Task Hide()
     {
         await ResetParticipantFormDataAsync();
+        await OnHideCallback.InvokeAsync();
         isVisible = false;
     }
 
@@ -78,6 +86,10 @@
     // Event triggered, when the ocnfirm button of the edit participant form is pressed
     [Parameter]
     public EventCallback<ParticipantFormData> CreateParticipant { get; set; }
+
+    // Call parent function that should be called when this modal is hidden (the parent needs to reconnect his function for handling report button clicked)
+    [Parameter]
+    public EventCallback OnHideCallback { get; set; }
 
     // when we submit the form we trigger the function connected to CreateParticipant callback with the participant form data
     // then reset the modal so next time it is opened, we don't have data from the previous participant there

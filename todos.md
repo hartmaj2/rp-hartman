@@ -103,7 +103,14 @@
 
 ## 3.12.2024
 
-- [ ] use separate pages instead of modals for various tasks
+- [x] use separate pages instead of modals for various tasks (DON'T NEED TO DO)
+
+## 4.12.2024
+
+- [x] fix non working bug reporting when inside participant add form (only when selecting correct element)
+- [ ] fix error when the second quest is successful -> the modal with selection result is not showing
+  - [ ] maybe I need to add an event callback that will show the selection modal of the parent of my custom modal 
+  - [ ] that will also save me from having to store the selection result modal inside the participant form element
 - [ ] finish second task implementation by reporting the bug
 - [ ] add bug with missing button for deleting a participant
 

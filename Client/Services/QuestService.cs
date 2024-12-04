@@ -55,9 +55,18 @@ public class QuestService
                 DescriptionAppendix = "Jméno a příjmení:\tHans Müller\nTelefonní číslo:\t+49 30 12345678\nVěk:\t14",
                 PageId = "all-participants",
                 CompletionState = QuestCompletionState.Future,
-                BugTargetIds = new List<string> {"birth-number-textbox"},
+                BugTargetIds = new List<string> {"birthnumber-box"},
                 BugDescription = "Formulář na přidání nového účastníka měl příliš omezující podmínku. Konkrétně bylo nutné zadat rodné číslo. Někdy je takové omezení dobré, nutnost zadat jméno a příjmení dává smysl, jelikož nechceme v našem systému mít bezejmenné účastníky. U rodného čísla ale mohou nastat případy, kdy nás pak systém spíš omezuje, než aby nám pomáhal.",
             },
+            new Quest 
+            { 
+                TaskId = QuestId.DummyQuest,
+                ShortDescription = "Nějaký úkol:",
+                PageId = "all-participants",
+                CompletionState = QuestCompletionState.Future,
+                BugTargetIds = new List<string> {"some-element"},
+                BugDescription = "some text"
+            }
         };
     }
 
@@ -86,6 +95,7 @@ public class QuestService
         BugSelectionResult result = GetBugSelectionResult(selectedElemsIds,activeQuest);
         if (result == BugSelectionResult.Correct)
         {
+            Console.WriteLine("quest successfully completed");
             activeQuest.BugFixed = true;
             // TODO: change following lines in the final implementation
             activeQuest.CompletionState = QuestCompletionState.Completed;
@@ -256,5 +266,6 @@ public enum QuestId
 {
     DefaultQuest,
     WrongAgeSorting,
-    StrictBirthNumberValidation
+    StrictBirthNumberValidation,
+    DummyQuest,
 }

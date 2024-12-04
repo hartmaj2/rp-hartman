@@ -338,6 +338,7 @@ code {
     text-shadow: 0 0 10px yellow;
     z-index: 2100;
     color: black;
+    cursor: pointer;
 }
 
 .highlighted-selected {
@@ -347,6 +348,7 @@ code {
     text-shadow: 0 0 10px green;
     z-index: 2100;
     color: black;
+    cursor: pointer;
 }
 
 /* OFFCANVAS (TASK LIST) WITH BUG REPORTING SHOULD HIDE TOP ROW */
@@ -385,7 +387,6 @@ code {
     height: auto;
     background-color: white;
     border-radius: 5px;
-    z-index: 1550;
 }
 
 

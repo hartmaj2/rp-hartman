@@ -10,10 +10,11 @@
 
 <Modal IsVerticallyCentered="true" @ref="editParticipantModal"/>
 <DeleteParticipantCustomModal OnDeleteParticipant="RequestParticipantDelete" OnRejectButton="HideDeleteParticipantModal" @ref="deleteParticipantModal"/>
-<AddParticipantCustomModal CreateParticipant="RequestCreateParticipant" @ref="addParticipantModal"/>
+<AddParticipantCustomModal CreateParticipant="RequestCreateParticipant" OnHideCallback="ReconnectModeServiceFunctions" @ref="addParticipantModal"/>
 <Modal IsVerticallyCentered="true" @ref="selectionResultModal"/>
 
-@if (@ModeService.CurrentMode == ClientMode.BugReporting)
+
+@if (@ModeService.CurrentMode == ClientMode.BugReporting && !isModalOrOffcanvasActive) @* because modals have their own overlay -> we don't want to use this one if modal is active*@
 {
     <div class="overlay"> </div>
 }
@@ -166,7 +167,7 @@ else
         {
             sortingManager.HandleSortClick(sorterNum);
         }
-        else
+        else // select this element (in bug reporting mode)
         {
             isElementSelected[sorterNumToId[sorterNum]] = !isElementSelected[sorterNumToId[sorterNum]];
         }
@@ -214,6 +215,7 @@ else
     /// </summary>
     private async Task CheckBrokenElementsSelection()
     {
+        Console.WriteLine("checking broken elements from participants page");
         // check all active quests, if some of the selections is good for some quest, mark the quest as completed
         Quest activeQuest = QuestService.ActiveQuest;
         BugSelectionResult result = 
@@ -249,10 +251,20 @@ else
     // Holds all participants, has to be loaded from api on initialization
     private IEnumerable<ParticipantDto>? participantDtos;
 
+    private void ReconnectModeServiceFunctions()
+    {
+        Console.WriteLine("reconnecting functions from participant to handle mode change");
+        ModeService.SubscribeOnceOnModeChanged(async() => await CheckModalOrOffcanvasActive()); 
+        ModeService.SubscribeUniqueOnSelectionConfirmed(async() => await CheckBrokenElementsSelection());
+        ModeService.SubscribeUniqueOnNotReportEvent(ResetElementsSelection);
+    }
+
+
     // Add all filters to the list
     // Get a list of all participants
     protected override async Task OnInitializedAsync()
     {
+        Console.WriteLine("participants page initialized");
         // when mode changed, first we need to update the state of whether a modal or offcanvas is covering some elements and only then request a rerender of the page
         ModeService.SubscribeOnceOnModeChanged(async() => await CheckModalOrOffcanvasActive()); 
 

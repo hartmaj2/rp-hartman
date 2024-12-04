@@ -1,6 +1,9 @@
 @namespace Client.Components
 
 @inject ClientModeService ModeService
+@inject QuestService QuestService
+
+<Modal IsVerticallyCentered="true" @ref="selectionResultModal"/>
 
 @* Form to edit general information of the participant, makes use of EditForm input validation *@
 
@@ -8,32 +11,67 @@
     <DataAnnotationsValidator/>
 
     <div>
-        <label  for="firstname-box"> Jméno: </label> <br/>
+        <label for="firstname-box"> Jméno: </label> <br/>
+        @if (ModeService.CurrentMode == ClientMode.Normal)
+        {
         <InputText class="@GetClassFromMode(elementNumToId[0])" id="firstname-box" @bind-Value="ThisParticipant.FirstName"/>
+        }
+        else
+        {
+            <InputText class="@GetClassFromMode(elementNumToId[0])" id="firstname-box" @bind-Value="ThisParticipant.FirstName" readonly @onclick="()=>SelectElement(0)"/>
+        }
         <ValidationMessage For="() => ThisParticipant.FirstName" />
     </div>
 
-    <div class="@GetClassFromMode(elementNumToId[1])">
+    <div>
         <label for="lastname-box"> Příjmení: </label> <br/>
-        <InputText id="lastname-box" @bind-Value="ThisParticipant.LastName"/>
+        @if (ModeService.CurrentMode == ClientMode.Normal)
+        {
+        <InputText class="@GetClassFromMode(elementNumToId[1])" id="lastname-box" @bind-Value="ThisParticipant.LastName"/>
+        }
+        else
+        {
+        <InputText class="@GetClassFromMode(elementNumToId[1])" id="lastname-box" @bind-Value="ThisParticipant.LastName" readonly @onclick="()=>SelectElement(1)"/>
+        }
         <ValidationMessage For="() => ThisParticipant.LastName" />
     </div>
 
-    <div class="@GetClassFromMode(elementNumToId[2])">
+    <div >
         <label for="phonenumber-box"> Telefonní číslo: </label> <br/>
-        <InputText id="phonenumber-box" @bind-Value="ThisParticipant.PhoneNumber"/>
+        @if (ModeService.CurrentMode == ClientMode.Normal)
+        {
+        <InputText class="@GetClassFromMode(elementNumToId[2])" id="phonenumber-box" @bind-Value="ThisParticipant.PhoneNumber"/>
+        }
+        else
+        {
+        <InputText class="@GetClassFromMode(elementNumToId[2])" id="phonenumber-box" @bind-Value="ThisParticipant.PhoneNumber" readonly @onclick="()=>SelectElement(2)"/>
+        }
         <ValidationMessage For="() => ThisParticipant.PhoneNumber" />
     </div>
 
-    <div class="@GetClassFromMode(elementNumToId[3])">
+    <div >
         <label for="birthnumber-box"> Rodné číslo: </label> <br/>
-        <InputText id="birthnumber-box" @bind-Value="ThisParticipant.BirthNumber"/>
+        @if (ModeService.CurrentMode == ClientMode.Normal)
+        {
+        <InputText class="@GetClassFromMode(elementNumToId[3])" id="birthnumber-box" @bind-Value="ThisParticipant.BirthNumber"/>
+        }
+        else
+        {
+        <InputText class="@GetClassFromMode(elementNumToId[3])" id="birthnumber-box" @bind-Value="ThisParticipant.BirthNumber" readonly @onclick="()=>SelectElement(3)"/>
+        }
         <ValidationMessage For="() => ThisParticipant.BirthNumber" />
     </div>
 
-    <div class="@GetClassFromMode(elementNumToId[4])">
+    <div >
         <label for="age-box"> Věk: </label> <br/>
-        <InputNumber id="age-box" @bind-Value="ThisParticipant.Age"/>
+        @if (ModeService.CurrentMode == ClientMode.Normal)
+        {
+        <InputNumber class="@GetClassFromMode(elementNumToId[4])" id="age-box" @bind-Value="ThisParticipant.Age"/>
+        }
+        else
+        {
+        <InputNumber class="@GetClassFromMode(elementNumToId[4])" id="age-box" @bind-Value="ThisParticipant.Age" readonly @onclick="()=>SelectElement(4)"/>  
+        }
         <ValidationMessage For="() => ThisParticipant.Age" />
     </div>
 
@@ -73,18 +111,62 @@
         return isElementSelected[elementId] ? "highlighted-selected" : "highlighted";
     }
 
-       private void ResetElementsSelection()
+    private void ResetElementsSelection()
     {
         foreach (var kvp in isElementSelected)
         {
             isElementSelected[kvp.Key] = false;
         }
     }
+
+    private void SelectElement(int id)
+    {
+        isElementSelected[elementNumToId[id]] = !isElementSelected[elementNumToId[id]];
+    }
+
+    /* BUG FIXING CODE */
+    // TODO: make the following code callable from a single source so I don't have to repeat it in all elements where bugs will be highlighted
+    /// <summary>
+    /// Checks the current selection of elements in `selectedIds` array
+    /// </summary>
+    private async Task CheckBrokenElementsSelection()
+    {
+        Console.WriteLine("checking broken elements from participants form");
+        // check all active quests, if some of the selections is good for some quest, mark the quest as completed
+        Quest activeQuest = QuestService.ActiveQuest;
+        BugSelectionResult result = 
+            QuestService.ResolveQuestSelection
+            (
+                isElementSelected.Where(kvp => kvp.Value == true).Select(kvp => kvp.Key),
+                activeQuest
+            );
+        
+        ResetElementsSelection();
+        @* SetupAllBreakableElements(); *@
+        @* await HideAllModals(); *@
+        await OnReportButtonPressed.InvokeAsync();
+        await ShowSelectionResultModal(result,activeQuest);
+        
+    }
+
+    private Modal selectionResultModal = default!;
+
+    private async Task ShowSelectionResultModal(BugSelectionResult questSelectionResult,Quest activeQuest)
+    {
+        var parameters = new Dictionary<string,object>();
+        parameters.Add("BugSelectionResult",questSelectionResult);
+        parameters.Add("ActiveQuest",activeQuest);
+        string titleWithScore = QuestService.GetPointsUpdateText(QuestService.GetPointIncrease(questSelectionResult));
+        await selectionResultModal.ShowAsync<SelectionResultModal>(title:titleWithScore,parameters:parameters);
+    }
+
     protected override void OnInitialized()
     {
         Console.WriteLine("Participant form was initialized");
         // when mode changed, first we need to update the state of whether a modal or offcanvas is covering some elements and only then request a rerender of the page
         ModeService.SubscribeOnceOnModeChanged(StateHasChanged); 
+        ModeService.SubscribeUniqueOnSelectionConfirmed(async() => await CheckBrokenElementsSelection());
+        ModeService.SubscribeUniqueOnNotReportEvent(ResetElementsSelection);
         @* ModeService.SubscribeUniqueOnNotReportEvent(ResetElementsSelection); *@
         InitializeSelectedElementDictionary(); 
     }
@@ -117,6 +199,9 @@
 
     [Parameter]
     public EventCallback OnInvalidSubmitEvent { get; set; }
+
+    [Parameter]
+    public EventCallback OnReportButtonPressed { get; set; }
     
     // Used in two way binding as the value I am bound to
     [Parameter]
