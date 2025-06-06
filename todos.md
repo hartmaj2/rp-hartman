@@ -114,6 +114,12 @@
 - [ ] finish second task implementation by reporting the bug
 - [ ] add bug with missing button for deleting a participant
 
+## 6.6.2025
+
+- [x] make ParticipantController independent of database
+- [ ] fix error with Client listening to ParticipantFileController response
+- [ ] make AllergenController independent of the database
+
 ## Near future
 
 - [ ] add a possibility to choose a bug from a list of possible bugs (for bugs that can not be marked)
