@@ -8,11 +8,13 @@ using System.Text.Json;
 public class ParticipantFileController : ControllerBase
 {
 
-    private readonly List<ParticipantDto> _participants;
-    
-    public ParticipantFileController()
+    private static readonly List<ParticipantDto> _participants;
+    private static int _nextId = 0;
+
+    static ParticipantFileController()
     {
         _participants = LoadParticipantsFromFile();
+        SetIds(_participants);
     }
 
     private static List<ParticipantDto> LoadParticipantsFromFile()
@@ -29,6 +31,14 @@ public class ParticipantFileController : ControllerBase
 
         return JsonSerializer.Deserialize<List<ParticipantDto>>(json_text,options)!;
 
+    }
+
+    private static void SetIds(List<ParticipantDto> participants)
+    {
+        foreach (var p in participants)
+        {
+            p.Id = _nextId++;
+        }
     }
 
     // Gets participant by id, it is important to eagerly load the participant Allergens before we convert him (the database does not automatically include allergens)
