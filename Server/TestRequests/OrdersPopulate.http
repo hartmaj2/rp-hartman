@@ -1,129 +1,36 @@
-POST http://localhost:5142/api/orders/add-many
+POST http://localhost:5141/api/orders/add-many
 Content-Type: application/json
 
 [
-    {
-        "participantId" : 5006,
-        "mealId" : 1003
-    },
-    {
-        "participantId" : 5007,
-        "mealId" : 1003
-    },
-    {
-        "participantId" : 5006,
-        "mealId" : 1004
-    },
-    {
-        "participantId" : 5006,
-        "mealId" : 1005
-    },
-    {
-        "participantId" : 5008,
-        "mealId" : 1006
-    },
-    {
-        "participantId" : 5009,
-        "mealId" : 1007
-    },
-    {
-        "participantId" : 5010,
-        "mealId" : 1008
-    },
-    {
-        "participantId" : 5011,
-        "mealId" : 1009
-    },
-    {
-        "participantId" : 5012,
-        "mealId" : 1010
-    },
-    {
-        "participantId" : 5013,
-        "mealId" : 1011
-    },
-    {
-        "participantId" : 5013,
-        "mealId" : 1003
-    },
-    {
-        "participantId" : 5014,
-        "mealId" : 1012
-    },
-    {
-        "participantId" : 5015,
-        "mealId" : 1013
-    },
-    {
-        "participantId" : 5015,
-        "mealId" : 1016
-    },
-    {
-        "participantId" : 5016,
-        "mealId" : 1014
-    },
-    {
-        "participantId" : 5017,
-        "mealId" : 1015
-    },
-    {
-        "participantId" : 5017,
-        "mealId" : 1020
-    },
-    {
-        "participantId" : 5018,
-        "mealId" : 1016
-    },
-    {
-        "participantId" : 5018,
-        "mealId" : 1019
-    },
-    {
-        "participantId" : 5019,
-        "mealId" : 1017
-    },
-    {
-        "participantId" : 5020,
-        "mealId" : 1018
-    },
-    {
-        "participantId" : 5021,
-        "mealId" : 1019
-    },
-    {
-        "participantId" : 5021,
-        "mealId" : 1012
-    },
-    {
-        "participantId" : 5022,
-        "mealId" : 1020
-    },
-    {
-        "participantId" : 5006,
-        "mealId" : 1009
-    },
-    {
-        "participantId" : 5006,
-        "mealId" : 1013
-    },
-    {
-        "participantId" : 5014,
-        "mealId" : 1019
-    },
-    {
-        "participantId" : 5014,
-        "mealId" : 1018
-    },
-    {
-        "participantId" : 5008,
-        "mealId" : 1010
-    },
-    {
-        "participantId" : 5009,
-        "mealId" : 1004
-    },
-    {
-        "participantId" : 5022,
-        "mealId" : 1005
-    }
+    { "participantId": 0, "mealId": 0 },
+    { "participantId": 1, "mealId": 0 },
+    { "participantId": 0, "mealId": 1 },
+    { "participantId": 0, "mealId": 2 },
+    { "participantId": 2, "mealId": 3 },
+    { "participantId": 3, "mealId": 4 },
+    { "participantId": 4, "mealId": 5 },
+    { "participantId": 5, "mealId": 6 },
+    { "participantId": 6, "mealId": 7 },
+    { "participantId": 7, "mealId": 8 },
+    { "participantId": 7, "mealId": 0 },
+    { "participantId": 8, "mealId": 9 },
+    { "participantId": 9, "mealId": 10 },
+    { "participantId": 9, "mealId": 13 },
+    { "participantId": 10, "mealId": 11 },
+    { "participantId": 11, "mealId": 12 },
+    { "participantId": 11, "mealId": 17 },
+    { "participantId": 12, "mealId": 13 },
+    { "participantId": 12, "mealId": 16 },
+    { "participantId": 13, "mealId": 14 },
+    { "participantId": 14, "mealId": 15 },
+    { "participantId": 14, "mealId": 16 },
+    { "participantId": 14, "mealId": 9 },
+    { "participantId": 14, "mealId": 17 },
+    { "participantId": 0, "mealId": 8 },
+    { "participantId": 0, "mealId": 10 },
+    { "participantId": 8, "mealId": 16 },
+    { "participantId": 8, "mealId": 15 },
+    { "participantId": 2, "mealId": 7 },
+    { "participantId": 3, "mealId": 1 },
+    { "participantId": 14, "mealId": 2 }
 ]
