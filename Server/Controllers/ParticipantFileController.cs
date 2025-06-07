@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Server.Data;
 using System.Text.Json;
 
 
@@ -16,13 +15,13 @@ public class ParticipantFileController : ControllerBase
         _participants = LoadParticipantsFromFile();
     }
 
-    private List<ParticipantDto> LoadParticipantsFromFile()
+    private static List<ParticipantDto> LoadParticipantsFromFile()
     {
         string participantFilePath = "TestRequests/ParticipantsPopulate.http";
 
         try
         {
-            var text = System.IO.File.ReadLines(participantFilePath).Skip(3).ToList();
+            var text = System.IO.File.ReadLines(participantFilePath).Skip(3);
             var json_text = string.Join("\n",text);
 
             var options = new JsonSerializerOptions
@@ -76,7 +75,7 @@ public class ParticipantFileController : ControllerBase
     {
         foreach (var p in participants)
         {
-            participants.Add(p);
+            _participants.Add(p);
         }
         return CreatedAtAction(nameof(GetParticipants),participants);
     }
