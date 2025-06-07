@@ -26,14 +26,9 @@ public class AllergensController : ControllerBase
             PropertyNameCaseInsensitive = true
         };
 
-        try
-        {
-            return JsonSerializer.Deserialize<List<AllergenDto>>(json_text, options)!;
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+    
+        return JsonSerializer.Deserialize<List<AllergenDto>>(json_text, options)!;
+ 
 
     }
 
