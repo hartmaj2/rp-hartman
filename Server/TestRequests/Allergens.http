@@ -1,29 +1,4 @@
 ###
-POST http://localhost:5141/api/allergens/add-many
-Content-Type: application/json
-
-[
-    {
-        "Name" : "Lepek"
-    },
-    {
-        "Name" : "Laktóza"
-    },
-    {
-        "Name" : "Ořechy"
-    },
-    {
-        "Name" : "Vejce"
-    },
-    {
-        "Name" : "Ryby"
-    },
-    {
-        "Name" : "Maso"
-    }
-]
-
-###
 POST http://localhost:5141/api/allergens/add
 Content-Type: application/json
 
