@@ -25,7 +25,8 @@
                     <div>
                             <span>@string.Join(", ",meal.Allergens.Select(a => a.Name))</span>
                     </div>
-                    <div class="justify-center-col" > @meal.Orders!.Count </div>
+                    @* <div class="justify-center-col" > @meal.Orders!.Count </div> *@
+                    <div class="justify-center-col" > N/A </div> 
                     <div class="button-right-container">
                         <button class="btn btn-primary" @onclick="() => OnEditButtonClicked.InvokeAsync(meal)"> Upravit </button>
                         <button class="btn btn-primary" @onclick="() => OnDeleteButtonClicked.InvokeAsync(meal)"> Odstranit </button>
