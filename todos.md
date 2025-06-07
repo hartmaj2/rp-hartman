@@ -118,7 +118,11 @@
 
 - [x] make ParticipantController independent of database
 - [ ] fix error with Client listening to ParticipantFileController response
-- [ ] make AllergenController independent of the database
+- [x] make AllergenController independent of the database
+
+## 7.6.2025
+
+- [ ] fix id's which are not automatically set now -> make this automatic
 
 ## Near future
 
