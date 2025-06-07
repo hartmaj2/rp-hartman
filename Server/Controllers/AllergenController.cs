@@ -2,8 +2,8 @@
 // using Server.Data;
 // using Microsoft.EntityFrameworkCore;
 
-// // [ApiController]
-// // [Route("api/allergens")]
+// [ApiController]
+// [Route("api/allergens")]
 
 // // Used to handle requests related to allergens/diets that the meals/participants can contain/have
 // public class AllergensController : ControllerBase
