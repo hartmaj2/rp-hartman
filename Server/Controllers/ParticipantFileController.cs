@@ -19,23 +19,15 @@ public class ParticipantFileController : ControllerBase
     {
         string participantFilePath = "TestRequests/ParticipantsPopulate.http";
 
-        try
+        var text = System.IO.File.ReadLines(participantFilePath).Skip(3);
+        var json_text = string.Join("\n",text);
+
+        var options = new JsonSerializerOptions
         {
-            var text = System.IO.File.ReadLines(participantFilePath).Skip(3);
-            var json_text = string.Join("\n",text);
+            PropertyNameCaseInsensitive = true
+        };
 
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-
-            return JsonSerializer.Deserialize<List<ParticipantDto>>(json_text,options)!;
-
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        return JsonSerializer.Deserialize<List<ParticipantDto>>(json_text,options)!;
 
     }
 
@@ -58,12 +50,12 @@ public class ParticipantFileController : ControllerBase
     public IActionResult EditParticipant(int id, [FromBody] ParticipantDto updatedParticipant)
     {
         DeleteParticipant(id);
-        return CreateParticipantDb(updatedParticipant);
+        return AddParticipant(updatedParticipant);
     }
 
     // Adds a participant to the participant table
     [HttpPost("add")]
-    public IActionResult CreateParticipantDb([FromBody] ParticipantDto participantDto)
+    public IActionResult AddParticipant([FromBody] ParticipantDto participantDto)
     {
         _participants.Add(participantDto);
         return CreatedAtAction(nameof(GetParticipants),participantDto);
