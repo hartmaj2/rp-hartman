@@ -122,7 +122,9 @@
 
 ## 7.6.2025
 
-- [ ] fix id's which are not automatically set now -> make this automatic
+- [x] fix id's which are not automatically set now -> make this automatic
+- [ ] fix order id's to be automatic
+- [ ] fix display of all orders of a given meal
 
 ## Near future
 
