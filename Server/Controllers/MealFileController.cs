@@ -10,12 +10,15 @@ using System.Text.Json;
 public class MealsController : ControllerBase
 {
 
-    private readonly List<MealDto> _meals;
+    private static readonly List<MealDto> _meals;
+
+    private static int _nextId = 0;
 
     // The context gets injected automatically using dependency injection
-    public MealsController()
+    static MealsController()
     {
         _meals = LoadMealsFromFile();
+        SetIds(_meals);
     }
 
     private static List<MealDto> LoadMealsFromFile()
@@ -31,6 +34,14 @@ public class MealsController : ControllerBase
 
         return JsonSerializer.Deserialize<List<MealDto>>(json_text,options)!; 
 
+    }
+
+    private static void SetIds(List<MealDto> meals)
+    {
+        foreach (var m in meals)
+        {
+            m.Id = _nextId++;
+        }
     }
 
     // Gets the list of all meals from the meals table

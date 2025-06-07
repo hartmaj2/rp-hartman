@@ -8,11 +8,14 @@ using System.Text.Json;
 public class AllergensController : ControllerBase
 {
 
-    private readonly List<AllergenDto> _allergens;
+    private static readonly List<AllergenDto> _allergens;
 
-    public AllergensController()
+    private static int _nextId = 0;
+
+    static AllergensController()
     {
         _allergens = LoadAllergensFromFile();
+        SetIds(_allergens);
     }
 
     private static List<AllergenDto> LoadAllergensFromFile()
@@ -30,6 +33,14 @@ public class AllergensController : ControllerBase
         return JsonSerializer.Deserialize<List<AllergenDto>>(json_text, options)!;
  
 
+    }
+
+    private static void SetIds(List<AllergenDto> allergens)
+    {
+        foreach (var a in allergens)
+        {
+            a.Id = _nextId++;
+        }
     }
 
     // Gets the list of all allergens from the Allergens table
