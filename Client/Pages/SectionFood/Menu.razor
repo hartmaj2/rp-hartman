@@ -42,6 +42,11 @@ else
     {
         var dateString = currentDate.ToString("yyyy-MM-dd");
         meals = await Http.GetFromJsonAsync<List<MealDto>>($"api/meals/{dateString}");
+        List<OrderDto> relevantOrders = [];
+        foreach (var m in meals!)
+        {
+            m.Orders = await Http.GetFromJsonAsync<List<OrderDto>>($"api/orders/meal/{m.Id}");
+        }
         foreach (var meal in meals!) meal.Allergens = meal.Allergens.OrderBy(meal => meal.Name).ToList(); // order the allergens alphabetically
     }
 
