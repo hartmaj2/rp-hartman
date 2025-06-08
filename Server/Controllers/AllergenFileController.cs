@@ -54,6 +54,7 @@ public class AllergensController : ControllerBase
     [HttpPost("add")]
     public IActionResult AddNewAllergen([FromBody] AllergenDto allergen)
     {
+        allergen.Id = _nextId++;
         _allergens.Add(allergen);
         return CreatedAtAction(nameof(GetAllAllergens),allergen);
     }
@@ -62,9 +63,10 @@ public class AllergensController : ControllerBase
     [HttpPost("add-many")]
     public IActionResult AddMultipleAllergens([FromBody] ICollection<AllergenDto> allergens)
     {
-        foreach (var p in allergens)
+        foreach (var a in allergens)
         {
-            _allergens.Add(p);
+            a.Id = _nextId++;
+            _allergens.Add(a);
         }
         return CreatedAtAction(nameof(GetAllAllergens),allergens);
     }
