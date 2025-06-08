@@ -11,7 +11,6 @@ public class OrdersController : ControllerBase
 
     private static readonly List<OrderDto> _orders;
 
-    // The context gets injected using dependency injection
     static OrdersController()
     {
         _orders = LoadOrdersFromFile();
