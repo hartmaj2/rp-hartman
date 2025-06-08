@@ -10,13 +10,15 @@ public class OrdersController : ControllerBase
 {
 
     private static readonly List<OrderDto> _orders;
+    private static int _nextId;
 
     static OrdersController()
     {
         _orders = LoadOrdersFromFile();
+        SetIds(_orders);
     }
 
-     private static List<OrderDto> LoadOrdersFromFile()
+    private static List<OrderDto> LoadOrdersFromFile()
     {
         var path = "TestRequests/OrdersPopulate.http";
         var text = System.IO.File.ReadLines(path).Skip(3);
@@ -29,6 +31,14 @@ public class OrdersController : ControllerBase
 
         return JsonSerializer.Deserialize<List<OrderDto>>(json_text,options)!; 
 
+    }
+
+    private static void SetIds(List<OrderDto> orders)
+    {
+        foreach (var o in orders)
+        {
+            o.Id = _nextId++;
+        }
     }
 
     // Gets the list of all meals from the meals table
@@ -49,8 +59,9 @@ public class OrdersController : ControllerBase
     [HttpPost("add")]
     public IActionResult AddNewOrder([FromBody] OrderDto orderDto)
     {
+        orderDto.Id = _nextId++;
         _orders.Add(orderDto);
-        return CreatedAtAction(nameof(GetAllOrders),orderDto);
+        return CreatedAtAction(nameof(GetAllOrders), orderDto);
     }
 
     // Adds a whole list of Orders
@@ -59,6 +70,7 @@ public class OrdersController : ControllerBase
     {
         foreach (var o in orders)
         {
+            o.Id = _nextId++;
             _orders.Add(o);
         }
         return CreatedAtAction(nameof(GetAllOrders), orders);
