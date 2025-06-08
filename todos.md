@@ -123,8 +123,12 @@
 ## 7.6.2025
 
 - [x] fix id's which are not automatically set now -> make this automatic
-- [ ] fix order id's to be automatic
-- [ ] fix display of all orders of a given meal
+
+## 8.6.2025
+
+- [x] fix meal update creating another meal without deleting the old one
+- [x] fix order id's to be automatic
+- [x] fix display of all orders of a given meal
 
 ## Near future
 
