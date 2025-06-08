@@ -38,12 +38,25 @@ Program je informační systém, který slouží vedoucím tábora ke správě i
 
 ### Spuštění programu
 
-Jelikož Serverová část programu využívá ke správě dat, databázi, tak je nutné, mít v souboru **Server/appsettings.json** v sekci `ConnectionStrings` správně nakonfigurovanou `DefaultConnection`. V `DefaultConnection` je potřeba zapsat všechny potřebné konfigurační údaje pro připojení k databázi, kterou chcete používat.
+Program lze spustit zapsáním příkazu `dotnet run --project Server` do terminálu v kořenovém adresáři tohoto repozitáře.
 
-Program se spouští příkazem `dotnet run --project Server`, který kromě serveru automaticky po svém spuštění spustí i klienta. Po spuštění aplikace se v terminálu ukáže zpráva obsahující řádek `Now listening on: http://localhost:xxxx`, kde `xxxx` je číslo portu, na kterém server poslouchá. Danou adresu stačí zkopírovat do webového prohlížeče, skrz který nyní můžete s aplikací interagovat.
+Příkaz nejprve vynutí build programu a po krátkém čekání obdržíte výstup podobný tomuto:
+
+```
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5141
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /Users/janhartman/rp-hartman/Server
+```
+
+Nyní stačí už jen v libovolném webovém prohlížeči otevřít adresu `http://localhost:5141`.
 
 > [!NOTE]
-> Port, na kterém server bude poslouchat lze nastavit v souboru **/Properties/launchSettings.json**.
+> Jednotlivá data pro účastníky, pokrmy a další se načítají přímo pomocí http requestů z odpovídajících souborů v adresáři `Server/TestRequests`. Relevantní soubory jsou ty, končící slovem `Populate`. Využívá se toho, že requesty mají formát odpovídající formátu json a dají se tedy jednodušše načíst pomocí odpovídající C# knihovny.
 
 ### Navigace v programu
 
