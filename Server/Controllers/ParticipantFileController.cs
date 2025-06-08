@@ -60,13 +60,15 @@ public class ParticipantFileController : ControllerBase
     public IActionResult EditParticipant(int id, [FromBody] ParticipantDto updatedParticipant)
     {
         DeleteParticipant(id);
-        return AddParticipant(updatedParticipant);
+        _participants.Add(updatedParticipant);
+        return CreatedAtAction(nameof(GetParticipants),updatedParticipant);
     }
 
     // Adds a participant to the participant table
     [HttpPost("add")]
     public IActionResult AddParticipant([FromBody] ParticipantDto participantDto)
     {
+        participantDto.Id = _nextId++;
         _participants.Add(participantDto);
         return CreatedAtAction(nameof(GetParticipants),participantDto);
     }
@@ -77,6 +79,7 @@ public class ParticipantFileController : ControllerBase
     {
         foreach (var p in participants)
         {
+            p.Id = _nextId++;
             _participants.Add(p);
         }
         return CreatedAtAction(nameof(GetParticipants),participants);
