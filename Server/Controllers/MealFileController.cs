@@ -14,7 +14,6 @@ public class MealsController : ControllerBase
 
     private static int _nextId = 0;
 
-    // The context gets injected automatically using dependency injection
     static MealsController()
     {
         _meals = LoadMealsFromFile();
@@ -57,6 +56,7 @@ public class MealsController : ControllerBase
     [HttpPost("add")]
     public IActionResult AddMeal([FromBody] MealDto received)
     {
+        received.Id = _nextId++;
         _meals.Add(received);
         return CreatedAtAction(nameof(GetAllMeals),received);
     }
@@ -67,6 +67,7 @@ public class MealsController : ControllerBase
     {
         foreach (var meal in receiveds)
         {
+            meal.Id = _nextId++;
             _meals.Add(meal);
         }
         return CreatedAtAction(nameof(GetAllMeals),receiveds);
@@ -94,7 +95,8 @@ public class MealsController : ControllerBase
     public IActionResult EditMeal(int id, [FromBody] MealDto updatedMeal)
     {
         DeleteMeal(id);
-        return AddMeal(updatedMeal);
+        _meals.Add(updatedMeal);
+        return CreatedAtAction(nameof(GetAllMeals),updatedMeal);
     }
 
     // Deletes single meal based on id
